@@ -319,6 +319,16 @@
                 <input type="text" class="form-control" id="judgeName" name="judgeName" required>
               </div>
               <div class="mb-3">
+                <label for="judgePassword" class="form-label">Judge Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="judgePassword" name="judgePassword" required>
+                  <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                    <i class="fa fa-eye-slash" id="eyeIcon" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              
+              <div class="mb-3">
                 <label for="judgeCategory" class="form-label">Select Category</label>
                 <select class="form-select" id="judgeCategory"  name="judgeCategory" required>
                   <!-- Populate with categories dynamically -->
@@ -525,8 +535,6 @@
           // Repeat similar blocks for other forms
       });
 
-
-
       function loadEvents() {
           $.ajax({
               url: './backend/getEvents.php',
@@ -577,6 +585,26 @@
           loadCategories();
       });
       
+      document.addEventListener('DOMContentLoaded', function () {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('judgePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+      
+        togglePassword.addEventListener('click', function () {
+          // Toggle the type attribute
+          const type = passwordInput.type === 'password' ? 'text' : 'password';
+          passwordInput.type = type;
+      
+          // Toggle the eye icon
+          if (type === 'password') {
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+          } else {
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+          }
+        });
+      });
       
 
       
