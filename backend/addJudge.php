@@ -33,6 +33,7 @@ if ($checkStmt->num_rows > 0) {
 $checkStmt->close();
 
 // Prepare SQL statement to insert the new judge
+
 $insertSql = "INSERT INTO judges (judgeName, categoryID, judgePassword) VALUES (?, ?, ?)";
 $insertStmt = $con->prepare($insertSql);
 $insertStmt->bind_param('sis', $judgeName, $categoryID, $encryptedPassword);
