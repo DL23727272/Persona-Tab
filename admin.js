@@ -519,6 +519,7 @@
                         title: 'Success',
                         text: response.message,
                     });
+                    $('#contestantForm')[0].reset();
                 } else {
                     Swal.fire({
                         icon: 'error',
