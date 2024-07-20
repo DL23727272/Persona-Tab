@@ -4,3 +4,4 @@
 {"eventName":"CCS","eventDescription":"asd"}
 {"eventName":"CCS","eventDescription":"ASs"}
 {"eventName":"CBME","eventDescription":"123"}
+{"eventName":"CCS Week","eventDescription":"College of Computing Studies Week Event"}

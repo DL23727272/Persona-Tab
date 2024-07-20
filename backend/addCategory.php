@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include "../backend/myConnection.php";// Adjust the path to your database connection file
+include "../backend/myConnection.php";
 
 // Retrieve POST data
 $categoryName = $_POST['categoryName'];

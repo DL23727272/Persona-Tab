@@ -1,14 +1,12 @@
 <?php
 header('Content-Type: application/json');
-include "../backend/myConnection.php"; // Adjust the path to your database connection file
+include "../backend/myConnection.php";
 
-// Retrieve POST data
 $judgeName = $_POST['judgeName'];
-$categoryID = $_POST['judgeCategory']; // Assuming you pass categoryID for judge
-$judgePassword = $_POST['judgePassword']; // Retrieve password input
+$judgePassword = $_POST['judgePassword']; 
 
 // Validate input
-if (empty($judgeName) || empty($categoryID) || empty($judgePassword)) {
+if (empty($judgeName) || empty($judgePassword)) {
     echo json_encode(['status' => 'error', 'message' => 'All fields are required.']);
     exit;
 }
@@ -17,14 +15,14 @@ if (empty($judgeName) || empty($categoryID) || empty($judgePassword)) {
 $encryptedPassword = md5($judgePassword);
 
 // Check if the judge already exists
-$checkSql = "SELECT judgeID FROM judges WHERE judgeName = ? AND categoryID = ?";
+$checkSql = "SELECT judgeID FROM judges WHERE judgeName = ?";
 $checkStmt = $con->prepare($checkSql);
-$checkStmt->bind_param('si', $judgeName, $categoryID);
+$checkStmt->bind_param('s', $judgeName);
 $checkStmt->execute();
 $checkStmt->store_result();
 
 if ($checkStmt->num_rows > 0) {
-    echo json_encode(['status' => 'error', 'message' => 'Judge with this name already exists in the selected category.']);
+    echo json_encode(['status' => 'error', 'message' => 'Judge with this name already exists.']);
     $checkStmt->close();
     $con->close();
     exit;
@@ -33,10 +31,9 @@ if ($checkStmt->num_rows > 0) {
 $checkStmt->close();
 
 // Prepare SQL statement to insert the new judge
-
-$insertSql = "INSERT INTO judges (judgeName, categoryID, judgePassword) VALUES (?, ?, ?)";
+$insertSql = "INSERT INTO judges (judgeName, judgePassword) VALUES (?, ?)";
 $insertStmt = $con->prepare($insertSql);
-$insertStmt->bind_param('sis', $judgeName, $categoryID, $encryptedPassword);
+$insertStmt->bind_param('ss', $judgeName, $encryptedPassword);
 
 if ($insertStmt->execute()) {
     echo json_encode(['status' => 'success', 'message' => 'Judge added successfully.']);

@@ -15,24 +15,24 @@ include "../backend/myConnection.php";
 
             $hashedPassword = md5($password);
 
-            $query = "SELECT * FROM users WHERE username = '$username'";
+            $query = "SELECT * FROM judges WHERE judgeName = '$username'";
             $result = mysqli_query($con, $query);
 
             if (mysqli_num_rows($result) == 1) {
                 $row = mysqli_fetch_assoc($result);
                 // Verify hashed password
-                if ($hashedPassword === $row['password']) {
-                    $judgeID = $row['id'];
-                    $customerName = $row['username'];
-                    $userType = $row['type'];
+                if ($hashedPassword === $row['judgePassword']) {
+                    $judgeID = $row['judgeID'];
+                    $customerName = $row['judgeName'];
+                    $userType = $row['userType'];
                     // Passwords match, login successful
                     $response = [
                         'status' => 'success',
                         'message' => 'Welcome!',
 
                         //retrieve the information para sa cart, admin, ordering
-                        'id' => $judgeID,
-                        'username' => $customerName,
+                        'judgeID' => $judgeID,
+                        'judgeName' => $customerName,
                         'type' => $userType
 
                     ];
