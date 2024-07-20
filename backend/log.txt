@@ -3,3 +3,4 @@
 {"eventName":"CCS","eventDescription":"beauty"}
 {"eventName":"CCS","eventDescription":"asd"}
 {"eventName":"CCS","eventDescription":"ASs"}
+{"eventName":"CBME","eventDescription":"123"}

@@ -194,7 +194,7 @@
             method: 'GET',
             dataType: 'json',
             success: function(data) {
-                var options = '';
+                var options = '<option value="#" disabled selected>--- Select Event</option>';
                 $.each(data, function(index, event) {
                     options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
                 });
@@ -236,9 +236,6 @@
       $(document).ready(function() {
           loadEvents();
           loadCategories();
-
-          //Call the modal
-          $("#modalContainer").load("adminModal.html");
       });
 
     // ---------------END LOAD EVENTS AND CATEGORIES --------------
