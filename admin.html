@@ -321,19 +321,35 @@
 
   <!-- TESTING FOR SCORE TABLE -->
   <section class="container-sm mt-5">
-  <table id="scoringTable" class="table table-striped">
-    <thead>
-        <tr>
-            <th>Contestant</th>
-            <!-- Criteria columns will be added dynamically -->
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Rows will be added dynamically -->
-    </tbody>
-</table>
+    <div class="d-flex flex-column align-items-center text-center">
+      <h1 class="fst-italic text-center text-white">Judge Scoring</h1>
+    </div>
+    <div class="row mb-3">
+      <form id="scoringForm">
+        <!-- Judge Selection Dropdown -->
+        <div class="mb-3">
+          <label for="judgeScore" class="form-label text-white">Select Judge</label>
+          <select class="form-select" id="judgeScore" name="judgeScore" required>
+            <option value="#" disabled selected>--- Select Judge ---</option>
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+  
+        <!-- Table to Display Contestants -->
+        <table id="contestantTable" class="table">
+          <thead>
+            <!-- Headers will be populated dynamically -->
+          </thead>
+          <tbody>
+            <!-- Rows will be populated dynamically -->
+          </tbody>
+        </table>
+        
+        <button type="submit" class="btn btn-outline-light float-end">Submit</button>
+      </form>
+    </div>
   </section>
-
+  
 
 
 

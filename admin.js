@@ -370,6 +370,7 @@
         
     
         populateSelect('./backend/getJudges.php', '#judgeSelect');
+        populateSelect('./backend/getJudges.php', '#judgeScore');
 
 
         //Assign triggers form
@@ -472,71 +473,153 @@
 
 
  // --------------- FOR ADD CONTESTANT TO CATEGORY --------------
- $(document).ready(function() {
-    // Populate category dropdown
-    $.ajax({
-        url: './backend/getCategories.php',
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            if (Array.isArray(response)) {
-                let categoryDropdown = $('#category');
-                categoryDropdown.empty();
-                categoryDropdown.append('<option value="#" disabled selected>--- Select Category ---</option>');
-                response.forEach(category => {
-                    categoryDropdown.append(new Option(category.categoryName, category.categoryID)); // Ensure correct value
-                });
-            } else {
-                console.error(response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error: ' + status + error);
-        }
-    });
-    
-
-    // Handle form add submission
-    $('#contestantForm').submit(function(e) {
-        e.preventDefault();
-    
-        var formData = new FormData(this);
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ': '+ pair[1]); // Debug form data
-        }
-    
+    $(document).ready(function() {
+        // Populate category dropdown
         $.ajax({
-            url: './backend/addContestant.php',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
+            url: './backend/getCategories.php',
+            method: 'GET',
+            dataType: 'json',
             success: function(response) {
-                console.log(response);
-                if (response.status === 'success') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.message,
+                if (Array.isArray(response)) {
+                    let categoryDropdown = $('#category');
+                    categoryDropdown.empty();
+                    categoryDropdown.append('<option value="#" disabled selected>--- Select Category ---</option>');
+                    response.forEach(category => {
+                        categoryDropdown.append(new Option(category.categoryName, category.categoryID)); // Ensure correct value
                     });
-                    $('#contestantForm')[0].reset();
                 } else {
+                    console.error(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ' + status + error);
+            }
+        });
+        
+
+        // Handle form add submission
+        $('#contestantForm').submit(function(e) {
+            e.preventDefault();
+        
+            var formData = new FormData(this);
+            for (var pair of formData.entries()) {
+                console.log(pair[0]+ ': '+ pair[1]); // Debug form data
+            }
+        
+            $.ajax({
+                url: './backend/addContestant.php',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response.message,
+                        });
+                        $('#contestantForm')[0].reset();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message,
+                        });
+                    }
+                },
+                error: function() {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: response.message,
+                        text: 'Error adding contestant.',
                     });
                 }
+            });
+        });
+        
+
+    });
+
+
+
+ // --------------- FOR JUDGE SCORING--------------
+ $(document).ready(function() {
+    $('#judgeScore').change(function() {
+        var judgeID = $(this).val();
+
+        $.ajax({
+            url: './backend/getCriteriaByJudge.php',
+            type: 'GET',
+            data: { judgeID: judgeID },
+            dataType: 'json',
+            success: function(response) {
+                if (response.criteria && Array.isArray(response.criteria)) {
+                    // Generate table headers based on criteria
+                    var thead = '<tr><th>Contestant Name</th>';
+                    var criteriaHeaders = response.criteria.map(function(criterion) {
+                        return '<th>' + criterion.criteriaName + '</th>';
+                    });
+                    thead += criteriaHeaders.join('') + '<th>Score</th><th>Rank</th></tr>';
+                    $('#contestantTable thead').html(thead);
+
+                    // Clear previous rows
+                    $('#contestantTable tbody').empty();
+
+                    // Fetch and display contestants based on selected judge
+                    fetchContestantsByJudge(judgeID, response.criteria);
+                } else {
+                    console.error('Invalid criteria response:', response);
+                }
             },
-            error: function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Error adding contestant.',
+            error: function(xhr, status, error) {
+                console.error('Error fetching criteria:', {
+                    status: status,
+                    error: error,
+                    responseText: xhr.responseText
                 });
             }
         });
     });
-    
 
+    function fetchContestantsByJudge(judgeID, criteria) {
+        $.ajax({
+            url: './backend/getContestantsByJudge.php',
+            type: 'GET',
+            data: { judgeID: judgeID },
+            dataType: 'json',
+            success: function(response) {
+                if (response.contestants && Array.isArray(response.contestants)) {
+                    var tbody = '';
+                    response.contestants.forEach(function(contestant) {
+                        tbody += '<tr>';
+                        tbody += '<td>' + contestant.name + '</td>';
+
+                        // Ensure criteria is defined and iterate over it
+                        if (Array.isArray(criteria)) {
+                            criteria.forEach(function(criterion) {
+                                tbody += '<td><input type="number" name="score[' + contestant.idContestant + '][' + criterion.criteriaID + ']" /></td>';
+                            });
+                        }
+
+                        tbody += '<td>' + 'N/A' + '</td>'; // Placeholder for Score
+                        tbody += '<td>' + 'N/A' + '</td>'; // Placeholder for Rank
+                        tbody += '</tr>';
+                    });
+                    $('#contestantTable tbody').html(tbody);
+                } else {
+                    console.error('Invalid contestants response:', response);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching contestants:', {
+                    status: status,
+                    error: error,
+                    responseText: xhr.responseText
+                });
+            }
+        });
+    }
 });
+

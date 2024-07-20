@@ -13,7 +13,7 @@ if (empty($judgeID) || empty($categoryID)) {
 }
 
 // Check if the judge is already assigned to the category
-$checkSql = "SELECT * FROM judge_category WHERE judgeID = ? AND categoryID = ?";
+$checkSql = "SELECT * FROM judge_categories WHERE judgeID = ? AND categoryID = ?";
 $checkStmt = $con->prepare($checkSql);
 $checkStmt->bind_param('ii', $judgeID, $categoryID);
 $checkStmt->execute();
@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
 }
 
 // Insert into judge_category table
-$insertSql = "INSERT INTO judge_category (judgeID, categoryID) VALUES (?, ?)";
+$insertSql = "INSERT INTO judge_categories (judgeID, categoryID) VALUES (?, ?)";
 $insertStmt = $con->prepare($insertSql);
 $insertStmt->bind_param('ii', $judgeID, $categoryID);
 
