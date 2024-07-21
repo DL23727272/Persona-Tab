@@ -180,7 +180,7 @@ $(document).ready(function() {
                             criteria.forEach(function(criterion) {
                                 tbody += '<td><input type="number" class="score-input" data-contestant-id="' 
                                 + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + 
-                                '" data-category-id="' + contestant.categoryID + '" /></td>';
+                                '" data-category-id="' + contestant.categoryID + '"  required/></td>';
                             });
                         }
 
