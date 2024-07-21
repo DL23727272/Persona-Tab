@@ -543,9 +543,9 @@
     });
 
 
-// --------------- FOR JUDGE SCORING --------------
-$(document).ready(function() {
-    $('#judgeScore').change(function() {
+// --------------- FOR JUDGE SCORE TABLE --------------
+    $(document).ready(function() {
+        $('#judgeScore').change(function() {
         var judgeID = $(this).val();
 
         $.ajax({
@@ -554,34 +554,44 @@ $(document).ready(function() {
             data: { judgeID: judgeID },
             dataType: 'json',
             success: function(response) {
-                if (response.criteria && Array.isArray(response.criteria)) {
-                    // Generate table headers based on criteria
-                    var thead = '<tr><th>Contestant Name</th>';
-                    var criteriaHeaders = response.criteria.map(function(criterion) {
-                        return '<th>' + criterion.criteriaName + '</th>';
-                    });
-                    thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
-                    $('#contestantTable thead').html(thead);
+            if (response.criteria && Array.isArray(response.criteria)) {
+                // Generate table headers based on criteria
+                var thead = '<tr><th>Contestant Name</th>';
+                var criteriaHeaders = response.criteria.map(function(criterion) {
+                return '<th>' + criterion.criteriaName + '</th>';
+                });
+                thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
+                $('#contestantTable thead').html(thead);
 
-                    // Clear previous rows
-                    $('#contestantTable tbody').empty();
+                // Clear previous rows
+                $('#contestantTable tbody').empty();
 
-                    // Fetch and display contestants based on selected judge
-                    fetchContestantsByJudge(judgeID, response.criteria);
-                    console.log(judgeID, response.criteria);
-                } else {
-                    console.error('Invalid criteria response:', response);
-                }
+                // Fetch and display contestants based on selected judge
+                fetchContestantsByJudge(judgeID, response.criteria);
+                console.log(judgeID, response.criteria);
+            } else {
+                console.error('Invalid criteria response:', response);
+            }
+
+            if (response.categories && Array.isArray(response.categories)) {
+                // Update the category name in the H1 tag
+                var categoryName = response.categories.map(function(category) {
+                return category.categoryName;
+                }).join(', ');
+                $('#categoryName').text(categoryName);
+            } else {
+                console.error('Invalid categories response:', response);
+            }
             },
             error: function(xhr, status, error) {
-                console.error('Error fetching criteria:', {
-                    status: status,
-                    error: error,
-                    responseText: xhr.responseText
-                });
+            console.error('Error fetching criteria:', {
+                status: status,
+                error: error,
+                responseText: xhr.responseText
+            });
             }
         });
-    });
+        });
 
     // Fetch contestants by judge
     function fetchContestantsByJudge(judgeID, criteria) {
@@ -600,7 +610,9 @@ $(document).ready(function() {
                         // Ensure criteria is defined and iterate over it
                         if (Array.isArray(criteria)) {
                             criteria.forEach(function(criterion) {
-                                tbody += '<td><input type="number" class="score-input" data-contestant-id="' + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + '" data-category-id="' + contestant.categoryID + '" /></td>';
+                                tbody += '<td><input type="number" class="score-input" data-contestant-id="' 
+                                + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + 
+                                '" data-category-id="' + contestant.categoryID + '" /></td>';
                             });
                         }
 

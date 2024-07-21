@@ -125,7 +125,7 @@
 
       
 
-      <!-- LOGIN FORM -->
+      <!------ LOGIN FORM -------->
       <section class="vh-100">
        
         <div class="container-sm mt-5 ">
@@ -152,17 +152,7 @@
                           <label for="pass" style="font-weight: 700;"><i class="fa-solid fa-lock"></i> Password</label>
                           <input type="password" name="customerPassword" id="customerPassword" placeholder="Enter Password" class="  form-control" required>
                         </div>
-                         <!-- <div class="col-sm">
-                            <p style="font-size: 13px; color: rgb(0, 0, 0);">
-                                Don't have an account? 
-                                <a  data-bs-toggle="modal" data-bs-target="#exampleModal" 
-                                    style="text-overflow: unset; color: rgb(252, 254, 255); text-decoration: none; " 
-                                    onmouseover="this.style.textDecoration='underline'" 
-                                    onmouseout="this.style.textDecoration='none'">
-                                  Sign up
-                                </a>
-                            </p>
-                        </div> -->
+                        
                        
                         <div class="form-group row justify-content-end"> 
                             <div class="col-auto">
@@ -176,14 +166,9 @@
 
           </div>
         </div>
-       
       </section>
-
-      <!-- MODAL -->
-
-      <div id="modalContainer"></div>
-
-      <!-- END MODAL -->
+      <!------ END LOGIN FORM -------->
+    
 
       <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
@@ -211,29 +196,7 @@
       <!-- End Hero-->
 
       <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-      
-      <!-- Contestants CONTENT -->
-        
-      <section class="container-sm">
-          <div class="d-flex flex-column align-items-center text-center">
-            <h1 class="fst-italic text-center text-white">Our Contestants </h1>
-              <section class="container-sm">
-                  <h1 class="fst-italic text-center text-white">Male </h1>
-                  <div id="maleContestants" class="container mt-5 text-center">
-                  </div>
-              </section>
-          
-
-              <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-
-              <section class="container-sm">
-                  <h1 class="fst-italic text-center text-white">Female </h1>
-                  <div id="femaleContestants" class="container mt-5 text-center">
-                  </div>
-              </section>
-          </div>
-      </section>
-    <!-- END OF Contestants CONTENT -->
+     
 
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
       
@@ -264,219 +227,8 @@
      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
      <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script type="text/javascript">
-      alertify.set('notifier', 'position', 'top-right');
-
-      $(document).ready(function () {
-        $('#modalContainer').load('modal.html');
-      });
-    
-      //For navbar
-      window.onscroll = function () { scrollFunction() };
-
-      function scrollFunction() {
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-          document.getElementById("navbar").classList.add("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.add("scrolled"));
-          document.getElementById("mugIcon").classList.add("scrolled"); 
-        } else {
-          document.getElementById("navbar").classList.remove("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.remove("scrolled"));
-          document.getElementById("mugIcon").classList.remove("scrolled"); 
-        }
-      }
-      //end of function for navbarrr
+     <script src="user.js">
      
-      //form validation
-      function Login() {
-          var username = document.getElementById("customerName").value;
-          var password = document.getElementById("customerPassword").value;
-      
-          if (username == "" && password == "") {
-              alertify.error('Empty fields! Please fill all the fields.');
-          } else if (username == "") {
-              alertify.error('Fill up the Username field!');
-          } else if (password == "") {
-              alertify.error('Fill up the Password field!');
-          } else {
-              // Send form data to loginProcess.php using AJAX
-              $.ajax({
-                  type: "POST",
-                  url: "./backend/loginProcess.php",
-                  data: {
-                      customerLoginName: username,
-                      customerLoginPassword: password
-                  },
-                  dataType: "json",
-                  success: function(response) {
-                      // Handle success response
-                      if (response.status === 'success') {
-
-                          // if login goods 
-                          //alertify.success(response.message + ' <i class="fa fa-spinner fa-spin"></i>');
-                          Swal.fire({
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 2000 
-                          });
-                          
-
-                          var judgeID = response.id;
-                          sessionStorage.setItem('judgeID', judgeID);
-      
-                          var customerNameInput = document.getElementById("customerName").value;
-                          var customerName = customerNameInput;
-                          sessionStorage.setItem('customerName', customerName); //tangina  40mins para dito
-      
-                          setTimeout(function() {
-
-                              if (response.type === 'admin') {
-                                  window.location.href = 'admin.html'; 
-                              } else {
-                                  window.location.href = 'home.html'; 
-                              }
-
-                          }, 2000);
-      
-                      } else {
-                        //  alertify.error(response.message);// Display error message 
-                          Swal.fire({
-                            icon: 'error',
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 1500 
-                          });
-                          
-                      }
-                  },
-                  error: function(xhr, status, error) {
-                      console.error(xhr.responseText);
-                      alertify.error('Failed to log in!');
-                  }
-              });
-          }
-      }
-    
-
-    function Signup() {
-        // Get form data
-        var userSignUpName = $("#userSignUpName").val();
-        var userSignUpPassword = $("#userSignUpPassword").val();
-        var checkSignUpPassword = $("#checkSignUpPassword").val();
-    
-        if (userSignUpPassword !== checkSignUpPassword) {
-            alertify.error('Passwords do not match!');
-            return; 
-        }
-    
-        if (userSignUpName === "" || userSignUpPassword === "" || checkSignUpPassword === "") {
-            alertify.error('Empty fields! Please fill all the fields.');
-        } else {
-            $.ajax({
-                type: "POST",
-                url: "./backend/signupProcess.php",
-                data: {
-                    userSignUpName: userSignUpName,
-                    userSignUpPassword: userSignUpPassword
-                },
-                dataType: "json",
-                success: function(response) {
-                  console.log("Signup Response: ", response);
-                    if (response.status === 'success') {
-                        //alertify.success(response.message);
-                        Swal.fire({
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 2000 
-                        });
-                        $('#exampleModal').modal('hide');
-                    } else {
-                        alertify.error(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                    alertify.error('Failed to sign up!');
-                }
-            });
-        }
-    }
-
-
-    
-    $(document).ready(function() {
-        function fetchContestants() {
-            $.ajax({
-                url: './backend/fetchAllContestant.php', 
-                type: 'GET',
-                dataType: 'json',
-                success: function(contestants) {
-                    let maleContestants = '';
-                    let femaleContestants = '';
-                    let maleCount = 0;
-                    let femaleCount = 0;
-
-                    contestants.forEach(contestant => {
-                        let contestantHtml = `
-                            <div class="col mt-5">
-                                <div class="card h-100">
-                                    <div class="container mt-5 text-center">
-                                        <img src="uploads/${contestant.image}" class="card-img-top" alt="Contestant Image" style="width: 200px; height: 250px;">
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">${contestant.name}</h5>
-                                        <p class="card-text">Age: ${contestant.age}</p>
-                                        <p class="card-text">${contestant.address}</p>
-                                        <p class="card-text">Gender: ${contestant.gender}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-
-                        if (contestant.gender.toLowerCase() === 'male') {
-                            if (maleCount % 3 === 0) {
-                                maleContestants += '<div class="row row-cols-1 row-cols-md-3 g-4">';
-                            }
-                            maleContestants += contestantHtml;
-                            if (maleCount % 3 === 2) {
-                                maleContestants += '</div>';
-                            }
-                            maleCount++;
-                        } else {
-                            if (femaleCount % 3 === 0) {
-                                femaleContestants += '<div class="row row-cols-1 row-cols-md-3 g-4">';
-                            }
-                            femaleContestants += contestantHtml;
-                            if (femaleCount % 3 === 2) {
-                                femaleContestants += '</div>';
-                            }
-                            femaleCount++;
-                        }
-                    });
-
-                    if (maleCount % 3 !== 0) {
-                        maleContestants += '</div>';
-                    }
-                    if (femaleCount % 3 !== 0) {
-                        femaleContestants += '</div>';
-                    }
-
-                    $('#maleContestants').html(maleContestants);
-                    $('#femaleContestants').html(femaleContestants);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Ajax Error: ' + status + ' - ' + error); 
-                }
-            });
-        }
-
-        fetchContestants();
-    });
-    
 
     </script>
 </body>
