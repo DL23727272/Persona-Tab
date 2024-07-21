@@ -99,7 +99,7 @@
         
           console.log('Judge ID ' + judgeID)
           console.log('Judge Name ' + judgeName);
-          document.getElementById("judgeID").innerHTML = customerID;
+          document.getElementById("judgeName").innerHTML = judgeName;
            
         } else {
             console.log('Customer ID not found in sessionStorage'); 
