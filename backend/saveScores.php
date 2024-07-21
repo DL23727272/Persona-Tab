@@ -59,37 +59,40 @@ foreach ($scores as $score) {
 if ($judgeVoted) {
     echo json_encode(['success' => false, 'message' => 'You have already voted.']);
 } else {
-    // Calculate total scores and ranks
+    // Calculate total scores per category
     $totalScoreQuery = "
-        SELECT contestantID, SUM(score) as totalScore
+        SELECT contestantID, categoryID, SUM(score) as totalScore
         FROM scores
-        WHERE categoryID IN (SELECT categoryID FROM judges WHERE judgeID = ?)
-        GROUP BY contestantID
-        ORDER BY totalScore DESC
+        GROUP BY contestantID, categoryID
     ";
 
     $totalScoreStmt = $con->prepare($totalScoreQuery);
-    $totalScoreStmt->bind_param("i", $judgeID);
     $totalScoreStmt->execute();
     $totalScoreStmt->store_result();
-    $totalScoreStmt->bind_result($contestantID, $totalScore);
+    $totalScoreStmt->bind_result($contestantID, $categoryID, $totalScore);
 
     $contestantsScores = [];
     while ($totalScoreStmt->fetch()) {
-        $contestantsScores[$contestantID] = $totalScore;
+        if (!isset($contestantsScores[$categoryID])) {
+            $contestantsScores[$categoryID] = [];
+        }
+        $contestantsScores[$categoryID][$contestantID] = $totalScore;
     }
     $totalScoreStmt->free_result();
     $totalScoreStmt->close();
 
     // Calculate ranks and update contestant records
-    $rank = 1;
-    foreach ($contestantsScores as $contestantID => $score) {
-        $updateRankQuery = "UPDATE contestants SET rank = ? WHERE idContestant = ?";
-        $updateRankStmt = $con->prepare($updateRankQuery);
-        $updateRankStmt->bind_param("ii", $rank, $contestantID);
-        $updateRankStmt->execute();
-        $updateRankStmt->close();
-        $rank++;
+    foreach ($contestantsScores as $categoryID => $scores) {
+        arsort($scores); // Sort by score in descending order
+        $rank = 1;
+        foreach ($scores as $contestantID => $score) {
+            $updateRankQuery = "UPDATE contestants SET rank = ? WHERE idContestant = ? AND categoryID = ?";
+            $updateRankStmt = $con->prepare($updateRankQuery);
+            $updateRankStmt->bind_param("iii", $rank, $contestantID, $categoryID);
+            $updateRankStmt->execute();
+            $updateRankStmt->close();
+            $rank++;
+        }
     }
 
     // Close statements and connection

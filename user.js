@@ -171,8 +171,8 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.contestants && Array.isArray(response.contestants)) {
                     var tbody = '';
-                    response.contestants.forEach(function(contestant, index) {
-                        tbody += '<tr data-contestant-id="' + contestant.idContestant + '">';
+                    response.contestants.forEach(function(contestant) {
+                        tbody += '<tr data-contestant-id="' + contestant.idContestant + '" data-category-id="' + contestant.categoryID + '">';
                         tbody += '<td>' + contestant.name + '</td>';
 
                         // Ensure criteria is defined and iterate over it
@@ -208,13 +208,14 @@ $(document).ready(function() {
         });
     }
 
-    // Calculate total scores and ranks
+    // Calculate total scores and ranks within each category
     function calculateAndUpdateScoresAndRanks() {
-        var contestants = [];
+        var categoryContestants = {};
 
-        // Calculate total scores
+        // Calculate total scores and group contestants by category
         $('#contestantTable tbody tr').each(function() {
             var contestantID = $(this).data('contestant-id');
+            var categoryID = $(this).data('category-id'); // Ensure this is set
             var totalScore = 0;
 
             $(this).find('.score-input').each(function() {
@@ -222,7 +223,12 @@ $(document).ready(function() {
                 totalScore += score;
             });
 
-            contestants.push({
+            // Initialize category data if not present
+            if (!categoryContestants[categoryID]) {
+                categoryContestants[categoryID] = [];
+            }
+
+            categoryContestants[categoryID].push({
                 id: contestantID,
                 name: $(this).find('td:first').text(),
                 totalScore: totalScore
@@ -231,17 +237,21 @@ $(document).ready(function() {
             $(this).find('.total-score').text(totalScore);
         });
 
-        // Sort contestants by total score
-        contestants.sort(function(a, b) {
-            return b.totalScore - a.totalScore;
-        });
+        // Sort contestants by total score and update ranks within each category
+        $.each(categoryContestants, function(categoryID, contestants) {
+            // Sort contestants by total score in descending order
+            contestants.sort(function(a, b) {
+                return b.totalScore - a.totalScore;
+            });
 
-        // Update ranks
-        contestants.forEach(function(contestant, index) {
-            var rank = index + 1;
-            $('#contestantTable tbody tr[data-contestant-id="' + contestant.id + '"]').find('.contestant-rank').text(rank);
+            // Update ranks
+            contestants.forEach(function(contestant, index) {
+                var rank = index + 1;
+                $('#contestantTable tbody tr[data-contestant-id="' + contestant.id + '"]').find('.contestant-rank').text(rank);
+            });
         });
     }
+
 
     // Save scores
     function saveScores() {
@@ -249,10 +259,11 @@ $(document).ready(function() {
     
         $('#contestantTable tbody tr').each(function() {
             var contestantID = $(this).data('contestant-id');
+            var categoryID = $(this).data('category-id'); // Capture categoryID
+    
             $(this).find('.score-input').each(function() {
                 var score = parseInt($(this).val()) || 0;
                 var criterionID = $(this).data('criterion-id');
-                var categoryID = $(this).data('category-id'); // Capture categoryID
                 var judgeID = sessionStorage.getItem('judgeID'); // Get the judgeID from session storage
     
                 scoresData.push({

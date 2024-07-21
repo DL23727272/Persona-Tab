@@ -543,9 +543,9 @@
     });
 
 
-// --------------- FOR ADMIN UPDATE JUDGE SCORE TABLE --------------
-$(document).ready(function() {
-    $('#judgeScore').change(function() {
+// --------------- FOR JUDGE SCORE TABLE --------------
+    $(document).ready(function() {
+        $('#judgeScore').change(function() {
         var judgeID = $(this).val();
 
         $.ajax({
@@ -554,113 +554,84 @@ $(document).ready(function() {
             data: { judgeID: judgeID },
             dataType: 'json',
             success: function(response) {
-                if (response.criteria && Array.isArray(response.criteria)) {
-                    // Generate table headers based on criteria
-                    var thead = '<tr><th>Contestant Name</th>';
-                    var criteriaHeaders = response.criteria.map(function(criterion) {
-                        return '<th>' + criterion.criteriaName + '</th>';
-                    });
-                    thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
-                    $('#contestantTable thead').html(thead);
+            if (response.criteria && Array.isArray(response.criteria)) {
+                // Generate table headers based on criteria
+                var thead = '<tr><th>Contestant Name</th>';
+                var criteriaHeaders = response.criteria.map(function(criterion) {
+                return '<th>' + criterion.criteriaName + '</th>';
+                });
+                thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
+                $('#contestantTable thead').html(thead);
 
-                    // Clear previous rows
-                    $('#contestantTable tbody').empty();
+                // Clear previous rows
+                $('#contestantTable tbody').empty();
 
-                    // Fetch and display contestants based on selected judge
-                    fetchScoresByJudge(judgeID, response.criteria);
-                    console.log(judgeID, response.criteria);
-                } else {
-                    console.error('Invalid criteria response:', response);
-                }
+                // Fetch and display contestants based on selected judge
+                fetchContestantsByJudge(judgeID, response.criteria);
+                console.log(judgeID, response.criteria);
+            } else {
+                console.error('Invalid criteria response:', response);
+            }
 
-                if (response.categories && Array.isArray(response.categories)) {
-                    // Update the category name in the H1 tag
-                    var categoryName = response.categories.map(function(category) {
-                        return category.categoryName;
-                    }).join(', ');
-                    $('#categoryName').text(categoryName);
-                } else {
-                    console.error('Invalid categories response:', response);
-                }
+            if (response.categories && Array.isArray(response.categories)) {
+                // Update the category name in the H1 tag
+                var categoryName = response.categories.map(function(category) {
+                return category.categoryName;
+                }).join(', ');
+                $('#categoryName').text(categoryName);
+            } else {
+                console.error('Invalid categories response:', response);
+            }
             },
             error: function(xhr, status, error) {
-                console.error('Error fetching criteria:', {
-                    status: status,
-                    error: error,
-                    responseText: xhr.responseText
-                });
+            console.error('Error fetching criteria:', {
+                status: status,
+                error: error,
+                responseText: xhr.responseText
+            });
             }
         });
-    });
+        });
 
-
-    // Fetch scores by judge
-    function fetchScoresByJudge(judgeID, criteria) {
+    // Fetch contestants by judge
+    function fetchContestantsByJudge(judgeID, criteria) {
         $.ajax({
-            url: './backend/getScoresByJudge.php',
+            url: './backend/getContestantsByJudge.php',
             type: 'GET',
             data: { judgeID: judgeID },
             dataType: 'json',
             success: function(response) {
-                console.log('Scores Response:', response);
-                if (response.scores && Array.isArray(response.scores)) {
+                if (response.contestants && Array.isArray(response.contestants)) {
                     var tbody = '';
-                    var contestantScores = {};
-    
-                    // Initialize contestant data
-                    response.scores.forEach(function(score) {
-                        if (!contestantScores[score.contestantID]) {
-                            contestantScores[score.contestantID] = {
-                                idContestant: score.contestantID,
-                                name: score.name,
-                                scores: {}, // To store scores based on criteria
-                                totalScore: 0,
-                                categoryID: score.categoryID // Ensure this is included
-                            };
-                        }
-                        contestantScores[score.contestantID].scores[score.criterionID] = score.score;
-                    });
-    
-                    // Generate rows for each contestant
-                    Object.values(contestantScores).forEach(function(contestant) {
-                        var rowHtml = '<tr data-contestant-id="' + contestant.idContestant + '" data-category-id="' + contestant.categoryID + '">';
-                        rowHtml += '<td>' + contestant.name + '</td>';
-    
+                    response.contestants.forEach(function(contestant, index) {
+                        tbody += '<tr data-contestant-id="' + contestant.idContestant + '">';
+                        tbody += '<td>' + contestant.name + '</td>';
+
                         // Ensure criteria is defined and iterate over it
                         if (Array.isArray(criteria)) {
                             criteria.forEach(function(criterion) {
-                                var score = contestant.scores[criterion.criteriaID] || 0; // Get score for the criterion
-                                rowHtml += '<td><input type="number" class="score-input" data-contestant-id="' 
+                                tbody += '<td><input type="number" class="score-input" data-contestant-id="' 
                                 + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + 
-                                '" value="' + score + '" /></td>';
-                                
-                                // Update total score
-                                contestant.totalScore += score;
+                                '" data-category-id="' + contestant.categoryID + '" /></td>';
                             });
                         }
-    
-                        rowHtml += '<td class="total-score">' + contestant.totalScore + '</td>'; // Display total score
-                        rowHtml += '<td class="contestant-rank">N/A</td>'; // Placeholder for Rank
-                        rowHtml += '</tr>';
-                        
-                        tbody += rowHtml;
+
+                        tbody += '<td class="total-score">N/A</td>'; // Placeholder for Total Score
+                        tbody += '<td class="contestant-rank">N/A</td>'; // Placeholder for Rank
+                        tbody += '</tr>';
                     });
-    
                     $('#contestantTable tbody').html(tbody);
-    
+
                     // Add event listeners for score input fields
                     $('.score-input').on('input', function() {
                         calculateAndUpdateScoresAndRanks();
                     });
-    
-                    // Update scores and ranks
-                    calculateAndUpdateScoresAndRanks();
                 } else {
-                    console.error('Invalid scores response:', response);
+                    console.error('Invalid contestants response:', response);
                 }
             },
             error: function(xhr, status, error) {
-                console.error('Error fetching scores:', {
+                console.error('Error fetching contestants:', {
                     status: status,
                     error: error,
                     responseText: xhr.responseText
@@ -668,19 +639,14 @@ $(document).ready(function() {
             }
         });
     }
-    
-    
-    
 
-    
-     // Calculate total scores and ranks within each category
+    // Calculate total scores and ranks
     function calculateAndUpdateScoresAndRanks() {
-        var categoryContestants = {};
+        var contestants = [];
 
-        // Calculate total scores and group contestants by category
+        // Calculate total scores
         $('#contestantTable tbody tr').each(function() {
             var contestantID = $(this).data('contestant-id');
-            var categoryID = $(this).data('category-id'); // Ensure this is set
             var totalScore = 0;
 
             $(this).find('.score-input').each(function() {
@@ -688,12 +654,7 @@ $(document).ready(function() {
                 totalScore += score;
             });
 
-            // Initialize category data if not present
-            if (!categoryContestants[categoryID]) {
-                categoryContestants[categoryID] = [];
-            }
-
-            categoryContestants[categoryID].push({
+            contestants.push({
                 id: contestantID,
                 name: $(this).find('td:first').text(),
                 totalScore: totalScore
@@ -702,46 +663,29 @@ $(document).ready(function() {
             $(this).find('.total-score').text(totalScore);
         });
 
-        // Sort contestants by total score and update ranks within each category
-        $.each(categoryContestants, function(categoryID, contestants) {
-            // Sort contestants by total score in descending order
-            contestants.sort(function(a, b) {
-                return b.totalScore - a.totalScore;
-            });
+        // Sort contestants by total score
+        contestants.sort(function(a, b) {
+            return b.totalScore - a.totalScore;
+        });
 
-            // Update ranks
-            contestants.forEach(function(contestant, index) {
-                var rank = index + 1;
-                $('#contestantTable tbody tr[data-contestant-id="' + contestant.id + '"]').find('.contestant-rank').text(rank);
-            });
+        // Update ranks
+        contestants.forEach(function(contestant, index) {
+            var rank = index + 1;
+            $('#contestantTable tbody tr[data-contestant-id="' + contestant.id + '"]').find('.contestant-rank').text(rank);
         });
     }
 
-
-        
-    
-    
-    
-    
-
-    //UpdateScores
-    function updateScores() {
+    // Save scores
+    function saveScores() {
         var scoresData = [];
     
         $('#contestantTable tbody tr').each(function() {
             var contestantID = $(this).data('contestant-id');
-            var categoryID = $(this).data('category-id'); // Ensure this is set
-    
             $(this).find('.score-input').each(function() {
                 var score = parseInt($(this).val()) || 0;
                 var criterionID = $(this).data('criterion-id');
+                var categoryID = $(this).data('category-id'); // Capture categoryID
                 var judgeID = $('#judgeScore').val(); // Get the judgeID from the dropdown
-    
-                // Check if categoryID is undefined or null
-                if (categoryID === undefined || categoryID === null) {
-                    console.error('Category ID is missing for contestant:', contestantID);
-                    return; // Skip this iteration if categoryID is missing
-                }
     
                 scoresData.push({
                     judgeID: judgeID,
@@ -754,10 +698,8 @@ $(document).ready(function() {
             });
         });
     
-        console.log(scoresData); // Log to verify correct data
-    
         $.ajax({
-            url: './backend/updateScores.php',
+            url: './backend/saveScores.php',
             type: 'POST',
             data: { scores: JSON.stringify(scoresData) },
             dataType: 'json',
@@ -787,13 +729,14 @@ $(document).ready(function() {
                 });
             }
         });
+        
+        
     }
     
-    // Attach updateScores to form submission
+    // Attach saveScores to form submission
     $('#scoringForm').on('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
-        updateScores(); // Call updateScores function
+        saveScores(); // Call saveScores function
     });    
-
-
+    
 });
