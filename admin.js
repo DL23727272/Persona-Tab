@@ -543,9 +543,8 @@
     });
 
 
-
- // --------------- FOR JUDGE SCORING--------------
- $(document).ready(function() {
+// --------------- FOR JUDGE SCORING --------------
+$(document).ready(function() {
     $('#judgeScore').change(function() {
         var judgeID = $(this).val();
 
@@ -561,7 +560,7 @@
                     var criteriaHeaders = response.criteria.map(function(criterion) {
                         return '<th>' + criterion.criteriaName + '</th>';
                     });
-                    thead += criteriaHeaders.join('') + '<th>Score</th><th>Rank</th></tr>';
+                    thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
                     $('#contestantTable thead').html(thead);
 
                     // Clear previous rows
@@ -569,6 +568,7 @@
 
                     // Fetch and display contestants based on selected judge
                     fetchContestantsByJudge(judgeID, response.criteria);
+                    console.log(judgeID, response.criteria);
                 } else {
                     console.error('Invalid criteria response:', response);
                 }
@@ -583,6 +583,7 @@
         });
     });
 
+    // Fetch contestants by judge
     function fetchContestantsByJudge(judgeID, criteria) {
         $.ajax({
             url: './backend/getContestantsByJudge.php',
@@ -592,22 +593,27 @@
             success: function(response) {
                 if (response.contestants && Array.isArray(response.contestants)) {
                     var tbody = '';
-                    response.contestants.forEach(function(contestant) {
-                        tbody += '<tr>';
+                    response.contestants.forEach(function(contestant, index) {
+                        tbody += '<tr data-contestant-id="' + contestant.idContestant + '">';
                         tbody += '<td>' + contestant.name + '</td>';
 
                         // Ensure criteria is defined and iterate over it
                         if (Array.isArray(criteria)) {
                             criteria.forEach(function(criterion) {
-                                tbody += '<td><input type="number" name="score[' + contestant.idContestant + '][' + criterion.criteriaID + ']" /></td>';
+                                tbody += '<td><input type="number" class="score-input" data-contestant-id="' + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + '" data-category-id="' + contestant.categoryID + '" /></td>';
                             });
                         }
 
-                        tbody += '<td>' + 'N/A' + '</td>'; // Placeholder for Score
-                        tbody += '<td>' + 'N/A' + '</td>'; // Placeholder for Rank
+                        tbody += '<td class="total-score">N/A</td>'; // Placeholder for Total Score
+                        tbody += '<td class="contestant-rank">N/A</td>'; // Placeholder for Rank
                         tbody += '</tr>';
                     });
                     $('#contestantTable tbody').html(tbody);
+
+                    // Add event listeners for score input fields
+                    $('.score-input').on('input', function() {
+                        calculateAndUpdateScoresAndRanks();
+                    });
                 } else {
                     console.error('Invalid contestants response:', response);
                 }
@@ -621,5 +627,104 @@
             }
         });
     }
-});
 
+    // Calculate total scores and ranks
+    function calculateAndUpdateScoresAndRanks() {
+        var contestants = [];
+
+        // Calculate total scores
+        $('#contestantTable tbody tr').each(function() {
+            var contestantID = $(this).data('contestant-id');
+            var totalScore = 0;
+
+            $(this).find('.score-input').each(function() {
+                var score = parseInt($(this).val()) || 0;
+                totalScore += score;
+            });
+
+            contestants.push({
+                id: contestantID,
+                name: $(this).find('td:first').text(),
+                totalScore: totalScore
+            });
+
+            $(this).find('.total-score').text(totalScore);
+        });
+
+        // Sort contestants by total score
+        contestants.sort(function(a, b) {
+            return b.totalScore - a.totalScore;
+        });
+
+        // Update ranks
+        contestants.forEach(function(contestant, index) {
+            var rank = index + 1;
+            $('#contestantTable tbody tr[data-contestant-id="' + contestant.id + '"]').find('.contestant-rank').text(rank);
+        });
+    }
+
+    // Save scores
+    function saveScores() {
+        var scoresData = [];
+    
+        $('#contestantTable tbody tr').each(function() {
+            var contestantID = $(this).data('contestant-id');
+            $(this).find('.score-input').each(function() {
+                var score = parseInt($(this).val()) || 0;
+                var criterionID = $(this).data('criterion-id');
+                var categoryID = $(this).data('category-id'); // Capture categoryID
+                var judgeID = $('#judgeScore').val(); // Get the judgeID from the dropdown
+    
+                scoresData.push({
+                    judgeID: judgeID,
+                    contestantID: contestantID,
+                    categoryID: categoryID, // Include categoryID
+                    criterionID: criterionID,
+                    score: score,
+                    rank: $(this).closest('tr').find('.contestant-rank').text()
+                });
+            });
+        });
+    
+        $.ajax({
+            url: './backend/saveScores.php',
+            type: 'POST',
+            data: { scores: JSON.stringify(scoresData) },
+            dataType: 'json',
+            success: function(response) {
+                console.log('Response:', response); // Log response for debugging
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: response.message
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', status, error);
+                console.error('Response:', xhr.responseText); // Log raw response for debugging
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while saving scores. Please try again.'
+                });
+            }
+        });
+        
+        
+    }
+    
+    // Attach saveScores to form submission
+    $('#scoringForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        saveScores(); // Call saveScores function
+    });    
+    
+});

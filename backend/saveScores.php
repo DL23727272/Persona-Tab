@@ -1,72 +1,104 @@
 <?php
 include "../backend/myConnection.php";
 
-header('Content-Type: application/json');
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = $_POST;
-    $judgeID = intval($data['judgeScore']);
+// Retrieve POST data
+$scores = isset($_POST['scores']) ? json_decode($_POST['scores'], true) : [];
 
-    $success = true;
+// Prepare SQL queries
+$checkQuery = "SELECT COUNT(*) FROM scores WHERE judgeID = ? AND contestantID = ? AND categoryID = ? AND criterionID = ?";
+$insertQuery = "INSERT INTO scores (judgeID, contestantID, categoryID, criterionID, score, rank) VALUES (?, ?, ?, ?, ?, ?)";
+$updateQuery = "UPDATE scores SET score = ?, rank = ? WHERE judgeID = ? AND contestantID = ? AND categoryID = ? AND criterionID = ?";
 
-    // Start a transaction
-    mysqli_begin_transaction($con);
+$stmtCheck = $con->prepare($checkQuery);
+$stmtInsert = $con->prepare($insertQuery);
+$stmtUpdate = $con->prepare($updateQuery);
 
-    try {
-        // Save scores
-        foreach ($data as $key => $value) {
-            if (strpos($key, 'score[') === 0) {
-                preg_match('/score\[(\d+)\]\[(\d+)\]/', $key, $matches);
-                $contestantID = intval($matches[1]);
-                $criterionID = intval($matches[2]);
-                $score = intval($value);
+if (!$stmtCheck || !$stmtInsert || !$stmtUpdate) {
+    echo json_encode(['success' => false, 'error' => 'Database prepare failed: ' . $con->error]);
+    exit;
+}
 
-                $query = "REPLACE INTO scores (judgeID, contestantID, criterionID, score) VALUES (?, ?, ?, ?)";
-                $stmt = mysqli_prepare($con, $query);
-                mysqli_stmt_bind_param($stmt, 'iiii', $judgeID, $contestantID, $criterionID, $score);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_close($stmt);
-            }
+// Flag to check if the judge has already voted
+$judgeVoted = false;
+
+// Iterate through each score data and execute the query
+foreach ($scores as $score) {
+    $judgeID = $score['judgeID'];
+    $contestantID = $score['contestantID'];
+    $categoryID = $score['categoryID'];
+    $criterionID = $score['criterionID'];
+    $scoreValue = $score['score'];
+    $rank = $score['rank'];
+
+    // Check if the score already exists
+    $stmtCheck->bind_param("iiii", $judgeID, $contestantID, $categoryID, $criterionID);
+    $stmtCheck->execute();
+    $stmtCheck->store_result(); // Ensure results are stored
+    $stmtCheck->bind_result($count);
+    $stmtCheck->fetch();
+    $stmtCheck->free_result(); // Free the result set after fetching
+
+    if ($count > 0) {
+        // Score exists, set the flag to true
+        $judgeVoted = true;
+    } else {
+        // Score does not exist, insert it
+        $stmtInsert->bind_param("iiisis", $judgeID, $contestantID, $categoryID, $criterionID, $scoreValue, $rank);
+        if (!$stmtInsert->execute()) {
+            echo json_encode(['success' => false, 'error' => 'Insert failed: ' . $stmtInsert->error]);
+            exit;
         }
+    }
+}
 
-        // Calculate total scores and ranks
-        $rankingQuery = "
-            SELECT contestantID, SUM(score) AS totalScore
-            FROM scores
-            WHERE judgeID = ?
-            GROUP BY contestantID
-            ORDER BY totalScore DESC";
+// If the judge has already voted, return a specific response
+if ($judgeVoted) {
+    echo json_encode(['success' => false, 'message' => 'You have already voted.']);
+} else {
+    // Calculate total scores and ranks
+    $totalScoreQuery = "
+        SELECT contestantID, SUM(score) as totalScore
+        FROM scores
+        WHERE categoryID IN (SELECT categoryID FROM judges WHERE judgeID = ?)
+        GROUP BY contestantID
+        ORDER BY totalScore DESC
+    ";
 
-        $rankingStmt = mysqli_prepare($con, $rankingQuery);
-        mysqli_stmt_bind_param($rankingStmt, 'i', $judgeID);
-        mysqli_stmt_execute($rankingStmt);
-        mysqli_stmt_bind_result($rankingStmt, $contestantID, $totalScore);
+    $totalScoreStmt = $con->prepare($totalScoreQuery);
+    $totalScoreStmt->bind_param("i", $judgeID);
+    $totalScoreStmt->execute();
+    $totalScoreStmt->store_result();
+    $totalScoreStmt->bind_result($contestantID, $totalScore);
 
-        $ranks = [];
-        $rank = 1;
-        while (mysqli_stmt_fetch($rankingStmt)) {
-            $ranks[$contestantID] = $rank++;
-        }
-        mysqli_stmt_close($rankingStmt);
+    $contestantsScores = [];
+    while ($totalScoreStmt->fetch()) {
+        $contestantsScores[$contestantID] = $totalScore;
+    }
+    $totalScoreStmt->free_result();
+    $totalScoreStmt->close();
 
-        // Update contestants with ranks
-        foreach ($ranks as $contestantID => $rank) {
-            $updateQuery = "UPDATE contestants SET rank = ? WHERE idContestant = ?";
-            $updateStmt = mysqli_prepare($con, $updateQuery);
-            mysqli_stmt_bind_param($updateStmt, 'ii', $rank, $contestantID);
-            mysqli_stmt_execute($updateStmt);
-            mysqli_stmt_close($updateStmt);
-        }
-
-        mysqli_commit($con);
-        echo json_encode(['success' => true]);
-    } catch (Exception $e) {
-        mysqli_rollback($con);
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    // Calculate ranks and update contestant records
+    $rank = 1;
+    foreach ($contestantsScores as $contestantID => $score) {
+        $updateRankQuery = "UPDATE contestants SET rank = ? WHERE idContestant = ?";
+        $updateRankStmt = $con->prepare($updateRankQuery);
+        $updateRankStmt->bind_param("ii", $rank, $contestantID);
+        $updateRankStmt->execute();
+        $updateRankStmt->close();
+        $rank++;
     }
 
-    mysqli_close($con);
-} else {
-    echo json_encode(['success' => false, 'error' => 'Invalid request method.']);
+    // Close statements and connection
+    $stmtCheck->close();
+    $stmtInsert->close();
+    $stmtUpdate->close();
+    $con->close();
+
+    // Success response
+    echo json_encode(['success' => true, 'message' => 'Scores saved successfully and ranks updated.']);
 }
 ?>
