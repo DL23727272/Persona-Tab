@@ -255,17 +255,35 @@ $(document).ready(function() {
 
     // Save scores
     function saveScores() {
+        var judgeID = sessionStorage.getItem('judgeID'); // Get the judgeID from session storage
+
+        if (!judgeID) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Not Logged In',
+                text: 'You need to log in to submit scores.',
+                showCancelButton: true,
+                confirmButtonText: 'Log In',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to login page or show login modal
+                    window.location.href = './index.html'; // Replace with your login page URL
+                }
+            });
+            return; // Exit the function if the user is not logged in
+        }
+
         var scoresData = [];
-    
+        
         $('#contestantTable tbody tr').each(function() {
             var contestantID = $(this).data('contestant-id');
             var categoryID = $(this).data('category-id'); // Capture categoryID
-    
+
             $(this).find('.score-input').each(function() {
                 var score = parseInt($(this).val()) || 0;
                 var criterionID = $(this).data('criterion-id');
-                var judgeID = sessionStorage.getItem('judgeID'); // Get the judgeID from session storage
-    
+
                 scoresData.push({
                     judgeID: judgeID,
                     contestantID: contestantID,
@@ -276,7 +294,7 @@ $(document).ready(function() {
                 });
             });
         });
-    
+
         $.ajax({
             url: './backend/saveScores.php',
             type: 'POST',
@@ -309,10 +327,11 @@ $(document).ready(function() {
             }
         });
     }
-    
+
     // Attach saveScores to form submission
     $('#scoringForm').on('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
         saveScores(); // Call saveScores function
     });
+
 });
