@@ -168,30 +168,33 @@
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
   <!-- TESTING FOR SCORE TABLE -->
-<section class="container-sm mt-5">
-  <div class="d-flex flex-column align-items-center text-center">
-    <h1 class="fst-italic text-center text-white">Welcome Judge <span id="judgeName"></span> !</h1>
-  </div>
-  <hr class="container-sm Sborder border-success  border-2 opacity-50 w-50" />
-  <div class="row mb-3">
-    <form id="scoringForm">
-      <div class="d-flex flex-column align-items-center text-center">
-        <h2 id="categoryName" class="fst-italic text-center text-white">Category</h2>
-      </div>
-      <!-- Table to Display Contestants -->
-      <table id="contestantTable" class="table table-striped-columns table-dark">
-        <thead>
-          <!-- Headers will be populated dynamically -->
-        </thead>
-        <tbody>
-          <!-- Rows will be populated dynamically -->
-        </tbody>
-      </table>
-      
-      <button type="submit" class="btn btn-outline-light float-end">Submit</button>
-    </form>
-  </div>
-</section>
+  <section class="container-sm mt-5">
+    <div class="d-flex flex-column align-items-center text-center">
+      <h1 class="fst-italic text-center text-white">Welcome Judge <span id="judgeName"></span> !</h1>
+    </div>
+    <hr class="container-sm Sborder border-success border-2 opacity-50 w-50" />
+    <div class="row mb-3">
+      <form id="scoringForm">
+        <div class="d-flex flex-column align-items-center text-center">
+          <h2 id="categoryName" class="fst-italic text-center text-white">Category</h2>
+          <div id="criteriaContainer">
+            <!-- Criteria will be dynamically inserted here -->
+          </div>
+        </div>
+        <!-- Table to Display Contestants -->
+        <table id="contestantTable" class="table table-striped-columns table-dark">
+          <thead>
+            <!-- Headers will be populated dynamically -->
+          </thead>
+          <tbody>
+            <!-- Rows will be populated dynamically -->
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-outline-light float-end">Submit</button>
+      </form>
+    </div>
+  </section>
+  
 
 
 

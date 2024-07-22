@@ -109,22 +109,25 @@
     
 // --------------- FOR JUDGE SCORE TABLE --------------
 $(document).ready(function() {
-    // Get judgeID from session storage
     var judgeID = sessionStorage.getItem('judgeID');
+    console.log('Judge ID:', judgeID); // Debugging line
 
     if (judgeID) {
-        // Fetch criteria and contestants based on judgeID
         $.ajax({
             url: './backend/getCriteriaByJudge.php',
             type: 'GET',
             data: { judgeID: judgeID },
             dataType: 'json',
             success: function(response) {
+                console.log('Criteria response:', response); // Debugging line
+
                 if (response.criteria && Array.isArray(response.criteria)) {
+                  
+
                     // Generate table headers based on criteria
                     var thead = '<tr><th>Contestant Name</th>';
                     var criteriaHeaders = response.criteria.map(function(criterion) {
-                        return '<th>' + criterion.criteriaName + '</th>';
+                        return '<th>' + criterion.criteriaName + ' - ' + criterion.criteriaScore+ '</th>';
                     });
                     thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
                     $('#contestantTable thead').html(thead);
@@ -134,13 +137,11 @@ $(document).ready(function() {
 
                     // Fetch and display contestants based on judgeID
                     fetchContestantsByJudge(judgeID, response.criteria);
-                    console.log(judgeID, response.criteria);
                 } else {
                     console.error('Invalid criteria response:', response);
                 }
 
                 if (response.categories && Array.isArray(response.categories)) {
-                    // Update the category name in the H1 tag
                     var categoryName = response.categories.map(function(category) {
                         return category.categoryName;
                     }).join(', ');
@@ -208,6 +209,7 @@ $(document).ready(function() {
         });
     }
 
+
     // Calculate total scores and ranks within each category
     function calculateAndUpdateScoresAndRanks() {
         var categoryContestants = {};
@@ -251,7 +253,6 @@ $(document).ready(function() {
             });
         });
     }
-
 
     // Save scores
     function saveScores() {
@@ -333,18 +334,4 @@ $(document).ready(function() {
         event.preventDefault(); // Prevent default form submission
         saveScores(); // Call saveScores function
     });
-
-    function displayCriteria(criteria) {
-        if (criteria && Array.isArray(criteria)) {
-            var criteriaHtml = criteria.map(function(criterion) {
-                return criterion.criteriaName + ' <span>' + criterion.criteriaScore + '</span>';
-            }).join(', ');
-    
-            $('#criteriaDisplay').html('Criteria: ' + criteriaHtml);
-        } else {
-            console.error('Invalid criteria data:', criteria);
-        }
-    }
-    
-
 });
