@@ -185,8 +185,8 @@ $(document).ready(function() {
                             });
                         }
 
-                        tbody += '<td class="total-score">N/A</td>'; // Placeholder for Total Score
-                        tbody += '<td class="contestant-rank">N/A</td>'; // Placeholder for Rank
+                        tbody += '<td class="total-score">0</td>'; // Placeholder for Total Score
+                        tbody += '<td class="contestant-rank">0</td>'; // Placeholder for Rank
                         tbody += '</tr>';
                     });
                     $('#contestantTable tbody').html(tbody);
@@ -217,7 +217,7 @@ $(document).ready(function() {
         // Calculate total scores and group contestants by category
         $('#contestantTable tbody tr').each(function() {
             var contestantID = $(this).data('contestant-id');
-            var categoryID = $(this).data('category-id'); // Ensure this is set
+            var categoryID = $(this).data('category-id'); 
             var totalScore = 0;
 
             $(this).find('.score-input').each(function() {

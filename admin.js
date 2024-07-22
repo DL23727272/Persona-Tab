@@ -864,7 +864,7 @@
                 // Sort contestants by their total score
                 var sortedContestants = Object.keys(totalScores).sort((a, b) => totalScores[b] - totalScores[a]);
 
-                var judgeTable = '<h4 class="text-white">Judge: ' + judgeName + '</h4>';
+                var judgeTable = '<h4 class="text-white text-center">Judge: ' + judgeName + '</h4>';
                 judgeTable += '<table class="table table-striped table-dark">';
                 judgeTable += '<thead><tr><th>Contestant</th>';
 
