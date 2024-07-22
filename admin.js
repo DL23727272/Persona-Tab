@@ -216,7 +216,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to login page or show login modal
-                    window.location.href = './index.html'; // Replace with your login page URL
+                    window.location.href = './index.html';
                 }
             });
             return;
@@ -387,7 +387,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to login page or show login modal
-                    window.location.href = './index.html'; // Replace with your login page URL
+                    window.location.href = './index.html';
                 }
             });
             return;
@@ -537,7 +537,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to login page or show login modal
-                    window.location.href = './index.html'; // Replace with your login page URL
+                    window.location.href = './index.html'; 
                 }
             });
             return;
@@ -625,8 +625,8 @@
                 allowEnterKey: false,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirect to login page or show login modal
-                    window.location.href = './index.html'; // Replace with your login page URL
+               
+                    window.location.href = './index.html'; 
                 }
             });
             return;
@@ -892,7 +892,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to login page or show login modal
-                    window.location.href = './index.html'; // Replace with your login page URL
+                    window.location.href = './index.html'; 
                 }
             });
             return;
@@ -1057,7 +1057,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                   
-                    window.location.href = './index.html'; // Replace with your login page URL
+                    window.location.href = './index.html'; 
                 }
             });
             return;

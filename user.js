@@ -269,8 +269,7 @@ $(document).ready(function() {
                 allowEnterKey: false,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirect to login page or show login modal
-                    window.location.href = './index.html'; // Replace with your login page URL
+                    window.location.href = './index.html';
                 }
             });
             return; // Exit the function if the user is not logged in
