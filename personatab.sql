@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2024 at 04:16 PM
+-- Generation Time: Jul 22, 2024 at 09:52 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -63,9 +63,10 @@ CREATE TABLE `contestants` (
 --
 
 INSERT INTO `contestants` (`idContestant`, `name`, `age`, `address`, `gender`, `image`, `categoryID`, `rank`) VALUES
-(1, 'Dran Leynard ', 21, 'Sta Maria', 'male', '../contestant_image/LOGO.png', 1, 1),
-(2, 'Mark Jeriel', 21, 'Sta Maria', 'male', '../contestant_image/LOGO1.png', 1, 2),
-(3, 'Shanne Marie', 21, 'Sta Maria', 'female', '../contestant_image/sw8.jfif', 2, 3);
+(1, 'Dran Leynard ', 21, 'Sta Maria', 'male', '../contestant_image/LOGO.png', 1, 2),
+(2, 'Mark Jeriel', 21, 'Sta Maria', 'male', '../contestant_image/LOGO1.png', 1, 1),
+(3, 'Shanne Marie', 21, 'Sta Maria', 'female', '../contestant_image/sw8.jfif', 2, 1),
+(4, 'Marie', 20, 'Candon', 'female', '../contestant_image/sw8.jfif', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,7 +89,8 @@ INSERT INTO `criteria` (`criteriaID`, `criteriaName`, `categoryID`, `criteriaSco
 (1, 'Design', 1, 40),
 (2, 'Functionality', 1, 60),
 (3, 'Talent', 2, 30),
-(4, 'Question & Answer', 2, 60);
+(4, 'Question & Answer', 2, 60),
+(5, 'Responsiveness', 1, 50);
 
 -- --------------------------------------------------------
 
@@ -130,7 +132,9 @@ INSERT INTO `judges` (`judgeID`, `judgeName`, `judgePassword`, `userType`) VALUE
 (1, 'DL', '202cb962ac59075b964b07152d234b70', 'user'),
 (2, 'Jeriel', '202cb962ac59075b964b07152d234b70', 'user'),
 (3, 'Shanne', '202cb962ac59075b964b07152d234b70', 'user'),
-(4, 'Rikzon', '202cb962ac59075b964b07152d234b70', 'user');
+(4, 'Rikzon', '202cb962ac59075b964b07152d234b70', 'user'),
+(5, 'admin', '202cb962ac59075b964b07152d234b70', 'admin'),
+(6, 'adas', '7815696ecbf1c96e6894b779456d330e', 'user');
 
 -- --------------------------------------------------------
 
@@ -174,10 +178,26 @@ CREATE TABLE `scores` (
 --
 
 INSERT INTO `scores` (`scoreID`, `judgeID`, `contestantID`, `categoryID`, `criterionID`, `score`, `rank`) VALUES
-(1, 1, 1, 1, 1, 22, 1),
-(2, 1, 1, 1, 2, 25, 1),
-(3, 1, 2, 1, 1, 22, 2),
-(4, 1, 2, 1, 2, 21, 2);
+(1, 3, 1, 1, 1, 20, 2),
+(2, 3, 1, 1, 2, 60, 2),
+(3, 3, 2, 1, 1, 40, 1),
+(4, 3, 2, 1, 2, 55, 1),
+(5, 2, 1, 1, 1, 30, 2),
+(6, 2, 1, 1, 2, 60, 2),
+(7, 2, 2, 1, 1, 40, 1),
+(8, 2, 2, 1, 2, 60, 1),
+(9, 1, 1, 1, 1, 40, 1),
+(10, 1, 1, 1, 2, 60, 1),
+(11, 1, 2, 1, 1, 40, 2),
+(12, 1, 2, 1, 2, 47, 2),
+(15, 2, 1, 1, 5, 20, 2),
+(18, 2, 2, 1, 5, 30, 1),
+(21, 1, 1, 1, 5, 50, 1),
+(24, 1, 2, 1, 5, 50, 2),
+(27, 3, 1, 1, 5, 30, 2),
+(30, 3, 2, 1, 5, 50, 1),
+(31, 4, 3, 2, 3, 23, 1),
+(32, 4, 3, 2, 4, 60, 1);
 
 --
 -- Indexes for dumped tables
@@ -247,13 +267,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `contestants`
 --
 ALTER TABLE `contestants`
-  MODIFY `idContestant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idContestant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `criteriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `criteriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -265,13 +285,13 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `judges`
 --
 ALTER TABLE `judges`
-  MODIFY `judgeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `judgeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `scores`
 --
 ALTER TABLE `scores`
-  MODIFY `scoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `scoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- Constraints for dumped tables
