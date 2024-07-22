@@ -1,377 +1,196 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Overall</title>
-
-   
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Alertify -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
-    <!-- Sweet -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-    <link rel="icon" type="image/x-icon" href="/img/logo.ico">
-    
-    <style>
-        body{
-            background-color: #000000;
-        }
-      .thumb {
-        display: flex;
-        margin-top: -60px;
-        justify-content: center;
-      }
-      .thumb a:hover {
-        margin-top: -15px;
-        transition: 0.2s;
-      }
-      .thumb img {
-        width: 54px;
-        margin: 20px 20px 0 10px;
-        max-height: 100%;
-      }
-
-       /* Scrollbar*/
-      ::-webkit-scrollbar {
-        width: 20px;
-      }
-      ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey; 
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #8284ea; 
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #b30000; 
-      }
-      /* END OF Scrollbar */
-
-      .navbar {
-        background-color: #8284ea; 
-        transition: background-color 0.3s ease; 
-      }
-      .navbar.blurred {
-        background-color: transparent; 
-        backdrop-filter: blur(20px);
-      }
-      .nav-link {
-        color: white;
-        font-weight: 500;
-        transition: color 0.3s ease 
-      }
-      .nav-link.scrolled {
-        color: #ffffff;
-        font-weight: 500;
-      }
-      .nav-link.scrolled:hover {
-        color: #006341; 
-        font-weight: 500;
-      }
-      #mugIcon {
-        color: white;
-        transition: color 0.3s ease;
-      }
-      
-      #mugIcon.scrolled {
-        color: #000000; 
-      }
-      #fruitimage {
-        max-width: 100%;
-        max-height: 300px; 
+<head>
+  <title>Overall</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <style>
+    body {
+      background-color: #000000;
     }
-    </style>
-  </head>
-  <body class="">
-
-    <!--Navbar-->
-    <nav class="navbar navbar-expand-lg shadow-lg sticky-top" id="navbar">
-      <div class="container-sm d-flex justify-content-between" style="width: 100%">
-
-        <div class="d-flex justify-content-between align-items-center" style="width: 100vw">
-          <div>
-            <a href="#"> <img src="./img/logo.png" alt="" style="width:60px" /></a>
-          </div>
-          <div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
-              <i class="fa-solid fa-bars" id="mugIcon"></i>
-            </button>
-          </div>
+    .thumb {
+      display: flex;
+      margin-top: -60px;
+      justify-content: center;
+    }
+    .thumb a:hover {
+      margin-top: -15px;
+      transition: 0.2s;
+    }
+    .thumb img {
+      width: 54px;
+      margin: 20px 20px 0 10px;
+      max-height: 100%;
+    }
+    ::-webkit-scrollbar {
+      width: 20px;
+    }
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #8284ea; 
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b30000; 
+    }
+    .navbar {
+      background-color: #8284ea; 
+      transition: background-color 0.3s ease; 
+    }
+    .navbar.blurred {
+      background-color: transparent; 
+      backdrop-filter: blur(20px);
+    }
+    .nav-link {
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-link.scrolled {
+      color: #ffffff;
+      font-weight: 500;
+    }
+    .nav-link.scrolled:hover {
+      color: #006341; 
+      font-weight: 500;
+    }
+    #mugIcon {
+      color: white;
+      transition: color 0.3s ease;
+    }
+    #mugIcon.scrolled {
+      color: #000000; 
+    }
+    #fruitimage {
+      max-width: 100%;
+      max-height: 300px; 
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg shadow-lg sticky-top" id="navbar">
+    <div class="container-sm d-flex justify-content-between" style="width: 100%">
+      <div class="d-flex justify-content-between align-items-center" style="width: 100vw">
+        <div>
+          <a href="#"> <img src="./img/logo.png" alt="" style="width:60px" /></a>
         </div>
-    
-        <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent" style="width: 30vw">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="admin.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="overall.html">Overall</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="adminCrud.html">Contestants</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href="index.html">
-                <i class="fa-solid fa-power-off"></i>
-              </a>
-            </li>
-          </ul>
+        <div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
+            <i class="fa-solid fa-bars" id="mugIcon"></i>
+          </button>
         </div>
-
       </div>
-    </nav>
-    <!--End ti Navbar -->
-
-    
-    <!--Banner-->
-    <div>
-      <div class="position-relative">
-        <img
-          src="./img/bg.png"
-          class="w-100 img-fluid"
-          style="
-            height: 100vh;
-            object-fit: cover;
-            filter: blur(4px);
-            filter: saturate(2);
-          "
-        />
-      
+      <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent" style="width: 30vw">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="admin.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="overall.html">Overall</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="adminCrud.html">Contestants</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="fa-solid fa-power-off"></i>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
-    <!--End Banner-->
-    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-    <!--Hero-->
-    
-    <section class="container-sm">
-        <div class="d-flex flex-column align-items-center text-center">
-        <img
-            src="./img/ispsc.png"
-            style="width: 200px; height: 200px;"
-            alt="logo"
-            class="mt-5 mb-3 img-fluid"
-            srcset=""
-        />
-        <p class="w-75 lead text-secondary fst-italic">
+  </nav>
+  <div>
+    <div class="position-relative">
+      <img src="./img/bg.png" class="w-100 img-fluid" style="height: 100vh; object-fit: cover; filter: blur(4px); filter: saturate(2);" />
+    </div>
+  </div>
+  <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+  <section class="container-sm">
+    <div class="d-flex flex-column align-items-center text-center">
+      <img src="./img/ispsc.png" style="width: 200px; height: 200px;" alt="logo" class="mt-5 mb-3 img-fluid" srcset="" />
+      <p class="w-75 lead text-secondary fst-italic">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sit fugit
-            quia odit a suscipit aut iste nisi earum porro quas asperiores labore nostrum,
-            repellendus nobis. Impedit unde repellendus perferendis? Quisquam vitae iure
-            blanditiis cum saepe suscipit. Repellat, aspernatur. Amet.
-        </p>
+        quia odit a suscipit aut iste nisi earum porro quas asperiores labore nostrum,
+        repellendus nobis. Impedit unde repellendus perferendis? Quisquam vitae iure
+        blanditiis cum saepe suscipit. Repellat, aspernatur. Amet.
+      </p>
+    </div>
+  </section>
+  <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-        </div>
-    </section>
-    <!-- End Hero-->
-  
-    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-    <!-- Denim CONTENT -->
-     <section class="">
-        <div class="container-sm">
-          
-          
-          <div class="container mt-5 text-center">
-            <button id="refresh-summary" class="btn btn-outline-light">Refresh Summary</button>
-          </div>
-          <div id="summary-table" class="container mt-5 text-center"></div>
-          <div class="container mt-5 text-center">
-            <button id="exportPDF" class="btn btn-primary">Export to PDF <i class=" fa-solid fa-download"></i></button>
-          </div>
-          <div id="denimsummary-table" class="container mt-5 text-center"></div>
-          <div id="sportssummary-table" class="container mt-5 text-center"></div>
-          <div id="swimsuitsummary-table" class="container mt-5 text-center"></div>
-          <div id="formalsummary-table" class="container mt-5 text-center"></div>
-          <div id="questionsummary-table" class="container mt-5 text-center"></div>
-          
-        </div>
-      </section>
-      <!-- END OF Denim CONTENT -->
 
-    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-    
 
-    
-    
+  <section class="container-sm mt-5">
+    <div class="d-flex flex-column align-items-center text-center">
+      <h1 class="fst-italic text-center text-white">Check Scores</h1>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="eventSelect" class="form-label text-white">Select Event</label>
+        <select class="form-select" id="eventSelect" name="eventSelect">
+          <!-- Options will be populated dynamically -->
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="categorySelect" class="form-label text-white">Select Category</label>
+        <select class="form-select" id="categorySelect" name="categorySelect">
+          <!-- Options will be populated dynamically -->
+        </select>
+      </div>
+    </div>
    
-    <!---Footer-->
-    <footer class="mt-5 text-white p-3" style="background-color: #000000;">
-        <div class="container-sm d-flex justify-content-between align-items-center">
-            <div class="">
-            <h4>Tabulation System</h4>
-            <h5>DL VISUALS</h5>
-            <ul>
-              <li>Dran Leynard Gamoso</li>
-              <li><a href="https://www.facebook.com/DLuvvsssU" style="text-decoration: none; color:white"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
-            </ul>
-            </div>
-            <div class="">
-            <div>
-                <img src="./img/logo.png" style=" width: 50px; height: 50px;" alt="">
-            </div>
-            <div>
-                <p class="fst-bold">&copy DL Visuals</p>
-            </div>
-            </div>
-        </div>
-    </footer>
-     <!---End Footer-->
-     
-     
-      <script type="text/javascript">
-        //For navbar
-        window.onscroll = function () { scrollFunction() };
-
-        function scrollFunction() {
-          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-            document.getElementById("navbar").classList.add("blurred");
-            const navLinks = document.querySelectorAll(".nav-link");
-            navLinks.forEach(link => link.classList.add("scrolled"));
-            document.getElementById("mugIcon").classList.add("scrolled"); 
-          } else {
-            document.getElementById("navbar").classList.remove("blurred");
-            const navLinks = document.querySelectorAll(".nav-link");
-            navLinks.forEach(link => link.classList.remove("scrolled"));
-            document.getElementById("mugIcon").classList.remove("scrolled");
-          }
-        }
-        //end of function for navbarrr
-        
-        function loadSummaryTable() {
-            $.ajax({
-                url: './backend/overallSummary.php',
-                method: 'GET',
-                success: function(data) {
-                    $('#summary-table').html(data);
-                },
-                error: function() {
-                    alertify.error('Error loading summary table.');
-                }
-            });
-        }
-        function loadDenimSummaryTable() {
-            $.ajax({
-                url: './backend/denimSummary.php',
-                method: 'GET',
-                success: function(data) {
-                    $('#denimsummary-table').html(data);
-                },
-                error: function() {
-                    alertify.error('Error loading summary table.');
-                }
-            });
-        }
-        function loadFormalSummaryTable() {
-            $.ajax({
-                url: './backend/formalSummary.php',
-                method: 'GET',
-                success: function(data) {
-                    $('#formalsummary-table').html(data);
-                },
-                error: function() {
-                    alertify.error('Error loading summary table.');
-                }
-            });
-        }
-        function loadSwimSummaryTable() {
-            $.ajax({
-                url: './backend/swimsuitSummary.php',
-                method: 'GET',
-                success: function(data) {
-                    $('#swimsuitsummary-table').html(data);
-                },
-                error: function() {
-                    alertify.error('Error loading summary table.');
-                }
-            });
-        }
-        function loadSportsSummaryTable() {
-            $.ajax({
-                url: './backend/sportsSummary.php',
-                method: 'GET',
-                success: function(data) {
-                    $('#sportssummary-table').html(data);
-                },
-                error: function() {
-                    alertify.error('Error loading summary table.');
-                }
-            });
-        }
-        function loadQuestionSummaryTable() {
-            $.ajax({
-                url: './backend/questionSummary.php',
-                method: 'GET',
-                success: function(data) {
-                    $('#questionsummary-table').html(data);
-                },
-                error: function() {
-                    alertify.error('Error loading summary table.');
-                }
-            });
-        }
-
-        $(document).ready(function() {
-            loadSummaryTable();
-            loadDenimSummaryTable();
-            loadFormalSummaryTable();
-            loadSwimSummaryTable();
-            loadSportsSummaryTable();
-            loadQuestionSummaryTable();
-
-            $('#refresh-summary').click(function() {
-                loadSummaryTable();
-                loadDenimSummaryTable();
-                loadFormalSummaryTable();
-                loadSwimSummaryTable();
-                loadSportsSummaryTable();
-                loadQuestionSummaryTable();
-            });
-        });
-
-       
-
-        document.getElementById('exportPDF').addEventListener('click', function() {
-          var xhr = new XMLHttpRequest();
-          xhr.open('GET', './backend/exportToPDF.php', true);
-          xhr.onreadystatechange = function() {
-              if (xhr.readyState === 4) {
-                  if (xhr.status === 200) {
-                      var response = JSON.parse(xhr.responseText);
-                      if (response.success) {
-                          Swal.fire({
-                              icon: 'success',
-                              title: 'PDF Exported Successfully!',
-                              text: response.message
-                          });
-                      } else {
-                          Swal.fire({
-                              icon: 'error',
-                              title: 'PDF Export Failed!',
-                              text: 'An error occurred while exporting the PDF.'
-                          });
-                      }
-                  } else {
-                      Swal.fire({
-                          icon: 'error',
-                          title: 'PDF Export Failed!',
-                          text: 'An error occurred while exporting the PDF.'
-                      });
-                  }
-              }
-          };
-          xhr.send();
-      });
+    <h3 class="text-white text-center mt-4">Overall Summary</h3>
+    <table id="overallSummaryTable" class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th>Contestant</th>
+          <th>Total Score</th>
+          <th>Rank</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Overall summary rows will be populated dynamically -->
+      </tbody>
+    </table>
+    <h1 class="fst-italic text-center text-white">Judge Scores</h1>
+    <div id="judgesScoresTables">
       
-       
-      </script>
-  </body>
+      <!-- Judges scores tables will be populated dynamically -->
+    </div>
+  </section>
+
+
+
+  
+  <footer class="mt-5 text-white p-3" style="background-color: #000000;">
+    <div class="container-sm d-flex justify-content-between align-items-center">
+      <div>
+        <h4>Tabulation System</h4>
+        <h5>DL VISUALS</h5>
+        <ul>
+          <li>Dran Leynard Gamoso</li>
+          <li><a href="https://www.facebook.com/DLuvvsssU" style="text-decoration: none; color:white"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <div>
+          <img src="./img/logo.png" style=" width: 50px; height: 50px;" alt="">
+        </div>
+        <div>
+          <p class="fst-bold">&copy DL Visuals</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="admin.js"></script>
+</body>
 </html>
