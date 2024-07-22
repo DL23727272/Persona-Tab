@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="/img/logo.ico">
+    <link rel="icon" type="image/x-icon" href="./img/logo.ico">
 
     <style>
         body{
@@ -197,6 +197,31 @@
 
       <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
      
+      <!------------ Check Scores ------------------>
+    <section class="container-sm mt-5">
+      <div class="d-flex flex-column align-items-center text-center">
+        <h1 class="fst-italic text-center text-white">Check Overall Scores</h1>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="eventSelect" class="form-label text-white">Select Event</label>
+          <select class="form-select" id="eventSelect" name="eventSelect">
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="categorySelect" class="form-label text-white">Select Category</label>
+          <select class="form-select" id="categorySelect" name="categorySelect">
+            <!-- Options will be populated dynamically -->
+          </select>
+        </div>
+      </div>
+
+      <div id="scoresSection">
+        <!-- Scores sections will be populated dynamically -->
+      </div>
+    </section>
+
 
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
       
@@ -227,9 +252,11 @@
      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
      <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <script src="user.js">
+     <script src="user.js"></script>
+     <script src="fetchScores.js"></script>
+    
      
 
-    </script>
+    
 </body>
 </html>
