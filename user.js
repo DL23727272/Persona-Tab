@@ -1,115 +1,9 @@
-    alertify.set('notifier', 'position', 'top-right');
-
-     
-      //For navbar
-      window.onscroll = function () { scrollFunction() };
-
-      function scrollFunction() {
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-          document.getElementById("navbar").classList.add("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.add("scrolled"));
-          document.getElementById("mugIcon").classList.add("scrolled"); 
-        } else {
-          document.getElementById("navbar").classList.remove("blurred");
-          const navLinks = document.querySelectorAll(".nav-link");
-          navLinks.forEach(link => link.classList.remove("scrolled"));
-          document.getElementById("mugIcon").classList.remove("scrolled"); 
-        }
-      }
-      //end of function for navbarrr
-     
-      //form validation
-      function Login() {
-          var username = document.getElementById("customerName").value;
-          var password = document.getElementById("customerPassword").value;
-      
-          if (username == "" && password == "") {
-              alertify.error('Empty fields! Please fill all the fields.');
-          } else if (username == "") {
-              alertify.error('Fill up the Username field!');
-          } else if (password == "") {
-              alertify.error('Fill up the Password field!');
-          } else {
-              // Send form data to loginProcess.php using AJAX
-              $.ajax({
-                  type: "POST",
-                  url: "./backend/loginProcess.php",
-                  data: {
-                      customerLoginName: username,
-                      customerLoginPassword: password
-                  },
-                  dataType: "json",
-                  success: function(response) {
-                      // Handle success response
-                      if (response.status === 'success') {
-
-                          // if login goods 
-                          //alertify.success(response.message + ' <i class="fa fa-spinner fa-spin"></i>');
-                          Swal.fire({
-                            icon: 'success',
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 2000 
-                          });
-                          
-
-                          var judgeID = response.judgeID;
-                          sessionStorage.setItem('judgeID', judgeID);
-      
-                          var customerNameInput = document.getElementById("customerName").value;
-                          var customerName = customerNameInput;
-                          sessionStorage.setItem('customerName', customerName); //tangina  40mins para dito
-      
-                          setTimeout(function() {
-
-                              if (response.type === 'admin') {
-                                  window.location.href = 'admin.html'; 
-                              } else {
-                                  window.location.href = 'home.html'; 
-                              }
-
-                          }, 2000);
-      
-                      } else {
-                        //  alertify.error(response.message);// Display error message 
-                          Swal.fire({
-                            icon: 'error',
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 1500 
-                          });
-                          
-                      }
-                  },
-                  error: function(xhr, status, error) {
-                      console.error(xhr.responseText);
-                      alertify.error('Failed to log in!');
-                  }
-              });
-          }
-      }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        var judgeID = sessionStorage.getItem('judgeID');
-        var judgeName = sessionStorage.getItem('customerName');
-        
-        // Check if customerID is present
-        if (judgeID) {
-        
-          console.log('Judge ID ' + judgeID)
-          console.log('Judge Name ' + judgeName);
-          document.getElementById("judgeName").innerHTML = judgeName;
-           
-        } else {
-            console.log('Customer ID not found in sessionStorage'); 
-        }
-    });
-
     
 // --------------- FOR JUDGE SCORE TABLE --------------
 $(document).ready(function() {
     var judgeID = sessionStorage.getItem('judgeID');
+    var judgeName = sessionStorage.getItem('customerName');
+    document.getElementById("judgeName").innerHTML = judgeName;
     console.log('Judge ID:', judgeID); // Debugging line
 
     if (judgeID) {
@@ -158,9 +52,23 @@ $(document).ready(function() {
                 });
             }
         });
-    } else {
-        console.error('Judge ID not found in session storage');
-    }
+    }else{
+        Swal.fire({
+            icon: 'warning',
+            title: 'Not Logged In',
+            text: 'You need to log in to access this page.',
+            confirmButtonText: 'Log In',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to login page or show login modal
+                window.location.href = './index.html'; 
+            }
+        });
+        return;
+    }  
 
     // Fetch contestants by judge
     function fetchContestantsByJudge(judgeID, criteria) {
