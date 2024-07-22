@@ -546,6 +546,7 @@
     });
     // ---------------END FOR ADD CONTESTANT TO CATEGORY --------------
 
+    
     // --------------- FOR ADMIN UPDATE JUDGE SCORE TABLE --------------
     $(document).ready(function() {
         $('#judgeScore').change(function() {
