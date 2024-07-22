@@ -263,9 +263,10 @@ $(document).ready(function() {
                 icon: 'warning',
                 title: 'Not Logged In',
                 text: 'You need to log in to submit scores.',
-                showCancelButton: true,
                 confirmButtonText: 'Log In',
-                cancelButtonText: 'Cancel'
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Redirect to login page or show login modal
@@ -273,61 +274,63 @@ $(document).ready(function() {
                 }
             });
             return; // Exit the function if the user is not logged in
-        }
+        }else{
 
-        var scoresData = [];
-        
-        $('#contestantTable tbody tr').each(function() {
-            var contestantID = $(this).data('contestant-id');
-            var categoryID = $(this).data('category-id'); // Capture categoryID
+            var scoresData = [];
+            
+            $('#contestantTable tbody tr').each(function() {
+                var contestantID = $(this).data('contestant-id');
+                var categoryID = $(this).data('category-id'); // Capture categoryID
 
-            $(this).find('.score-input').each(function() {
-                var score = parseInt($(this).val()) || 0;
-                var criterionID = $(this).data('criterion-id');
+                $(this).find('.score-input').each(function() {
+                    var score = parseInt($(this).val()) || 0;
+                    var criterionID = $(this).data('criterion-id');
 
-                scoresData.push({
-                    judgeID: judgeID,
-                    contestantID: contestantID,
-                    categoryID: categoryID, // Include categoryID
-                    criterionID: criterionID,
-                    score: score,
-                    rank: $(this).closest('tr').find('.contestant-rank').text()
+                    scoresData.push({
+                        judgeID: judgeID,
+                        contestantID: contestantID,
+                        categoryID: categoryID, // Include categoryID
+                        criterionID: criterionID,
+                        score: score,
+                        rank: $(this).closest('tr').find('.contestant-rank').text()
+                    });
                 });
             });
-        });
 
-        $.ajax({
-            url: './backend/saveScores.php',
-            type: 'POST',
-            data: { scores: JSON.stringify(scoresData) },
-            dataType: 'json',
-            success: function(response) {
-                console.log('Response:', response); // Log response for debugging
-                if (response.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: response.message
-                    });
-                } else {
+            $.ajax({
+                url: './backend/saveScores.php',
+                type: 'POST',
+                data: { scores: JSON.stringify(scoresData) },
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Response:', response); // Log response for debugging
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: response.message
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: response.message
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX error:', status, error);
+                    console.error('Response:', xhr.responseText); // Log raw response for debugging
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: response.message
+                        text: 'An error occurred while saving scores. Please try again.'
                     });
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX error:', status, error);
-                console.error('Response:', xhr.responseText); // Log raw response for debugging
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'An error occurred while saving scores. Please try again.'
-                });
-            }
-        });
+            });
+        }
     }
+
 
     // Attach saveScores to form submission
     $('#scoringForm').on('submit', function(event) {
