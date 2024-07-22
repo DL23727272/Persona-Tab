@@ -334,4 +334,17 @@ $(document).ready(function() {
         saveScores(); // Call saveScores function
     });
 
+    function displayCriteria(criteria) {
+        if (criteria && Array.isArray(criteria)) {
+            var criteriaHtml = criteria.map(function(criterion) {
+                return criterion.criteriaName + ' <span>' + criterion.criteriaScore + '</span>';
+            }).join(', ');
+    
+            $('#criteriaDisplay').html('Criteria: ' + criteriaHtml);
+        } else {
+            console.error('Invalid criteria data:', criteria);
+        }
+    }
+    
+
 });

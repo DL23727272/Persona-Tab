@@ -32,20 +32,21 @@ if (isset($_GET['judgeID'])) {
     $categoryIDs = array_column($categories, 'categoryID');
     if (count($categoryIDs) > 0) {
         $criteriaQuery = "
-            SELECT c.criteriaID, c.criteriaName, c.categoryID
+            SELECT c.criteriaID, c.criteriaName, c.categoryID, c.criteriaScore
             FROM criteria c
             WHERE c.categoryID IN (" . implode(',', array_map('intval', $categoryIDs)) . ")";
         
         $criteriaStmt = mysqli_prepare($con, $criteriaQuery);
         mysqli_stmt_execute($criteriaStmt);
-        mysqli_stmt_bind_result($criteriaStmt, $criteriaID, $criteriaName, $criteriaCategoryID);
+        mysqli_stmt_bind_result($criteriaStmt, $criteriaID, $criteriaName, $criteriaCategoryID, $criteriaScore);
 
         $criteria = [];
         while (mysqli_stmt_fetch($criteriaStmt)) {
             $criteria[] = [
                 'criteriaID' => $criteriaID,
                 'criteriaName' => $criteriaName,
-                'categoryID' => $criteriaCategoryID
+                'categoryID' => $criteriaCategoryID,
+                'criteriaScore' => $criteriaScore
             ];
         }
 
