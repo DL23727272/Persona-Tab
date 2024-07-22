@@ -100,111 +100,55 @@
   
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-    <!-- Add Contestant Form
-    <section class="container-sm">
-     <div class="d-flex flex-column align-items-center text-center">
-        <div class="d-flex justify-content-center align-items-center min-vh-100">
-            <section class="container-sm mt-5">
-                <h2 class="text-center text-white">Add Contestant</h2>
-                <form id="contestantForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="name" class="form-label text-white">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="age" class="form-label text-white">Age</label>
-                        <input type="number" class="form-control" id="age" name="age" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label text-white">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label text-white">Gender</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label text-white">Image</label>
-                        <input type="file" class="form-control" id="image" name="image" required>
-                    </div>
-                    <button type="submit" class="btn btn-outline-light">Add Contestant</button>
-                </form>
-            </section>
-        </div>
-     </div>
-    </section> -->
-
-    <!-- Add Contestant Form -->
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <section class="container-sm mt-5">
-            <h2 class="text-center text-white">Add Contestant</h2>
-            <form id="contestantForm" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="name" class="form-label text-white">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Contestant Name" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="age" class="form-label text-white">Age</label>
-                        <input type="number" class="form-control" id="age" name="age" placeholder="Contestant Age" required>
-                    </div>
+    <!-- ADDING CONTESTANT FOR A CATEGORY -->
+  <div class="d-flex justify-content-center align-items-center min-vh-80">
+    <section class="container-sm mt-5">
+        <h2 class="text-center text-white">Add Contestant</h2>
+        <form id="contestantForm" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label text-white">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Contestant Name" required>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="address" class="form-label text-white">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Contestant Address" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="gender" class="form-label text-white">Gender</label>
-                        <select class="form-control" id="gender" name="gender" required>
-                            <option value="#" disabled selected>--- Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
+                <div class="col-md-6 mb-3">
+                    <label for="age" class="form-label text-white">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" placeholder="Contestant Age" required>
                 </div>
-                <div class="mb-3">
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="address" class="form-label text-white">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Contestant Address" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="gender" class="form-label text-white">Gender</label>
+                    <select class="form-control" id="gender" name="gender" required>
+                        <option value="#" disabled selected>--- Select Gender ---</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <label for="image" class="form-label text-white">Image</label>
                     <input type="file" class="form-control" id="image" name="image" required>
                 </div>
-                <div class="d-flex flex-column align-items-center text-center">
-                    <button type="submit" class="btn btn-outline-light">Add Contestant</button>
+                <div class="col-md-6 mb-3">
+                    <label for="category" class="form-label text-white">Category</label>
+                    <select class="form-select" id="category" name="categoryID" required>
+                        <option value="#" disabled selected>--- Select Category ---</option>
+                        <!-- Options populated dynamically -->
+                    </select>
                 </div>
-            </form>
-        </section>
-    </div>
-
-
-
-    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-
-    <!-- Contestants CONTENT -->
-      
-    <section class="container-sm">
-        <div class="d-flex flex-column align-items-center text-center">
-            <section class="container-sm">
-                <h1 class="fst-italic text-center text-white">Male </h1>
-                <div id="maleContestants" class="container mt-5 text-center">
-                </div>
-            </section>
-        
-
-            <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-
-            <section class="container-sm">
-                <h1 class="fst-italic text-center text-white">Female </h1>
-                <div id="femaleContestants" class="container mt-5 text-center">
-                </div>
-            </section>
-        </div>
+            </div>
+            <div class="d-flex flex-column align-items-center text-center">
+                <button type="submit" class="btn btn-outline-light">Add Contestant</button>
+            </div>
+        </form>
     </section>
-    <!-- END OF Contestants CONTENT -->
+  </div>
 
-
-    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
     
 
@@ -231,205 +175,7 @@
     </footer>
      <!---End Footer-->
 
-<script>
-     //For navbar
-     window.onscroll = function () { scrollFunction() };
-
-     function scrollFunction() {
-       if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-         document.getElementById("navbar").classList.add("blurred");
-         const navLinks = document.querySelectorAll(".nav-link");
-         navLinks.forEach(link => link.classList.add("scrolled"));
-         document.getElementById("mugIcon").classList.add("scrolled"); 
-       } else {
-         document.getElementById("navbar").classList.remove("blurred");
-         const navLinks = document.querySelectorAll(".nav-link");
-         navLinks.forEach(link => link.classList.remove("scrolled"));
-         document.getElementById("mugIcon").classList.remove("scrolled");
-       }
-     }
-     //end of function for navbarrr
-    $(document).ready(function() {
-        $('#contestantForm').submit(function(e) {
-            e.preventDefault();
-
-            var formData = new FormData(this);
-
-            $.ajax({
-                url: './backend/addContestant.php',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    console.log(response);
-                    if (response.status === 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: response.message,
-                        });
-                        
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: response.message,
-                        });
-                    }
-                },
-                error: function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error adding contestant.',
-                    });
-                }
-            });
-        });
-    });
-
-
-    
-    // Fetch contestants     
-    $(document).ready(function() {
-        function fetchContestants() {
-          $.ajax({
-            url: './backend/adminFetchMale.php',
-            type: 'POST',
-            dataType: 'html',
-            success: function(response) {
-              $('#maleContestants').html(response); 
-            },
-            error: function(xhr, status, error) {
-              console.error('Ajax Error: ' + status + ' - ' + error);
-            }
-          });
-        }
-    
-        fetchContestants();
-    
-        $('#refreshContestants').click(function() {
-          fetchContestants(); 
-        });
-    });
-           
-    $(document).ready(function() {
-      
-        function fetchContestants() {
-          $.ajax({
-            url: './backend/adminFetchFemale.php',
-            type: 'POST',
-            dataType: 'html',
-            success: function(response) {
-              $('#femaleContestants').html(response); 
-            },
-            error: function(xhr, status, error) {
-              console.error('Ajax Error: ' + status + ' - ' + error); 
-            }
-          });
-        }
-    
-        fetchContestants();
-    
-        $('#refreshContestants').click(function() {
-          fetchContestants(); 
-        });
-    });
-    //END 
-
-      
-
-    function updateContestant(id) {
-        var formData = new FormData(document.getElementById('editForm' + id));
-    
-        $.ajax({
-            url: './backend/updateContestant.php', 
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                // Handle success with SweetAlert
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Contestant updated successfully!',
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#editModal' + id).modal('hide');
-                        location.reload(); 
-                    }
-                });
-            },
-            error: function(xhr, status, error) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Failed to update contestant: ' + error,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        });
-    }
-    
-    
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You will not be able to recover this contestant!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: './backend/deleteContestant.php',
-                    type: 'POST',
-                    data: { contestantID: id },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            Swal.fire({
-                                title: 'Deleted!',
-                                text: 'Contestant has been deleted.',
-                                icon: 'success',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    location.reload(); // Refresh the page or update UI as needed
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Failed to delete contestant: ' + response.message,
-                                icon: 'error',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Failed to delete contestant: ' + error,
-                            icon: 'error',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                Swal.fire({
-                    title: 'Cancelled',
-                    text: 'Contestant is safe :)',
-                    icon: 'info',
-                    confirmButtonText: 'OK'
-                });
-            }
-        });
-    }
+<script src="admin.js">
     
 </script>
 
