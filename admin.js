@@ -931,7 +931,7 @@
             });
         }
 
-        // Bind fetchScores to event and category select change
+        // fetchScores to event and category select change
         $('#eventSelect, #categorySelect').on('change', function() {
             fetchScores();
         });
