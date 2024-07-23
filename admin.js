@@ -634,257 +634,264 @@
     
     // --------------- FOR ADMIN UPDATE JUDGE SCORE TABLE --------------
     $(document).ready(function() {
-    // Populate Events Dropdown
-    $.ajax({
-        url: './backend/getEvents.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            if (response.events && Array.isArray(response.events)) {
-                var eventOptions = response.events.map(function(event) {
-                    return '<option value="' + event.eventID + '">' + event.eventName + '</option>';
-                }).join('');
-                $('#eventSelect').append(eventOptions);
-            } else {
-                console.error('Invalid events response:', response);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching events:', {
-                status: status,
-                error: error,
-                responseText: xhr.responseText
+        let originalScores = {}; // Store original scores to compare
+    
+        function loadEvents() {
+            $.ajax({
+                url: './backend/getEvents.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var options = '<option value="#" disabled selected>--- Select Event ---</option>';
+                    $.each(data, function(index, event) {
+                        options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
+                    });
+                    $('#eventUpdateSelect').html(options);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading events:', status, error);
+                    alertify.error('Error loading events.');
+                }
             });
         }
-    });
-
-    // Event change handler
-    $('#eventSelect').change(function() {
-        var eventID = $(this).val();
-        $('#categorySelect').empty().append('<option value="#" disabled selected>--- Select Category ---</option>');
-        $('#judgeSelect').empty().append('<option value="#" disabled selected>--- Select Judge ---</option>');
-        $('#contestantTable thead').empty();
-        $('#contestantTable tbody').empty();
-
-        if (eventID) {
+    
+        function loadCategories(eventID) {
             $.ajax({
-                url: './backend/getCategoriesByEvent.php',
-                type: 'GET',
+                url: './backend/adminGetCategories.php',
+                method: 'GET',
                 data: { eventID: eventID },
                 dataType: 'json',
-                success: function(response) {
-                    if (response.categories && Array.isArray(response.categories)) {
-                        var categoryOptions = response.categories.map(function(category) {
-                            return '<option value="' + category.categoryID + '">' + category.categoryName + '</option>';
-                        }).join('');
-                        $('#categorySelect').append(categoryOptions);
-                    } else {
-                        console.error('Invalid categories response:', response);
-                    }
+                success: function(data) {
+                    var options = '<option value="#" disabled selected>--- Select Category ---</option>';
+                    $.each(data, function(index, category) {
+                        options += '<option value="' + category.categoryID + '">' + category.categoryName + '</option>';
+                    });
+                    $('#categoryUpdateSelect').html(options);
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error fetching categories:', {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText
-                    });
+                    console.error('Error loading categories:', status, error);
+                    alertify.error('Error loading categories.');
                 }
             });
         }
-    });
-
-    // Category change handler
-    $('#categorySelect').change(function() {
-        var categoryID = $(this).val();
-        $('#judgeSelect').empty().append('<option value="#" disabled selected>--- Select Judge ---</option>');
-        $('#contestantTable thead').empty();
-        $('#contestantTable tbody').empty();
-
-        if (categoryID) {
+    
+        function loadJudges(categoryID) {
             $.ajax({
                 url: './backend/getJudgesByCategory.php',
-                type: 'GET',
+                method: 'GET',
                 data: { categoryID: categoryID },
                 dataType: 'json',
-                success: function(response) {
-                    if (response.judges && Array.isArray(response.judges)) {
-                        var judgeOptions = response.judges.map(function(judge) {
-                            return '<option value="' + judge.judgeID + '">' + judge.judgeName + '</option>';
-                        }).join('');
-                        $('#judgeSelect').append(judgeOptions);
-                    } else {
-                        console.error('Invalid judges response:', response);
-                    }
+                success: function(data) {
+                    var options = '<option value="#" disabled selected>--- Select Judge ---</option>';
+                    $.each(data, function(index, judge) {
+                        options += '<option value="' + judge.judgeID + '">' + judge.judgeName + '</option>';
+                    });
+                    $('#judgeUpdateSelect').html(options);
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error fetching judges:', {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText
-                    });
+                    console.error('Error loading judges:', status, error);
+                    alertify.error('Error loading judges.');
                 }
             });
         }
-    });
-
-    // Judge change handler
-    $('#judgeSelect').change(function() {
-        var judgeID = $(this).val();
-        $('#contestantTable thead').empty();
-        $('#contestantTable tbody').empty();
-
-        if (judgeID) {
+    
+        function loadCriteria(judgeID, categoryID) {
             $.ajax({
-                url: './backend/getCriteriaByJudge.php',
-                type: 'GET',
-                data: { judgeID: judgeID },
+                url: './backend/adminGetCriteriaByJudge.php',
+                method: 'GET',
+                data: { judgeID: judgeID, categoryID: categoryID },
                 dataType: 'json',
-                success: function(response) {
-                    if (response.criteria && Array.isArray(response.criteria)) {
-                        // Generate table headers based on criteria
+                success: function(data) {
+                    if (data.criteria && Array.isArray(data.criteria)) {
                         var thead = '<tr><th>Contestant Name</th>';
-                        var criteriaHeaders = response.criteria.map(function(criterion) {
+                        var criteriaHeaders = data.criteria.map(function(criterion) {
                             return '<th>' + criterion.criteriaName + '</th>';
                         });
-                        thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
+                        thead += criteriaHeaders.join('') + '<th>Total Score</th></tr>';
                         $('#contestantTable thead').html(thead);
-
-                        // Fetch and display contestants based on selected judge
-                        fetchScoresByJudge(judgeID, response.criteria);
+    
+                        // Update category name
+                        $('#categoryName').text(data.categoryName || 'Category');
+    
+                        // Fetch scores after criteria are loaded
+                        fetchScoresByJudge(judgeID, data.criteria);
                     } else {
-                        console.error('Invalid criteria response:', response);
-                    }
-
-                    if (response.categories && Array.isArray(response.categories)) {
-                        // Update the category name in the H1 tag
-                        var categoryName = response.categories.map(function(category) {
-                            return category.categoryName;
-                        }).join(', ');
-                        $('#categoryName').text(categoryName);
-                    } else {
-                        console.error('Invalid categories response:', response);
+                        console.error('Invalid criteria response:', data);
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error fetching criteria:', {
-                        status: status,
-                        error: error,
-                        responseText: xhr.responseText
-                    });
+                    console.error('Error loading criteria:', status, error);
+                    alertify.error('Error loading criteria.');
                 }
             });
         }
-    });
-
-    // Fetch scores by judge
-    function fetchScoresByJudge(judgeID, criteria) {
-        $.ajax({
-            url: './backend/getScoresByJudge.php',
-            type: 'GET',
-            data: { judgeID: judgeID },
-            dataType: 'json',
-            success: function(response) {
-                if (response.scores && Array.isArray(response.scores)) {
-                    var tbody = '';
-                    var contestantScores = {};
-
-                    // Initialize contestant data
-                    response.scores.forEach(function(score) {
-                        if (!contestantScores[score.contestantID]) {
-                            contestantScores[score.contestantID] = {
-                                idContestant: score.contestantID,
-                                name: score.name,
-                                scores: {}, // To store scores based on criteria
-                                totalScore: 0,
-                                categoryID: score.categoryID // Ensure this is included
-                            };
-                        }
-                        contestantScores[score.contestantID].scores[score.criterionID] = score.score;
-                    });
-
-                    // Generate rows for each contestant
-                    Object.values(contestantScores).forEach(function(contestant) {
-                        var rowHtml = '<tr data-contestant-id="' + contestant.idContestant + '" data-category-id="' + contestant.categoryID + '">';
-                        rowHtml += '<td>' + contestant.name + '</td>';
-
-                        // Ensure criteria is defined and iterate over it
-                        if (Array.isArray(criteria)) {
+    
+        function fetchScoresByJudge(judgeID, criteria) {
+            $.ajax({
+                url: './backend/getScoresByJudge.php',
+                method: 'GET',
+                data: { judgeID: judgeID, categoryID: $('#categoryUpdateSelect').val() },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.scores && Array.isArray(data.scores)) {
+                        originalScores = {}; // Reset original scores
+                        var tbody = '';
+                        var contestantScores = {};
+    
+                        // Initialize contestant data
+                        data.scores.forEach(function(score) {
+                            if (!contestantScores[score.contestantID]) {
+                                contestantScores[score.contestantID] = {
+                                    idContestant: score.contestantID,
+                                    name: score.contestantName,
+                                    scores: {},
+                                    totalScore: 0
+                                };
+                            }
+                            contestantScores[score.contestantID].scores[score.criteriaName] = score.score;
+                            originalScores[score.contestantID] = originalScores[score.contestantID] || {};
+                            originalScores[score.contestantID][score.criteriaID] = score.score;
+                        });
+    
+                        // Generate rows for each contestant
+                        Object.values(contestantScores).forEach(function(contestant) {
+                            var rowHtml = '<tr data-contestant-id="' + contestant.idContestant + '">';
+                            rowHtml += '<td>' + contestant.name + '</td>';
+    
+                            // Display scores based on criteria
                             criteria.forEach(function(criterion) {
-                                var score = contestant.scores[criterion.criteriaID] || 0; // Get score for the criterion
-                                rowHtml += '<td><input type="number" class="score-input" data-contestant-id="' + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + '" value="' + score + '"></td>';
+                                var score = contestant.scores[criterion.criteriaName] || 0;
+                                rowHtml += '<td><input type="number" class="score-input" data-contestant-id="' + contestant.idContestant +
+                                            '" data-criterion-name="' + criterion.criteriaName +
+                                             '" data-criterion-id="' + criterion.criteriaID + 
+                                             '" value="' + score + '"></td>';
                             });
-                        }
-
-                        // Calculate total score
-                        var totalScore = Object.values(contestant.scores).reduce(function(sum, score) {
-                            return sum + score;
-                        }, 0);
-                        rowHtml += '<td>' + totalScore + '</td>';
-
-                        // For simplicity, ranking can be calculated on the client side if needed
-                        // Here you could include code to rank contestants if necessary
-
-                        rowHtml += '</tr>';
-                        tbody += rowHtml;
-                    });
-
-                    $('#contestantTable tbody').html(tbody);
-                } else {
-                    console.error('Invalid scores response:', response);
+    
+                            var totalScore = Object.values(contestant.scores).reduce(function(sum, score) {
+                                return sum + score;
+                            }, 0);
+                            rowHtml += '<td>' + totalScore + '</td>';
+                            rowHtml += '</tr>';
+                            tbody += rowHtml;
+                        });
+    
+                        $('#contestantTable tbody').html(tbody);
+                    } else {
+                        console.error('Invalid scores response:', data);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching scores:', status, error);
+                    alertify.error('Error fetching scores.');
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching scores:', {
-                    status: status,
-                    error: error,
-                    responseText: xhr.responseText
-                });
+            });
+        }
+    
+        $('#eventUpdateSelect').change(function() {
+            var eventID = $(this).val();
+            if (eventID) {
+                loadCategories(eventID);
+                $('#categoryUpdateSelect').empty().append('<option value="#" disabled selected>--- Select Category ---</option>');
+                $('#judgeUpdateSelect').empty().append('<option value="#" disabled selected>--- Select Judge ---</option>');
+                $('#contestantTable thead').empty();
+                $('#contestantTable tbody').empty();
             }
         });
-    }
-
-    // Handle form submission
-    $('#scoringForm').submit(function(event) {
-        event.preventDefault();
-
-        var scores = [];
-        $('#contestantTable tbody tr').each(function() {
-            var contestantID = $(this).data('contestant-id');
-            var categoryID = $(this).data('category-id');
-            $(this).find('.score-input').each(function() {
-                var criterionID = $(this).data('criterion-id');
-                var score = $(this).val();
-                if (score) {
-                    scores.push({
-                        contestantID: contestantID,
-                        categoryID: categoryID,
-                        criterionID: criterionID,
-                        score: parseFloat(score)
+    
+        $('#categoryUpdateSelect').change(function() {
+            var categoryID = $(this).val();
+            if (categoryID) {
+                loadJudges(categoryID);
+                $('#judgeUpdateSelect').empty().append('<option value="#" disabled selected>--- Select Judge ---</option>');
+                $('#contestantTable thead').empty();
+                $('#contestantTable tbody').empty();
+            }
+        });
+    
+        $('#judgeUpdateSelect').change(function() {
+            var judgeID = $(this).val();
+            var categoryID = $('#categoryUpdateSelect').val(); // Get selected category ID
+            if (judgeID && categoryID) {
+                loadCriteria(judgeID, categoryID);
+            }
+        });
+    
+        $('#scoringForm').submit(function(event) {
+            event.preventDefault();
+    
+            var scores = [];
+            var hasChanges = false;
+            $('#contestantTable tbody tr').each(function() {
+                var contestantID = $(this).data('contestant-id');
+                var scoreData = { contestantID: contestantID, scores: {} };
+    
+                $(this).find('.score-input').each(function() {
+                    var criterionID = $(this).data('criterion-id');
+                    var score = $(this).val();
+                    if (score) {
+                        scoreData.scores[criterionID] = parseFloat(score);
+    
+                        // Compare with original scores
+                        if (originalScores[contestantID] && originalScores[contestantID][criterionID] !== parseFloat(score)) {
+                            hasChanges = true;
+                        }
+                    }
+                });
+    
+                scores.push(scoreData);
+            });
+    
+            if (!hasChanges) {
+                Swal.fire({
+                    title: 'No Changes!',
+                    text: 'There are no changes to update.',
+                    icon: 'info'
+                });
+                return;
+            }
+    
+            console.log("Scores data being sent:", scores); // Log scores data
+    
+            $.ajax({
+                url: './backend/updateScores.php',
+                method: 'POST',
+                data: { scores: JSON.stringify(scores) },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: data.message,
+                            icon: 'success'
+                        }).then(function() {
+                            // Reload the table with updated scores
+                            fetchScoresByJudge($('#judgeUpdateSelect').val(), $('#categoryUpdateSelect').val());
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: data.message,
+                            icon: 'error'
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error updating scores:', status, error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Error updating scores.',
+                        icon: 'error'
                     });
                 }
             });
         });
-
-        $.ajax({
-            url: './backend/updateScores.php',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ scores: scores }),
-            success: function(response) {
-                alert('Scores updated successfully!');
-            },
-            error: function(xhr, status, error) {
-                console.error('Error updating scores:', {
-                    status: status,
-                    error: error,
-                    responseText: xhr.responseText
-                });
-                alert('Failed to update scores. Please try again.');
-            }
-        });
+    
+        // Initial load
+        loadEvents();
     });
-});
-
+    
+    
+    
     
     // --------------- END FOR ADMIN UPDATE JUDGE SCORE TABLE --------------
 

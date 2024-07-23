@@ -245,39 +245,59 @@
 
   <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-  <!-- UPDATE FOR JUDGE SCORE TABLE -->
-  <section class="container-sm mt-5">
-    <div class="d-flex flex-column align-items-center text-center">
+<!-- UPDATE FOR JUDGE SCORE TABLE -->
+<section class="container-sm mt-5">
+  <div class="d-flex flex-column align-items-center text-center">
       <h1 class="fst-italic text-center text-white">Update Judge Score</h1>
-    </div>
-    <div class="row mb-3">
+  </div>
+  <div class="row mb-3">
       <form id="scoringForm">
-        <!-- Judge Selection Dropdown -->
-        <div class="mb-3">
-          <label for="judgeScore" class="form-label text-white">Select Judge</label>
-          <select class="form-select " id="judgeScore" name="judgeScore" required style="width: 20%;">
-            <option value="#" disabled selected>--- Select Judge ---</option>
-            <!-- Options will be populated dynamically -->
-          </select>
-        </div>
-        <div class="d-flex flex-column align-items-center text-center">
-          <h1 id="categoryName" class="fst-italic text-center text-white">Category</h1>
-        </div>
-        <!-- Table to Display Contestants -->
-        <table id="contestantTable" class="table table-striped table-dark text-center">
-          <thead>
-            <!-- Headers will be populated dynamically -->
-          </thead>
-          <tbody>
-            <!-- Rows will be populated dynamically -->
-          </tbody>
-        </table>
-        
-        <button type="submit" class="btn btn-outline-light float-end">Update</button>
+          <!-- Event Selection Dropdown -->
+          <div class="mb-3">
+              <label for="eventUpdateSelect" class="form-label text-white">Select Event</label>
+              <select class="form-select" id="eventUpdateSelect" name="eventUpdateSelect" required style="width: 20%;">
+                  <option value="#" disabled selected>--- Select Event ---</option>
+                  <!-- Options will be populated dynamically -->
+              </select>
+          </div>
+
+          <!-- Category Selection Dropdown -->
+          <div class="mb-3">
+              <label for="categoryUpdateSelect" class="form-label text-white">Select Category</label>
+              <select class="form-select" id="categoryUpdateSelect" name="categoryUpdateSelect" required style="width: 20%;">
+                  <option value="#" disabled selected>--- Select Category ---</option>
+                  <!-- Options will be populated dynamically -->
+              </select>
+          </div>
+
+          <!-- Judge Selection Dropdown -->
+          <div class="mb-3">
+              <label for="judgeUpdateSelect" class="form-label text-white">Select Judge</label>
+              <select class="form-select" id="judgeUpdateSelect" name="judgeUpdateSelect" required style="width: 20%;">
+                  <option value="#" disabled selected>--- Select Judge ---</option>
+                  <!-- Options will be populated dynamically -->
+              </select>
+          </div>
+
+          <div class="d-flex flex-column align-items-center text-center">
+              <h1 id="categoryName" class="fst-italic text-center text-white">Category</h1>
+          </div>
+
+          <!-- Table to Display Contestants -->
+          <table id="contestantTable" class="table table-striped table-dark text-center">
+              <thead>
+                  <!-- Headers will be populated dynamically -->
+              </thead>
+              <tbody>
+                  <!-- Rows will be populated dynamically -->
+              </tbody>
+          </table>
+
+          <button type="submit" class="btn btn-outline-light float-end">Update</button>
       </form>
-    </div>
-  </section>
-  
+  </div>
+</section>
+
 
 
 

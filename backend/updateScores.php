@@ -1,181 +1,55 @@
 <?php
-// header('Content-Type: application/json');
-
-// include "../backend/myConnection.php";
-
-// // Decode scores from the POST request
-// $scores = json_decode($_POST['scores'], true);
-
-// if ($scores === null) {
-//     echo json_encode(['success' => false, 'message' => 'Invalid data format.']);
-//     exit();
-// }
-
-// // Prepare SQL query for inserting or updating scores
-// $query = "
-//     INSERT INTO scores (judgeID, contestantID, categoryID, criterionID, score, rank)
-//     VALUES (?, ?, ?, ?, ?, ?)
-//     ON DUPLICATE KEY UPDATE
-//         score = VALUES(score),
-//         rank = VALUES(rank);
-// ";
-
-// $stmt = $con->prepare($query);
-
-// if ($stmt === false) {
-//     echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $con->error]);
-//     exit();
-// }
-
-// // Insert or update scores
-// foreach ($scores as $score) {
-//     $judgeID = isset($score['judgeID']) ? $score['judgeID'] : null;
-//     $contestantID = isset($score['contestantID']) ? $score['contestantID'] : null;
-//     $categoryID = isset($score['categoryID']) ? $score['categoryID'] : null;
-//     $criterionID = isset($score['criterionID']) ? $score['criterionID'] : null;
-//     $scoreValue = isset($score['score']) ? $score['score'] : null;
-//     $rank = isset($score['rank']) ? $score['rank'] : null;
-
-//     if ($judgeID !== null && $contestantID !== null && $categoryID !== null && $criterionID !== null) {
-//         $stmt->bind_param("iiiiii", $judgeID, $contestantID, $categoryID, $criterionID, $scoreValue, $rank);
-//         $stmt->execute();
-//     }
-// }
-
-// $stmt->close();
-
-// // Calculate total scores and ranks
-// $totalScoreQuery = "
-//     SELECT contestantID, categoryID, SUM(score) as totalScore
-//     FROM scores
-//     GROUP BY contestantID, categoryID
-// ";
-
-// $totalScoreStmt = $con->prepare($totalScoreQuery);
-// $totalScoreStmt->execute();
-// $totalScoreStmt->store_result();
-// $totalScoreStmt->bind_result($contestantID, $categoryID, $totalScore);
-
-// $contestantsScores = [];
-// while ($totalScoreStmt->fetch()) {
-//     if (!isset($contestantsScores[$categoryID])) {
-//         $contestantsScores[$categoryID] = [];
-//     }
-//     $contestantsScores[$categoryID][$contestantID] = $totalScore;
-// }
-// $totalScoreStmt->free_result();
-// $totalScoreStmt->close();
-
-// // Update ranks per category
-// foreach ($contestantsScores as $categoryID => $scores) {
-//     arsort($scores); // Sort by score in descending order
-//     $rank = 1;
-//     foreach ($scores as $contestantID => $score) {
-//         $updateRankQuery = "UPDATE contestants SET rank = ? WHERE idContestant = ? AND categoryID = ?";
-//         $updateRankStmt = $con->prepare($updateRankQuery);
-//         $updateRankStmt->bind_param("iii", $rank, $contestantID, $categoryID);
-//         $updateRankStmt->execute();
-//         $updateRankStmt->close();
-//         $rank++;
-//     }
-// }
-
-// // Close connection
-// $con->close();
-// echo json_encode(['success' => true, 'message' => 'Scores updated successfully and ranks recalculated.']);
-
-
-
-//used on hosted
-header('Content-Type: application/json');
-
 include "../backend/myConnection.php";
 
-// Decode scores from the POST request
-$scores = json_decode($_POST['scores'], true);
+header('Content-Type: application/json');
 
-if ($scores === null) {
-    echo json_encode(['success' => false, 'message' => 'Invalid data format.']);
-    exit();
+// Function to check if criterionID exists
+function criterionExists($criterionID, $con) {
+    $query = "SELECT 1 FROM criteria WHERE criteriaID = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $criterionID);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+    $exists = mysqli_stmt_num_rows($stmt) > 0;
+    mysqli_stmt_close($stmt);
+    return $exists;
 }
 
-// Prepare SQL query for inserting or updating scores
-$query = "
-    INSERT INTO scores (judgeID, contestantID, categoryID, criterionID, score, `rank`)
-    VALUES (?, ?, ?, ?, ?, ?)
-    ON DUPLICATE KEY UPDATE
-        score = VALUES(score),
-        `rank` = VALUES(`rank`);
-";
+// Retrieve and decode JSON data
+$data = json_decode($_POST['scores'], true);
+$response = ['success' => false, 'message' => ''];
 
-$stmt = $con->prepare($query);
-
-if ($stmt === false) {
-    echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $con->error]);
-    exit();
-}
-
-// Insert or update scores
-foreach ($scores as $score) {
-    $judgeID = isset($score['judgeID']) ? $score['judgeID'] : null;
-    $contestantID = isset($score['contestantID']) ? $score['contestantID'] : null;
-    $categoryID = isset($score['categoryID']) ? $score['categoryID'] : null;
-    $criterionID = isset($score['criterionID']) ? $score['criterionID'] : null;
-    $scoreValue = isset($score['score']) ? $score['score'] : null;
-    $rank = isset($score['rank']) ? $score['rank'] : null;
-
-    if ($judgeID !== null && $contestantID !== null && $categoryID !== null && $criterionID !== null) {
-        $stmt->bind_param("iiiiii", $judgeID, $contestantID, $categoryID, $criterionID, $scoreValue, $rank);
-        if (!$stmt->execute()) {
-            echo json_encode(['success' => false, 'message' => 'Execution failed: ' . $stmt->error]);
-            exit();
+foreach ($data as $scoreData) {
+    foreach ($scoreData['scores'] as $criterionID => $score) {
+        if (!criterionExists($criterionID, $con)) {
+            $response['message'] = "Invalid criterionID: $criterionID.";
+            echo json_encode($response);
+            mysqli_close($con);
+            exit;
         }
     }
 }
 
-$stmt->close();
-
-// Calculate total scores and ranks
-$totalScoreQuery = "
-    SELECT contestantID, categoryID, SUM(score) as totalScore
-    FROM scores
-    GROUP BY contestantID, categoryID
-";
-
-$totalScoreStmt = $con->prepare($totalScoreQuery);
-$totalScoreStmt->execute();
-$totalScoreStmt->store_result();
-$totalScoreStmt->bind_result($contestantID, $categoryID, $totalScore);
-
-$contestantsScores = [];
-while ($totalScoreStmt->fetch()) {
-    if (!isset($contestantsScores[$categoryID])) {
-        $contestantsScores[$categoryID] = [];
-    }
-    $contestantsScores[$categoryID][$contestantID] = $totalScore;
-}
-$totalScoreStmt->free_result();
-$totalScoreStmt->close();
-
-// Update ranks per category
-foreach ($contestantsScores as $categoryID => $scores) {
-    arsort($scores); // Sort by score in descending order
-    $rank = 1;
-    foreach ($scores as $contestantID => $score) {
-        $updateRankQuery = "UPDATE contestants SET `rank` = ? WHERE idContestant = ? AND categoryID = ?";
-        $updateRankStmt = $con->prepare($updateRankQuery);
-        $updateRankStmt->bind_param("iii", $rank, $contestantID, $categoryID);
-        if (!$updateRankStmt->execute()) {
-            echo json_encode(['success' => false, 'message' => 'Rank update failed: ' . $updateRankStmt->error]);
-            exit();
+// Update scores in database
+foreach ($data as $scoreData) {
+    $contestantID = $scoreData['contestantID'];
+    foreach ($scoreData['scores'] as $criterionID => $score) {
+        $updateQuery = "UPDATE scores SET score = ? WHERE contestantID = ? AND criterionID = ?";
+        $updateStmt = mysqli_prepare($con, $updateQuery);
+        mysqli_stmt_bind_param($updateStmt, 'dii', $score, $contestantID, $criterionID);
+        
+        if (!mysqli_stmt_execute($updateStmt)) {
+            $response['message'] = "Error: " . mysqli_error($con);
+            echo json_encode($response);
+            mysqli_close($con);
+            exit;
         }
-        $updateRankStmt->close();
-        $rank++;
     }
 }
 
-// Close connection
-$con->close();
-echo json_encode(['success' => true, 'message' => 'Scores updated successfully and ranks recalculated.']);
+$response['success'] = true;
+$response['message'] = "Scores updated successfully.";
+echo json_encode($response);
 
+mysqli_close($con);
 ?>
