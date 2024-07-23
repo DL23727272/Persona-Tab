@@ -7,3 +7,4 @@
 {"eventName":"CCS Week","eventDescription":"College of Computing Studies Week Event"}
 {"eventName":"CCS Week","eventDescription":"College of Computing Studies - foundation week"}
 {"eventName":"CCS Week","eventDescription":"dasda"}
+{"eventName":"CCS","eventDescription":"CCS WEEK"}

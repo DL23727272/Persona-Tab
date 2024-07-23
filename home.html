@@ -167,34 +167,20 @@
     <!-- End Hero-->
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-  <!-- TESTING FOR SCORE TABLE -->
+  <!--  FOR SCORE TABLE Per Category -->
   <section class="container-sm mt-5">
     <div class="d-flex flex-column align-items-center text-center">
-      <h1 class="fst-italic text-center text-white">Welcome Judge <span id="judgeName"></span> !</h1>
+        <h1 class="fst-italic text-center text-white">Welcome Judge <span id="judgeName"></span> !</h1>
     </div>
     <hr class="container-sm Sborder border-success border-2 opacity-50 w-50" />
-    <div class="row mb-3">
-      <form id="scoringForm">
-        <div class="d-flex flex-column align-items-center text-center">
-          <h2 id="categoryName" class="fst-italic text-center text-white">Category</h2>
-          <div id="criteriaContainer">
-            <!-- Criteria will be dynamically inserted here -->
-          </div>
-        </div>
-        <!-- Table to Display Contestants -->
-        <table id="contestantTable" class="table table-striped-columns table-dark text-center">
-          <thead>
-            <!-- Headers will be populated dynamically -->
-          </thead>
-          <tbody>
-            <!-- Rows will be populated dynamically -->
-          </tbody>
-        </table>
-        <button type="submit" class="btn btn-outline-light float-end">Submit</button>
-      </form>
-    </div>
+    <form id="scoringForm">
+      <div id="tablesContainer" class="row mb-3">
+          <!-- Tables will be dynamically inserted here -->
+      </div>
+    <button id="submitScoresBtn" class="btn btn-outline-light float-end mt-4">Submit Scores</button>
+    </form>
   </section>
-  
+
 
 
 

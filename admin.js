@@ -34,7 +34,7 @@
     });
 
 
-      // --------------- ADDING AJAX --------------
+      // --------------- ADDING EVENTS et al AJAX --------------
     $(document).ready(function() {
         var judgeID = sessionStorage.getItem('judgeID');
         if (judgeID) {
@@ -43,7 +43,7 @@
                 e.preventDefault();
                 var formData = $(this).serialize();
                 $.ajax({
-                    url: './backend/addEvent.php', // Update to the correct path
+                    url: './backend/addEvent.php', 
                     method: 'POST',
                     data: formData,
                     success: function(response) {
@@ -87,7 +87,7 @@
                 var formData = $(this).serialize(); // Serialize form data
             
                 $.ajax({
-                    url: './backend/addCategory.php', // Change to your server-side script
+                    url: './backend/addCategory.php', 
                     method: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -102,7 +102,6 @@
                             }).then(function() {
                                 $('#addCategoryModal').modal('hide');
                                 $('#addCategoryForm')[0].reset(); // Clear the form fields
-                                // Optionally, reload the list of categories
                                 loadCategories();
                             });
                         } else {
@@ -129,7 +128,7 @@
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
-                url: './backend/addCriteria.php', // Change to your server-side script
+                url: './backend/addCriteria.php', 
                 method: 'POST',
                 data: formData,
                 dataType: 'json',
@@ -144,7 +143,6 @@
                         }).then(function() {
                             $('#addCriteriaModal').modal('hide');
                             $('#addCriteriaForm')[0].reset();
-                            // Optionally, reload the list of criteria
                         });
                     } else {
                         Swal.fire({
@@ -169,7 +167,7 @@
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
-                url: './backend/addJudge.php', // Change to your server-side script
+                url: './backend/addJudge.php', 
                 method: 'POST',
                 data: formData,
                 dataType: 'json',
@@ -184,7 +182,6 @@
                         }).then(function() {
                             $('#addJudgeModal').modal('hide');
                             $('#addJudgeForm')[0].reset();
-                            // Optionally, reload the list of judges
                         });
                     } else {
                         Swal.fire({
@@ -215,7 +212,6 @@
                 allowEnterKey: false,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirect to login page or show login modal
                     window.location.href = './index.html';
                 }
             });
@@ -248,7 +244,7 @@
       
     function loadCategories() {
         $.ajax({
-            url: './backend/getCategories.php', // Ensure the path is correct
+            url: './backend/getCategories.php', 
             method: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -262,7 +258,7 @@
                     // Populate the dropdown
                     let categoryDropdown = $('#criteriaCategory');
                     categoryDropdown.empty(); // Clear existing options
-                    categoryDropdown.append(defaultOption); // Add default option
+                    categoryDropdown.append(defaultOption); 
                     
                     // Add categories from the response
                     response.forEach(category => {
