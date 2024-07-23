@@ -84,7 +84,7 @@
       }
       
       #mugIcon.scrolled {
-        color: #000000; 
+        color: #ffffff; 
       }
       #fruitimage {
         max-width: 100%;
@@ -210,24 +210,36 @@
       </div>
         <div class="row mb-3">
         <form id="assignJudgeForm">
-          <div class="mb-3">
-              <label for="judgeSelect" class="form-label text-white">Select Judge</label>
-              <select class="form-select" id="judgeSelect" name="judgeID">
-                  <!-- Options populated dynamically with PHP -->
-              </select>
-          </div>
-          <div class="mb-3">
-            <label for="eventJudgeSelect" class="form-label text-white">Select Event</label>
-            <select class="form-select" id="eventJudgeSelect" name="eventJudgeSelect">
 
-            </select>
+          <div class="container">
+              <div class="row">
+                  <!-- Judge Selection Dropdown -->
+                  <div class="col-md-4 mb-3">
+                      <label for="judgeSelect" class="form-label text-white">Select Judge</label>
+                      <select class="form-select" id="judgeSelect" name="judgeID">
+                          <!-- Options populated dynamically with PHP -->
+                      </select>
+                  </div>
+          
+                  <!-- Event Selection Dropdown -->
+                  <div class="col-md-4 mb-3">
+                      <label for="eventJudgeSelect" class="form-label text-white">Select Event</label>
+                      <select class="form-select" id="eventJudgeSelect" name="eventJudgeSelect">
+                          <!-- Options populated dynamically with PHP -->
+                      </select>
+                  </div>
+          
+                  <!-- Category Selection Dropdown -->
+                  <div class="col-md-4 mb-3">
+                      <label for="categoryJudgeSelect" class="form-label text-white">Select Category</label>
+                      <select class="form-select" id="categoryJudgeSelect" name="categoryJudgeSelect">
+                          <!-- Options populated dynamically with PHP -->
+                      </select>
+                  </div>
+              </div>
           </div>
-          <div class="mb-3">
-              <label for="categoryJudgeSelect" class="form-label text-white">Select Category</label>
-              <select class="form-select" id="categoryJudgeSelect" name="categoryJudgeSelect">
-                  <!-- Options populated dynamically with PHP -->
-              </select>
-          </div>
+        
+
           <button type="submit" class="btn btn-outline-light float-end">Assign Judge</button>
         </form>
         </div>
@@ -252,32 +264,37 @@
   </div>
   <div class="row mb-3">
       <form id="scoringForm">
-          <!-- Event Selection Dropdown -->
-          <div class="mb-3">
-              <label for="eventUpdateSelect" class="form-label text-white">Select Event</label>
-              <select class="form-select" id="eventUpdateSelect" name="eventUpdateSelect" required style="width: 20%;">
-                  <option value="#" disabled selected>--- Select Event ---</option>
-                  <!-- Options will be populated dynamically -->
-              </select>
+        <div class="container">
+          <div class="row">
+              <!-- Event Selection Dropdown -->
+              <div class="col-md-4 mb-3">
+                  <label for="eventUpdateSelect" class="form-label text-white">Select Event</label>
+                  <select class="form-select" id="eventUpdateSelect" name="eventUpdateSelect" required>
+                      <option value="#" disabled selected>--- Select Event ---</option>
+                      <!-- Options will be populated dynamically -->
+                  </select>
+              </div>
+      
+              <!-- Category Selection Dropdown -->
+              <div class="col-md-4 mb-3">
+                  <label for="categoryUpdateSelect" class="form-label text-white">Select Category</label>
+                  <select class="form-select" id="categoryUpdateSelect" name="categoryUpdateSelect" required>
+                      <option value="#" disabled selected>--- Select Category ---</option>
+                      <!-- Options will be populated dynamically -->
+                  </select>
+              </div>
+      
+              <!-- Judge Selection Dropdown -->
+              <div class="col-md-4 mb-3">
+                  <label for="judgeUpdateSelect" class="form-label text-white">Select Judge</label>
+                  <select class="form-select" id="judgeUpdateSelect" name="judgeUpdateSelect" required>
+                      <option value="#" disabled selected>--- Select Judge ---</option>
+                      <!-- Options will be populated dynamically -->
+                  </select>
+              </div>
           </div>
-
-          <!-- Category Selection Dropdown -->
-          <div class="mb-3">
-              <label for="categoryUpdateSelect" class="form-label text-white">Select Category</label>
-              <select class="form-select" id="categoryUpdateSelect" name="categoryUpdateSelect" required style="width: 20%;">
-                  <option value="#" disabled selected>--- Select Category ---</option>
-                  <!-- Options will be populated dynamically -->
-              </select>
-          </div>
-
-          <!-- Judge Selection Dropdown -->
-          <div class="mb-3">
-              <label for="judgeUpdateSelect" class="form-label text-white">Select Judge</label>
-              <select class="form-select" id="judgeUpdateSelect" name="judgeUpdateSelect" required style="width: 20%;">
-                  <option value="#" disabled selected>--- Select Judge ---</option>
-                  <!-- Options will be populated dynamically -->
-              </select>
-          </div>
+      </div>
+      
 
           <div class="d-flex flex-column align-items-center text-center">
               <h1 id="categoryName" class="fst-italic text-center text-white">Category</h1>
