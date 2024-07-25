@@ -148,10 +148,19 @@
                             <label for="Name" style="font-weight: 700;"><i class="fa-solid fa-signature"></i> Username</label>
                             <input type="text" name="customerName" id="customerName" placeholder="Enter Username" class=" form-control" required>
                         </div>
+
                         <div class="form-group my-4">
-                          <label for="pass" style="font-weight: 700;"><i class="fa-solid fa-lock"></i> Password</label>
-                          <input type="password" name="customerPassword" id="customerPassword" placeholder="Enter Password" class="  form-control" required>
+                            <label for="customerPassword" style="font-weight: 700;">
+                                <i class="fa-solid fa-lock"></i> Password
+                            </label>
+                              <div class="input-group">
+                                <input type="password" class="form-control" id="customerPassword" name="customerPassword" placeholder="Enter Password" required>
+                                <button class="btn btn-outline-light" type="button" id="togglePassword">
+                                  <i class="fa fa-eye-slash" id="eyeIcon" aria-hidden="true"></i>
+                                </button>
+                              </div>
                         </div>
+                      
                         
                        
                         <div class="form-group row justify-content-end"> 
@@ -255,6 +264,31 @@
      <!-- <script src="user.js"></script> -->
      <script src="fetchScores.js"></script>
      <script>
+
+         // --------------- FOR PASSWORD TOGGLE --------------
+      
+        document.addEventListener('DOMContentLoaded', function () {
+          const togglePassword = document.getElementById('togglePassword');
+          const passwordInput = document.getElementById('customerPassword');
+          const eyeIcon = document.getElementById('eyeIcon');
+        
+          togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+        
+            // Toggle the eye icon
+            if (type === 'password') {
+              eyeIcon.classList.remove('fa-eye');
+              eyeIcon.classList.add('fa-eye-slash');
+            } else {
+              eyeIcon.classList.remove('fa-eye-slash');
+              eyeIcon.classList.add('fa-eye');
+            }
+          });
+        });
+      // --------------- END FOR PASSWORD TOGGLE --------------
+
       alertify.set('notifier', 'position', 'top-right');
 
      
