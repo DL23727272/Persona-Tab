@@ -926,9 +926,6 @@
 
     // --------------- END FOR ADMIN UPDATE JUDGE SCORE TABLE --------------
     
-    
-   
-
 
     // --------------- FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
     $(document).ready(function() {
@@ -1160,4 +1157,175 @@
 
     });
 
-// --------------- END FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
+    // --------------- END FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
+
+
+    // --------------- REMOVE JUDGE FROM CATEGORY --------------
+    $(document).ready(function() {
+        var judgeID = sessionStorage.getItem('judgeID');
+        if (judgeID) {
+
+            function loadEvents() {
+                $.ajax({
+                    url: './backend/getEvents.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var options = '<option value="#" disabled selected>--- Select Event ---</option>';
+                        $.each(data, function(index, event) {
+                            options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
+                        });
+                        $('#removeJudgeSelect').html(options);
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Error loading events.', 'error');
+                    }
+                });
+            }
+
+            function loadCategories(eventID) {
+                $.ajax({
+                    url: './backend/adminGetCategories.php',
+                    method: 'GET',
+                    data: { eventID: eventID },
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Categories:', data); // Log the categories data
+                        var options = '<option value="#" disabled selected>--- Select Category ---</option>';
+                        $.each(data, function(index, category) {
+                            options += '<option value="' + category.categoryID + '">' + category.categoryName + '</option>';
+                        });
+                        $('#categoryRemoveJudgeSelect').html(options);
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Error loading categories.', 'error');
+                    }
+                });
+            }
+
+            function loadAssignedJudges(categoryID, categoryName) {
+                $.ajax({
+                    url: './backend/getAssignedJudges.php',
+                    method: 'GET',
+                    data: { categoryID: categoryID },
+                    dataType: 'json',
+                    success: function(data) {
+                        var tableHtml = `
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <h1 class="fst-italic text-center text-white">${categoryName}</h1>
+                        </div>
+                            <div class="table-responsive mt-4">
+                                <table class="table table-striped table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th>Judge Name</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="assignedJudgesTableBody">
+                `;
+            
+                        $.each(data, function(index, judge) {
+                            tableHtml += `
+                                <tr>
+                                    <td>${judge.judgeName}</td>
+                                    <td><button class="btn btn-danger remove-judge-btn" data-judge-id="${judge.judgeID}">Remove</button></td>
+                                </tr>
+                            `;
+                        });
+            
+                        tableHtml += `
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+            
+                        // Insert the generated table HTML into a specific container
+                        $('#tableContainer').html(tableHtml);
+            
+                        // Attach click event to remove buttons
+                        $('.remove-judge-btn').click(function() {
+                            var judgeID = $(this).data('judge-id');
+                            var categoryName = $('#categoryRemoveJudgeSelect option:selected').text();
+                            confirmAndRemoveJudge(judgeID, categoryID, categoryName);
+                        });
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Error loading assigned judges.', 'error');
+                    }
+                });
+            }
+            
+
+            function confirmAndRemoveJudge(judgeID, categoryID, categoryName) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: `Do you really want to remove the judge from ${categoryName}?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, remove it!',
+                    cancelButtonText: 'No, cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        removeJudgeFromCategory(judgeID, categoryID);
+                    }
+                });
+            }
+
+            function removeJudgeFromCategory(judgeID, categoryID) {
+                $.ajax({
+                    url: './backend/removeAssignedJudge.php',
+                    method: 'POST',
+                    data: { judgeID: judgeID, categoryID: categoryID },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire('Success', response.message, 'success');
+                            loadAssignedJudges(categoryID);
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Error removing judge.', 'error');
+                    }
+                });
+            }
+
+            loadEvents();
+
+            $('#removeJudgeSelect').change(function() {
+                var eventID = $(this).val();
+                if (eventID) {
+                    loadCategories(eventID);
+                }
+            });
+
+            $('#categoryRemoveJudgeSelect').change(function() {
+                var categoryID = $(this).val();
+                var categoryName = $(this).find('option:selected').text();
+                if (categoryID) {
+                    loadAssignedJudges(categoryID, categoryName);
+                }
+            });
+
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Not Logged In',
+                text: 'You need to log in to access this page.',
+                confirmButtonText: 'Log In',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = './index.html'; 
+                }
+            });
+            return;
+        }
+    });
+    // ---------------END FOR REMOVE JUDGE FROM CATEGORY --------------

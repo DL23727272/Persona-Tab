@@ -204,13 +204,12 @@
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
     <!-- ADD JUDGE TO CATEGORY -->
-    <section class="container-sm mt-5">
-       <div class="d-flex flex-column align-items-center text-center">
-        <h1 class="fst-italic text-center text-white">Assign Judge </h1>
+  <section class="container-sm mt-5">
+      <div class="d-flex flex-column align-items-center text-center">
+        <h1 class="fst-italic text-center text-white">Assign Judge</h1>
       </div>
-        <div class="row mb-3">
+      <div class="row mb-3">
         <form id="assignJudgeForm">
-
           <div class="container">
               <div class="row">
                   <!-- Judge Selection Dropdown -->
@@ -238,111 +237,126 @@
                   </div>
               </div>
           </div>
-        
-
           <button type="submit" class="btn btn-outline-light float-end">Assign Judge</button>
         </form>
+      </div>
+
+
+  </section>
+  <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+  <!-- REMOVE JUDGE FROM CATEGORY -->
+  <section class="container-sm mt-5">
+    <div class="d-flex flex-column align-items-center text-center">
+        <h1 class="fst-italic text-center text-white">Remove Judge</h1>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4 mb-3">
+            <label for="removeJudgeSelect" class="form-label text-white">Select Event</label>
+            <select class="form-select" id="removeJudgeSelect" name="removeJudgeSelect">
+                <!-- Options populated dynamically with PHP -->
+            </select>
         </div>
-    </section>
+
+        <div class="col-md-4 mb-3">
+            <label for="categoryRemoveJudgeSelect" class="form-label text-white">Select Category</label>
+            <select class="form-select" id="categoryRemoveJudgeSelect" name="categoryRemoveJudgeSelect">
+                <!-- Options populated dynamically with PHP -->
+            </select>
+        </div>
+    </div>
+
+    <div class="table-responsive mt-4 " id="tableContainer">
       
-
-   <!--    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
-    
- 
-
- <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" /> -->
-
- 
+    </div>
+  </section>
 
 
   <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
-<!-- UPDATE FOR JUDGE SCORE TABLE -->
-<section class="container-sm mt-5">
-  <div class="d-flex flex-column align-items-center text-center">
-      <h1 class="fst-italic text-center text-white">Update Judge Score</h1>
-  </div>
-  <div class="row mb-3">
-      <form id="scoringForm">
-        <div class="container">
-          <div class="row">
-              <!-- Event Selection Dropdown -->
-              <div class="col-md-4 mb-3">
-                  <label for="eventUpdateSelect" class="form-label text-white">Select Event</label>
-                  <select class="form-select" id="eventUpdateSelect" name="eventUpdateSelect" required>
-                      <option value="#" disabled selected>--- Select Event ---</option>
-                      <!-- Options will be populated dynamically -->
-                  </select>
-              </div>
-      
-              <!-- Category Selection Dropdown -->
-              <div class="col-md-4 mb-3">
-                  <label for="categoryUpdateSelect" class="form-label text-white">Select Category</label>
-                  <select class="form-select" id="categoryUpdateSelect" name="categoryUpdateSelect" required>
-                      <option value="#" disabled selected>--- Select Category ---</option>
-                      <!-- Options will be populated dynamically -->
-                  </select>
-              </div>
-      
-              <!-- Judge Selection Dropdown -->
-              <div class="col-md-4 mb-3">
-                  <label for="judgeUpdateSelect" class="form-label text-white">Select Judge</label>
-                  <select class="form-select" id="judgeUpdateSelect" name="judgeUpdateSelect" required>
-                      <option value="#" disabled selected>--- Select Judge ---</option>
-                      <!-- Options will be populated dynamically -->
-                  </select>
-              </div>
-          </div>
-      </div>
-      
-
-          <div class="d-flex flex-column align-items-center text-center">
-              <h1 id="categoryName" class="fst-italic text-center text-white">Category</h1>
-          </div>
-
-          <!-- Table to Display Contestants -->
-          <table id="contestantTable" class="table table-striped table-dark text-center">
-              <thead>
-                  <!-- Headers will be populated dynamically -->
-              </thead>
-              <tbody>
-                  <!-- Rows will be populated dynamically -->
-              </tbody>
-          </table>
-
-          <!-- Update button -->
-          <button type="button" class="btn btn-outline-light float-end updateScoresButton">Update</button>
-      </form>
-  </div>
-</section>
-
-
-
-
-    
-   
-    <!---Footer-->
-    <footer class="mt-5 text-white p-3" style="background-color: #000000;">
-        <div class="container-sm d-flex justify-content-between align-items-center">
-            <div class="">
-            <h4>Tabulation System</h4>
-            <h5>DL VISUALS</h5>
-            <ul>
-              <li>Dran Leynard Gamoso</li>
-              <li><a href="https://www.facebook.com/DLuvvsssU" style="text-decoration: none; color:white"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
-            </ul>
-            </div>
-            <div class="">
-            <div>
-                <img src="./img/logo.png" style=" width: 50px; height: 50px;" alt="">
-            </div>
-            <div>
-                <p class="fst-bold">&copy DL Visuals</p>
-            </div>
+  <!-------------------- UPDATE FOR JUDGE SCORE TABLE ----------->
+  <section class="container-sm mt-5">
+    <div class="d-flex flex-column align-items-center text-center">
+        <h1 class="fst-italic text-center text-white">Update Judge Score</h1>
+    </div>
+    <div class="row mb-3">
+        <form id="scoringForm">
+          <div class="container">
+            <div class="row">
+                <!-- Event Selection Dropdown -->
+                <div class="col-md-4 mb-3">
+                    <label for="eventUpdateSelect" class="form-label text-white">Select Event</label>
+                    <select class="form-select" id="eventUpdateSelect" name="eventUpdateSelect" required>
+                        <option value="#" disabled selected>--- Select Event ---</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+        
+                <!-- Category Selection Dropdown -->
+                <div class="col-md-4 mb-3">
+                    <label for="categoryUpdateSelect" class="form-label text-white">Select Category</label>
+                    <select class="form-select" id="categoryUpdateSelect" name="categoryUpdateSelect" required>
+                        <option value="#" disabled selected>--- Select Category ---</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+        
+                <!-- Judge Selection Dropdown -->
+                <div class="col-md-4 mb-3">
+                    <label for="judgeUpdateSelect" class="form-label text-white">Select Judge</label>
+                    <select class="form-select" id="judgeUpdateSelect" name="judgeUpdateSelect" required>
+                        <option value="#" disabled selected>--- Select Judge ---</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
             </div>
         </div>
-    </footer>
-     <!---End Footer-->
+        
+
+            <div class="d-flex flex-column align-items-center text-center">
+                <h1 id="categoryName" class="fst-italic text-center text-white">Category</h1>
+            </div>
+
+            <!-- Table to Display Contestants -->
+            <table id="contestantTable" class="table table-striped table-dark text-center">
+                <thead>
+                    <!-- Headers will be populated dynamically -->
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated dynamically -->
+                </tbody>
+            </table>
+
+            <!-- Update button -->
+            <button type="button" class="btn btn-outline-light float-end updateScoresButton">Update</button>
+        </form>
+    </div>
+  </section>
+
+
+   
+  <!---------------------Footer-------------------->
+  <footer class="mt-5 text-white p-3" style="background-color: #000000;">
+      <div class="container-sm d-flex justify-content-between align-items-center">
+          <div class="">
+          <h4>Tabulation System</h4>
+          <h5>DL VISUALS</h5>
+          <ul>
+            <li>Dran Leynard Gamoso</li>
+            <li><a href="https://www.facebook.com/DLuvvsssU" style="text-decoration: none; color:white"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+          </ul>
+          </div>
+          <div class="">
+          <div>
+              <img src="./img/logo.png" style=" width: 50px; height: 50px;" alt="">
+          </div>
+          <div>
+              <p class="fst-bold">&copy DL Visuals</p>
+          </div>
+          </div>
+      </div>
+  </footer>
+    <!---End Footer-->
 
  
 
