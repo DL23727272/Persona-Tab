@@ -111,7 +111,7 @@ $(document).ready(function() {
                                 criteria.forEach(function(criterion) {
                                     tbody += '<td><input type="number" class="score-input" data-contestant-id="' 
                                     + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + 
-                                    '" data-category-id="' + categoryID + '" required/></td>';
+                                    '" data-category-id="' + categoryID + '" style="width: 60px" required/></td>';
                                 });
                             }
     
