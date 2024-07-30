@@ -147,28 +147,27 @@
 
   <!------------ ADMIN Check Scores ------------------>
   <section class="container-sm mt-5">
-    <div class="d-flex flex-column align-items-center text-center">
-      <h1 class="fst-italic text-center text-white">Check Overall Scores</h1>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label for="eventSelect" class="form-label text-white">Select Event</label>
-        <select class="form-select" id="eventSelect" name="eventSelect">
-          <!-- Options will be populated dynamically -->
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label for="categorySelect" class="form-label text-white">Select Category</label>
-        <select class="form-select" id="categorySelect" name="categorySelect">
-          <!-- Options will be populated dynamically -->
-        </select>
-      </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="eventSelect" class="form-label text-white">Select Event:</label>
+            <select id="eventSelect" class="form-select">
+                <option value="#" disabled selected>--- Select Event ---</option>
+                <!-- Options will be populated dynamically -->
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="categorySelect" class="form-label text-white">Select Category:</label>
+            <select id="categorySelect" class="form-select">
+                <option value="#" disabled selected>--- Select Category ---</option>
+                <!-- Options will be populated dynamically -->
+            </select>
+        </div>
     </div>
 
-    <div id="scoresSection">
-      <!-- Scores sections will be populated dynamically -->
+    <div id="scoresSection" class="mt-5">
+        <!-- Score tables will be populated dynamically here -->
     </div>
-  </section>
+</section>
 
 
 

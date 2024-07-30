@@ -1,66 +1,51 @@
 <?php
-include "../backend/myConnection.php"; // Include your database connection file
+include "../backend/myConnection.php";  // Include your database connection
 
-$categoryID = $_POST['categoryID'];
-$eventID = $_POST['eventID']; // Assuming you still need this
+// Check if eventID is provided
+if (isset($_POST['eventID'])) {
+    $eventID = intval($_POST['eventID']);  // Sanitize input
 
-try {
-    // Fetch criteria based on category
-    $criteriaSql = "SELECT criteriaName FROM criteria WHERE categoryID = ?";
-    $criteriaStmt = $con->prepare($criteriaSql);
-    $criteriaStmt->bind_param("i", $categoryID);
-    $criteriaStmt->execute();
-    $criteriaResult = $criteriaStmt->get_result();
+    // Prepare query to get all categories for the event
+    $queryCategories = "
+        SELECT categoryID, categoryName
+        FROM categories
+        WHERE eventID = ?
+    ";
+    $stmtCategories = $con->prepare($queryCategories);
+    $stmtCategories->bind_param("i", $eventID);
+    $stmtCategories->execute();
+    $resultCategories = $stmtCategories->get_result();
 
-    $criteriaNames = [];
-    while ($row = $criteriaResult->fetch_assoc()) {
-        $criteriaNames[] = $row['criteriaName'];
+    // Prepare an array to hold category data
+    $categories = array();
+    while ($rowCategory = $resultCategories->fetch_assoc()) {
+        $categories[] = $rowCategory;
     }
 
-    // Fetch scores for each contestant
-    $scoresSql = "SELECT 
-                    j.judgeName,
-                    c.name AS contestantName, 
-                    cr.criteriaName AS criteriaName, 
-                    sc.score
-                  FROM 
-                    scores sc
-                  JOIN 
-                    contestants c ON sc.contestantID = c.idContestant
-                  JOIN 
-                    criteria cr ON sc.criterionID = cr.criteriaID
-                  JOIN 
-                    judges j ON sc.judgeID = j.judgeID
-                  WHERE 
-                    sc.categoryID = ?
-                  ORDER BY 
-                    j.judgeName, c.name, cr.criteriaName";
-    
-    $scoresStmt = $con->prepare($scoresSql);
-    $scoresStmt->bind_param("i", $categoryID);
-    $scoresStmt->execute();
-    $scoresResult = $scoresStmt->get_result();
+    // Prepare query to get scores for all categories in the event
+    $queryScores = "
+        SELECT c.name AS contestantName, s.score, j.judgeName, cat.categoryName, crit.criteriaName
+        FROM scores s
+        JOIN contestants c ON s.contestantID = c.idContestant
+        JOIN judges j ON s.judgeID = j.judgeID
+        JOIN categories cat ON s.categoryID = cat.categoryID
+        JOIN criteria crit ON s.criterionID = crit.criteriaID
+        WHERE s.categoryID IN (SELECT categoryID FROM categories WHERE eventID = ?)
+    ";
+    $stmtScores = $con->prepare($queryScores);
+    $stmtScores->bind_param("i", $eventID);
+    $stmtScores->execute();
+    $resultScores = $stmtScores->get_result();
 
-    $scores = [];
-    while ($row = $scoresResult->fetch_assoc()) {
-        $judgeName = $row['judgeName'];
-        $contestantName = $row['contestantName'];
-        
-        if (!isset($scores[$judgeName])) {
-            $scores[$judgeName] = [];
-        }
-        if (!isset($scores[$judgeName][$contestantName])) {
-            $scores[$judgeName][$contestantName] = [];
-        }
-        $scores[$judgeName][$contestantName][$row['criteriaName']] = $row['score'];
+    // Collect data for all categories
+    $scores = array();
+    while ($rowScore = $resultScores->fetch_assoc()) {
+        $scores[] = $rowScore;
     }
 
-    echo json_encode([
-        'success' => true,
-        'criteria' => $criteriaNames,
-        'data' => $scores
-    ]);
-} catch (mysqli_sql_exception $e) {
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    // Return JSON response
+    echo json_encode(array('success' => true, 'categories' => $categories, 'scores' => $scores));
+} else {
+    echo json_encode(array('success' => false, 'message' => 'Event ID is required'));
 }
 ?>
