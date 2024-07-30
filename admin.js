@@ -928,6 +928,7 @@
     
 
 // --------------- FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
+// --------------- FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
 $(document).ready(function () {
 
     // Load events into the dropdown menu
@@ -951,6 +952,9 @@ $(document).ready(function () {
 
     // Fetch scores for the selected event
     function fetchScores(eventID) {
+        // Show the loading indicator
+        $('#loadingIndicator').show();
+        
         $.ajax({
             url: './backend/getOverallScores.php',
             type: 'POST',
@@ -967,6 +971,10 @@ $(document).ready(function () {
             error: function (error) {
                 console.error('Error fetching scores:', error);
                 Swal.fire('Error', 'Error fetching scores.', 'error');
+            },
+            complete: function () {
+                // Hide the loading indicator
+                $('#loadingIndicator').hide();
             }
         });
     }
@@ -978,7 +986,7 @@ $(document).ready(function () {
 
         var overallSummary = {};
 
-        // Display overall summary
+        // Display overall summary first
         var overallSummarySection = `
             <h1 class="text-white text-center mt-5">Overall Event Summary</h1>
             <table id="overallSummaryTable" class="table table-striped table-dark">
@@ -996,6 +1004,30 @@ $(document).ready(function () {
         `;
         scoresSection.append(overallSummarySection);
 
+        // Aggregate overall scores
+        categories.forEach(function (category) {
+            // Filter scores by category
+            var categoryScores = scores.filter(score => score.categoryName === category.categoryName);
+
+            // Calculate and display category summary
+            calculateCategorySummary(categoryScores, `#categorySummaryTable_${category.categoryID}`);
+
+            // Aggregate overall scores
+            categoryScores.forEach(score => {
+                if (!overallSummary[score.contestantName]) {
+                    overallSummary[score.contestantName] = 0;
+                }
+                overallSummary[score.contestantName] += parseFloat(score.score) || 0; // Ensure score is a number
+            });
+        });
+
+        // Log overall summary before calculating
+        console.log('Overall Summary:', overallSummary);
+
+        // Calculate and display overall summary
+        calculateOverallSummary(overallSummary);
+
+        // Now display category summaries
         categories.forEach(function (category) {
             var categorySummarySection = `
                 <h1 class="text-white text-center mt-5">Overall Summary for ${category.categoryName}</h1>
@@ -1013,28 +1045,7 @@ $(document).ready(function () {
                 </table>
             `;
             scoresSection.append(categorySummarySection);
-
-            // Filter scores by category
-            var categoryScores = scores.filter(score => score.categoryName === category.categoryName);
-
-            // Calculate and display category summary
-            calculateCategorySummary(categoryScores, `#categorySummaryTable_${category.categoryID}`);
-
-            // Aggregate overall scores
-            categoryScores.forEach(score => {
-                if (!overallSummary[score.contestantName]) {
-                    overallSummary[score.contestantName] = 0;
-                }
-                overallSummary[score.contestantName] += parseFloat(score.score) || 0; // Ensure score is a number
-            });
         });
-
-
-        // Log overall summary before calculating
-        console.log('Overall Summary:', overallSummary);
-
-        // Calculate and display overall summary
-        calculateOverallSummary(overallSummary);
     }
 
     // Calculate and display category summary
