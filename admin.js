@@ -928,56 +928,59 @@
     
 
     // --------------- FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        // Load events into the dropdown menu
+        // Function to load events
         function loadEvents() {
             $.ajax({
                 url: './backend/getEvents.php',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     var options = '<option value="#" disabled selected>--- Select Event ---</option>';
-                    $.each(data, function (index, event) {
+                    $.each(data, function(index, event) {
                         options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
                     });
                     $('#eventSelect').html(options);
                 },
-                error: function () {
+                error: function() {
                     Swal.fire('Error', 'Error loading events.', 'error');
                 }
             });
         }
-
-        // Fetch scores for the selected event
-        function fetchScores(eventID) {
+    
+        // Function to fetch scores based on event and category
+        function fetchScores(eventID, categoryID) {
             $.ajax({
                 url: './backend/getOverallScores.php',
                 type: 'POST',
-                data: { eventID: eventID },
+                data: { eventID: eventID, categoryID: categoryID },
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     if (response.success) {
-                        console.log('Scores Response:', response);  // Log the response for debugging
-                        displayCategorySummaries(response.categories, response.scores);
+                        if (categoryID) {
+                            // Display scores for a specific category
+                            displayCategoryScores(response);
+                        } else {
+                            // Display overall scores and category summaries
+                            displayOverallScores(response);
+                        }
                     } else {
                         Swal.fire('Error', response.message, 'error');
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error fetching scores:', error);
                     Swal.fire('Error', 'Error fetching scores.', 'error');
                 }
             });
         }
-
-        // Display category summaries and overall summary
-        function displayCategorySummaries(categories, scores) {
+    
+        // Function to display overall scores and category summaries
+        function displayOverallScores(response) {
             var scoresSection = $('#scoresSection');
             scoresSection.empty();
-
-            var overallSummary = {};
-            // Display overall summary
+    
             var overallSummarySection = `
                 <h1 class="text-white text-center mt-5">Overall Event Summary</h1>
                 <table id="overallSummaryTable" class="table table-striped table-dark">
@@ -994,8 +997,9 @@
                 </table>
             `;
             scoresSection.append(overallSummarySection);
-            
-            categories.forEach(function (category) {
+    
+            var categories = response.categories;
+            categories.forEach(function(category) {
                 var categorySummarySection = `
                     <h1 class="text-white text-center mt-5">Overall Summary for ${category.categoryName}</h1>
                     <table id="categorySummaryTable_${category.categoryID}" class="table table-striped table-dark">
@@ -1012,35 +1016,144 @@
                     </table>
                 `;
                 scoresSection.append(categorySummarySection);
-
-                // Filter scores by category
-                var categoryScores = scores.filter(score => score.categoryName === category.categoryName);
-
-                // Calculate and display category summary
+    
+                var categoryScores = response.scores.filter(score => score.categoryID === category.categoryID);
                 calculateCategorySummary(categoryScores, `#categorySummaryTable_${category.categoryID}`);
-
-                // Aggregate overall scores
-                categoryScores.forEach(score => {
-                    if (!overallSummary[score.contestantName]) {
-                        overallSummary[score.contestantName] = 0;
-                    }
-                    overallSummary[score.contestantName] += parseFloat(score.score) || 0; // Ensure score is a number
-                });
             });
+    
+            calculateOverallSummary(response.scores);
+        }
+    
+        // Function to display category scores and judge scores
+        function displayCategoryScores(response) {
+            var scoresSection = $('#scoresSection');
+            scoresSection.empty();
 
-        
+            var categoryName = response.selectedCategoryName || 'Unknown Category'; // Use selectedCategoryName from response
+            var categorySummarySection = `
+                <h1 class="text-white text-center mt-5">Overall Summary for ${categoryName}</h1>
+                <table id="categorySummaryTable" class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th>Contestant</th>
+                            <th>Total Score</th>
+                            <th>Rank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Category summary rows will be populated dynamically -->
+                    </tbody>
+                </table>
+            `;
+            scoresSection.append(categorySummarySection);
 
-            // Log overall summary before calculating
-            console.log('Overall Summary:', overallSummary);
+            // Process and display category summary
+            calculateCategorySummary(response.scores, '#categorySummaryTable');
 
-            // Calculate and display overall summary
-            calculateOverallSummary(overallSummary);
+            // Prepare and display judges scores if available
+            var judgesScoresTables = $('<div id="judgesScoresTables"></div>');
+            var scores = response.scores;
+
+            if (scores.length > 0) {
+                var judgesScores = {};
+
+                // Organize scores by judge
+                scores.forEach(score => {
+                    if (!judgesScores[score.judgeName]) {
+                        judgesScores[score.judgeName] = {};
+                    }
+                    if (!judgesScores[score.judgeName][score.contestantName]) {
+                        judgesScores[score.judgeName][score.contestantName] = {};
+                    }
+                    judgesScores[score.judgeName][score.contestantName][score.criteriaName] = score.score;
+                });
+
+                // Iterate over each judge
+                Object.keys(judgesScores).forEach(judgeName => {
+                    var judgeScores = judgesScores[judgeName];
+                    var judgeTable = `<h4 class="text-white fw-bold mt-5">JUDGE: ${judgeName}</h4>`;
+                    judgeTable += '<table class="table table-striped table-dark">';
+                    judgeTable += '<thead><tr><th>Contestant</th>';
+
+                    // Add criteria headers
+                    var criteriaHeaders = new Set();
+                    scores.forEach(score => criteriaHeaders.add(score.criteriaName));
+                    criteriaHeaders.forEach(criterion => {
+                        judgeTable += `<th>${criterion}</th>`;
+                    });
+                    judgeTable += '<th>Total Score</th><th>Rank</th></tr></thead><tbody>';
+
+                    // Calculate and add scores for each contestant
+                    var totalScores = {};
+                    Object.keys(judgeScores).forEach(contestantName => {
+                        var criteriaScores = judgeScores[contestantName];
+                        var totalScore = 0;
+
+                        criteriaHeaders.forEach(criterion => {
+                            totalScore += parseFloat(criteriaScores[criterion] || 0);
+                        });
+
+                        totalScores[contestantName] = totalScore;
+                    });
+
+                    var sortedContestants = Object.keys(totalScores).sort((a, b) => totalScores[b] - totalScores[a]);
+
+                    sortedContestants.forEach((contestantName, index) => {
+                        var rank = index + 1;
+                        var criteriaScores = judgeScores[contestantName];
+                        var totalScore = totalScores[contestantName];
+
+                        judgeTable += `<tr><td>${contestantName}</td>`;
+                        criteriaHeaders.forEach(criterion => {
+                            var score = criteriaScores[criterion] || 0;
+                            judgeTable += `<td>${score}</td>`;
+                        });
+                        judgeTable += `<td>${totalScore.toFixed(2)}</td>`;
+                        judgeTable += `<td>${rank}</td></tr>`;
+                    });
+
+                    judgeTable += '</tbody></table>';
+                    judgesScoresTables.append(judgeTable);
+                });
+
+                scoresSection.append(judgesScoresTables);
+            } else {
+                scoresSection.append('<p class="text-white">No judge scores available.</p>');
+            }
         }
 
         // Calculate and display category summary
         function calculateCategorySummary(scores, tableId) {
-            var summary = {};
+            var summaryData = {};
+            
+            scores.forEach(score => {
+                if (!summaryData[score.contestantName]) {
+                    summaryData[score.contestantName] = 0;
+                }
+                summaryData[score.contestantName] += parseFloat(score.score);
+            });
 
+            var sortedContestants = Object.keys(summaryData).sort((a, b) => summaryData[b] - summaryData[a]);
+
+            var tableBody = $(tableId).find('tbody');
+            sortedContestants.forEach((contestantName, index) => {
+                var rank = index + 1;
+                var totalScore = summaryData[contestantName];
+                tableBody.append(`
+                    <tr>
+                        <td>${contestantName}</td>
+                        <td>${totalScore.toFixed(2)}</td>
+                        <td>${rank}</td>
+                    </tr>
+                `);
+            });
+        }
+
+    
+        // Function to calculate and display overall summary
+        function calculateOverallSummary(scores) {
+            var summary = {};
+    
             scores.forEach(score => {
                 const scoreValue = parseFloat(score.score);
                 if (!summary[score.contestantName]) {
@@ -1048,54 +1161,45 @@
                 }
                 summary[score.contestantName] += isNaN(scoreValue) ? 0 : scoreValue;
             });
-
+    
             var summaryArray = Object.keys(summary).map(contestantName => ({
                 contestantName: contestantName,
                 totalScore: summary[contestantName]
             }));
-
+    
             summaryArray.sort((a, b) => b.totalScore - a.totalScore);
-
-            var tableBody = $(tableId + ' tbody');
-            tableBody.empty();
-
-            summaryArray.forEach((item, index) => {
-                var rank = index + 1;
-                var formattedScore = item.totalScore.toFixed(2);
-                tableBody.append('<tr><td>' + item.contestantName + '</td><td>' + formattedScore + '</td><td>' + rank + '</td></tr>');
-            });
-        }
-
-        // Calculate and display overall summary
-        function calculateOverallSummary(overallSummary) {
-            var summaryArray = Object.keys(overallSummary).map(contestantName => ({
-                contestantName: contestantName,
-                totalScore: overallSummary[contestantName]
-            }));
-
-            summaryArray.sort((a, b) => b.totalScore - a.totalScore);
-
+    
             var tableBody = $('#overallSummaryTable tbody');
             tableBody.empty();
-
+    
             summaryArray.forEach((item, index) => {
                 var rank = index + 1;
                 var formattedScore = item.totalScore.toFixed(2);
                 tableBody.append('<tr><td>' + item.contestantName + '</td><td>' + formattedScore + '</td><td>' + rank + '</td></tr>');
             });
         }
-
-        // Initialize the events dropdown
+    
+        // Initialize events dropdown and bind event handlers
         loadEvents();
-
-        // Event listener for changes in event dropdown
-        $('#eventSelect').change(function () {
+    
+        $('#eventSelect').change(function() {
             var eventID = $(this).val();
             if (eventID) {
-                fetchScores(eventID);  // Fetch event scores
+                fetchScores(eventID, null); // Fetch overall scores and category summaries
             }
         });
+    
+        $('#categorySelect').change(function() {
+            var eventID = $('#eventSelect').val();
+            var categoryID = $(this).val();
+            if (eventID && categoryID) {
+                fetchScores(eventID, categoryID); // Fetch scores for a specific category
+            }
+        });
+    
     });
+    
+    
 
 
     // --------------- END FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------

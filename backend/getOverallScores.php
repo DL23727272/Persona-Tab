@@ -1,9 +1,10 @@
 <?php
-include "../backend/myConnection.php";  // Include your database connection
+include "../backend/myConnection.php";
 
 // Check if eventID is provided
 if (isset($_POST['eventID'])) {
     $eventID = intval($_POST['eventID']);  // Sanitize input
+    $categoryID = isset($_POST['categoryID']) ? intval($_POST['categoryID']) : null;
 
     // Prepare query to get all categories for the event
     $queryCategories = "
@@ -22,9 +23,21 @@ if (isset($_POST['eventID'])) {
         $categories[] = $rowCategory;
     }
 
-    // Prepare query to get scores for all categories in the event
+    // Check if a categoryID was selected
+    $selectedCategoryName = '';
+    if ($categoryID) {
+        // Fetch the name of the selected category
+        foreach ($categories as $category) {
+            if ($category['categoryID'] == $categoryID) {
+                $selectedCategoryName = $category['categoryName'];
+                break;
+            }
+        }
+    }
+
+    // Prepare query to get scores for the selected category or all categories
     $queryScores = "
-        SELECT c.name AS contestantName, s.score, j.judgeName, cat.categoryName, crit.criteriaName
+        SELECT c.name AS contestantName, s.score, j.judgeName, cat.categoryName, crit.criteriaName, s.categoryID
         FROM scores s
         JOIN contestants c ON s.contestantID = c.idContestant
         JOIN judges j ON s.judgeID = j.judgeID
@@ -32,8 +45,18 @@ if (isset($_POST['eventID'])) {
         JOIN criteria crit ON s.criterionID = crit.criteriaID
         WHERE s.categoryID IN (SELECT categoryID FROM categories WHERE eventID = ?)
     ";
+    if ($categoryID) {
+        $queryScores .= " AND s.categoryID = ?";
+    }
     $stmtScores = $con->prepare($queryScores);
-    $stmtScores->bind_param("i", $eventID);
+
+    // Bind parameters to the statement
+    if ($categoryID) {
+        $stmtScores->bind_param("ii", $eventID, $categoryID);  // Two integers
+    } else {
+        $stmtScores->bind_param("i", $eventID);  // One integer
+    }
+
     $stmtScores->execute();
     $resultScores = $stmtScores->get_result();
 
@@ -44,7 +67,12 @@ if (isset($_POST['eventID'])) {
     }
 
     // Return JSON response
-    echo json_encode(array('success' => true, 'categories' => $categories, 'scores' => $scores));
+    echo json_encode(array(
+        'success' => true,
+        'selectedCategoryName' => $selectedCategoryName,
+        'categories' => $categories,
+        'scores' => $scores
+    ));
 } else {
     echo json_encode(array('success' => false, 'message' => 'Event ID is required'));
 }
