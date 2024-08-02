@@ -152,7 +152,7 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
 
             echo $contestantHtml;
         } else {
-            echo "No contestants found.";
+            echo "<h3 class='fst-italic text-center text-white'>No contestants found.</h3>";
         }
     } else {
         echo "<h3 class='fst-italic text-center text-white'>Please select a category.</h3>";
