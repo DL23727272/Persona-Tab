@@ -2,8 +2,7 @@
 // --------------- FOR JUDGE SCORE TABLE --------------
 $(document).ready(function() {
     var judgeID = sessionStorage.getItem('judgeID');
-    var judgeName = sessionStorage.getItem('customerName');
-    document.getElementById("judgeName").innerHTML = judgeName;
+    document.getElementById("judgeName").innerHTML = judgeID;
 
     if (judgeID) {
         $.ajax({
@@ -258,4 +257,37 @@ $(document).ready(function() {
         event.preventDefault();
         saveScores();
     });
+});
+
+// ----------------   -Fetch Event Description based on what they are in    --------------------------------------//
+
+$(document).ready(function() {
+    const judgeID = sessionStorage.getItem('judgeID');
+    console.log('Judge ID from session storage:', judgeID);
+
+    // Check if userId exists
+    if (judgeID) {
+        $.ajax({
+            url: './backend/fetchEventDesc.php',
+            type: 'POST',
+            data: { judgeID: judgeID },
+            dataType: 'json',
+            success: function(response) {
+                console.log(response); 
+                if (response.status === 'success') {
+                    $('.eventImage').attr('src', './EventUploads/' + response.data.eventImage);
+                    $('.eventDescription').text(response.data.eventDescription);
+                    $('.heroEventName').text(response.data.eventName);
+                } else {
+                    // Handle errors or no data found
+                    console.error(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ', status, error);
+            }
+        });
+    } else {
+        console.error('Judge ID not found in session storage.');
+    }
 });

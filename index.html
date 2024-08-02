@@ -381,21 +381,7 @@
           }
       }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var judgeID = sessionStorage.getItem('judgeID');
-        var judgeName = sessionStorage.getItem('customerName');
-        
-        // Check if customerID is present
-        if (judgeID) {
-        
-          console.log('Judge ID ' + judgeID)
-          console.log('Judge Name ' + judgeName);
-          document.getElementById("judgeName").innerHTML = judgeName;
-           
-        } else {
-            console.log('Customer ID not found in sessionStorage'); 
-        }
-    });
+    
      </script>
     
      

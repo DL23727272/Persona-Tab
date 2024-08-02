@@ -1,11 +1,2 @@
-[]
-[]
-{"eventName":"CCS","eventDescription":"beauty"}
-{"eventName":"CCS","eventDescription":"asd"}
-{"eventName":"CCS","eventDescription":"ASs"}
-{"eventName":"CBME","eventDescription":"123"}
-{"eventName":"CCS Week","eventDescription":"College of Computing Studies Week Event"}
-{"eventName":"CCS Week","eventDescription":"College of Computing Studies - foundation week"}
-{"eventName":"CCS Week","eventDescription":"dasda"}
-{"eventName":"CCS","eventDescription":"CCS WEEK"}
-{"eventName":"Beauty Testing","eventDescription":"beauty testing"}
+{"eventName":"CCS Web dev","eventDescription":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sit fugit quia odit a suscipit aut iste nisi earum porro quas asperiores labore nostrum, repellendus nobis. Impedit unde repellendus perferendis? Quisquam vitae iure blanditiis cum saepe suscipit. Repellat, aspernatur. Amet."}
+{"eventImage":{"name":"ccs.jpg","full_path":"ccs.jpg","type":"image\/jpeg","tmp_name":"D:\\xampp\\tmp\\phpFF27.tmp","error":0,"size":349202}}

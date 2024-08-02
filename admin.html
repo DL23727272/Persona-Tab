@@ -376,30 +376,36 @@
 
      <!-- ----------  MODALS --------------- -->
 
-    <!-- Modal for Adding Event -->
-    <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content card">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addEventModalLabel">Add Event</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal for Adding Event -->
+<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEventModalLabel">Add Event</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addEventForm" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="eventName" class="form-label">Event Name</label>
+            <input type="text" class="form-control" id="eventName" name="eventName" required>
           </div>
-          <div class="modal-body">
-            <form id="addEventForm">
-              <div class="mb-3">
-                <label for="eventName" class="form-label">Event Name</label>
-                <input type="text" class="form-control" id="eventName" name="eventName" required>
-              </div>
-              <div class="mb-3">
-                <label for="eventDescription" class="form-label">Event Description</label>
-                <textarea class="form-control" id="eventDescription" rows="3" required name="eventDescription"></textarea>
-              </div>
-              <button type="submit" class="btn btn-outline-light float-end">Add Event</button>
-            </form>
+          <div class="mb-3">
+            <label for="eventDescription" class="form-label">Event Description</label>
+            <textarea class="form-control" id="eventDescription" rows="3" name="eventDescription" required></textarea>
           </div>
-        </div>
+          <div class="mb-3">
+            <label for="eventImage" class="form-label">Event Logo</label>
+            <input type="file" class="form-control" id="eventImage" name="eventImage" required>
+          </div>
+          <button type="submit" class="btn btn-outline-light float-end">Add Event</button>
+        </form>
       </div>
     </div>
+  </div>
+</div>
+
+
 
     <!-- Modal for Adding Category -->
     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">

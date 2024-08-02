@@ -38,16 +38,21 @@
     $(document).ready(function() {
         var judgeID = sessionStorage.getItem('judgeID');
         if (judgeID) {
+
             // Handle form submission for adding event
             $('#addEventForm').submit(function(e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
+                e.preventDefault(); 
+            
+                var formData = new FormData(this);
+            
                 $.ajax({
-                    url: './backend/addEvent.php', 
+                    url: './backend/addEvent.php',
                     method: 'POST',
                     data: formData,
+                    processData: false, 
+                    contentType: false, 
                     success: function(response) {
-                        console.log(response); // Log the full response
+                        console.log(response); 
                         if (response.status === 'success') {
                             Swal.fire({
                                 icon: 'success',
@@ -58,7 +63,6 @@
                             }).then(function() {
                                 $('#addEventModal').modal('hide');
                                 $('#addEventForm')[0].reset();
-                                // Optionally, reload the list of events
                             });
                         } else {
                             Swal.fire({
@@ -69,7 +73,7 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        console.error(xhr.responseText); // Log the error details
+                        console.error(xhr.responseText);
                         Swal.fire({
                             icon: 'error',
                             title: 'Error!',
@@ -78,8 +82,7 @@
                     }
                 });
             });
-        
-
+            
 
             // Handle form submission for ADDING CATEGORY
             $('#addCategoryForm').submit(function(e) {
