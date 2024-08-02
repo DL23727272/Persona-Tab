@@ -145,38 +145,41 @@
   <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
 
-    <!-- Contestants CONTENT -->
-      
-    <section class="container-sm">
-        <h1 class="fst-italic text-center text-white"> Fetch Contestants </h1>
-        <div class="container mt-5">
-            <div class="row mb-4">
-                <div class="col-md-4">
-                    <select id="contestantEvent" class="form-select">
-                        <option value="#" disabled selected>--- Select Event ---</option>
-                        <!-- Event options will be loaded here -->
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <select id="contestantCategory" class="form-select">
-                        <option value="#" disabled selected>--- Select Category ---</option>
-                        <!-- Category options will be loaded here -->
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <select id="genderFilter" class="form-select">
-                        <option value="#">--- Select Gender ---</option>
-                        <option value="Female">Female</option>
-                        <option value="Male">Male</option>
-                    </select>
-                </div>
+  <!-- Contestants CONTENT -->
+<section class="container-sm">
+    <h1 class="fst-italic text-center text-white">Fetch Contestants</h1>
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-12 col-md-4 mb-2 mb-md-0">
+                <label for="contestantEvent" class="form-label text-white">Select Event</label>
+                <select id="contestantEvent" class="form-select">
+                    <option value="#" disabled selected>--- Select Event ---</option>
+                    <!-- Event options will be loaded here -->
+                </select>
             </div>
-            <div id="contestantContainer" class="row">
-                <!-- Contestants will be displayed here -->
+            <div class="col-12 col-md-4 mb-2 mb-md-0">
+                <label for="contestantCategory" class="form-label text-white">Select Category</label>
+                <select id="contestantCategory" class="form-select">
+                    <option value="#" disabled selected>--- Select Category ---</option>
+                    <!-- Category options will be loaded here -->
+                </select>
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="contestantGender" class="form-label text-white">Select Gender</label>
+                <select id="genderFilter" class="form-select">
+                    <option value="#">--- Select Gender ---</option>
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                </select>
             </div>
         </div>
-    </section>
-    <!-- END OF Contestants CONTENT -->
+        <div id="contestantContainer" class="row">
+            <!-- Contestants will be displayed here -->
+        </div>
+    </div>
+</section>
+<!-- END OF Contestants CONTENT -->
+
 
 
     
