@@ -1384,7 +1384,7 @@
 
 
 
- // ---------------Fetch CONTESTANTS PER CATEGORY --------------
+ // ---------------Fetch CONTESTANTS PER CATEGORY August 2-3 update--------------
  $(document).ready(function() {
     var judgeID = sessionStorage.getItem('judgeID');
 
