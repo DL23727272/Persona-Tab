@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2024 at 06:53 PM
+-- Generation Time: Aug 02, 2024 at 03:52 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -38,9 +38,12 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`categoryID`, `categoryName`, `eventID`) VALUES
-(1, 'Best in Sports Attire', 1),
-(2, 'Question and Answer', 1),
-(3, 'Web Development', 1);
+(1, 'Best in Production Number', 1),
+(2, 'Best in Sports Attire', 1),
+(3, 'Best in Festival Attire', 1),
+(4, 'Best in Long Gown/Formal Attire', 1),
+(5, 'Question and Answer', 1),
+(6, 'Web Development', 5);
 
 -- --------------------------------------------------------
 
@@ -64,10 +67,18 @@ CREATE TABLE `contestants` (
 --
 
 INSERT INTO `contestants` (`idContestant`, `name`, `age`, `address`, `gender`, `image`, `categoryID`, `rank`) VALUES
-(1, 'Shanne Cabotaje', 20, 'Santa Maria', 'female', '../contestant_image/sw8.jfif', 1, 1),
-(3, 'Mhariz Adona', 20, 'Narvacan', 'female', '../contestant_image/ispsc.png', 2, 2),
-(4, 'violet', 21, 'Candon', 'female', '../contestant_image/sw8.jfif', 2, 1),
-(5, 'Dran Leynard', 21, 'asd', 'male', '../contestant_image/DL.png', 3, NULL);
+(1, 'DL Gamoso', 20, 'Candon', 'male', '../contestant_image/LOGO.png', 1, 2),
+(2, 'Phoebe Gabatino', 20, 'Candon', 'female', '../contestant_image/mobe.jfif', 1, 1),
+(3, 'DL', 20, 'Candon', 'male', '../contestant_image/LOGO.png', 1, 6),
+(4, 'Cyrell', 20, 'Narvacan', 'male', '../contestant_image/sw8.jfif', 1, 5),
+(5, 'violet', 20, 'Candon', 'female', '../contestant_image/sw8.jfif', 1, 4),
+(6, 'shanne takki', 20, 'Santa Maria', 'female', '../contestant_image/sw8.jfif', 1, 3),
+(7, 'DL Gamoso', 20, 'Candon', 'male', '../contestant_image/sw8.jfif', 2, 4),
+(8, 'Phoebe Gabatino', 20, 'Candon', 'female', '../contestant_image/ispsc.png', 2, 3),
+(9, 'DL', 20, 'Candon', 'male', '../contestant_image/LOGO.png', 2, 2),
+(10, 'Cyrell', 20, 'Narvacan', 'male', '../contestant_image/LOGO.png', 2, 1),
+(11, 'violet', 20, 'Santa Maria', 'female', '../contestant_image/sw8.jfif', 2, 6),
+(12, 'shanne takki', 20, 'Santa Maria', 'female', '../contestant_image/sw8.jfif', 2, 5);
 
 -- --------------------------------------------------------
 
@@ -87,16 +98,26 @@ CREATE TABLE `criteria` (
 --
 
 INSERT INTO `criteria` (`criteriaID`, `criteriaName`, `categoryID`, `criteriaScore`) VALUES
-(1, 'Figure', 1, 30),
-(2, 'Sports Identity', 1, 20),
-(3, 'Poise and Bearing', 1, 40),
+(1, 'Poise and Bearing', 1, 30),
+(2, 'Mastery', 1, 30),
+(3, 'Self-Introduction', 1, 30),
 (4, 'Overall Impact', 1, 10),
-(5, 'Wit and Content', 2, 40),
-(6, 'Stage Presence', 2, 20),
-(7, 'Projection & Delivery', 2, 30),
+(5, 'Figure', 2, 30),
+(6, 'Sports Identity', 2, 20),
+(7, 'Poise and Bearing', 2, 30),
 (8, 'Overall Impact', 2, 10),
-(9, 'Design', 3, 40),
-(10, 'Functionality', 3, 60);
+(9, 'Creative Design', 3, 20),
+(10, 'Stage Presence', 3, 20),
+(11, 'Poise and Bearing', 3, 30),
+(12, 'Overall Impact', 3, 10),
+(13, 'Design and Fitting', 4, 20),
+(14, 'Stage Deportment', 4, 30),
+(15, 'Poise and Bearing', 4, 40),
+(16, 'Overall Impact', 4, 10),
+(17, 'Wit and Content', 5, 40),
+(18, 'Stage Presence', 5, 20),
+(19, 'Projection & Delivery', 5, 30),
+(20, 'Overall Impact', 5, 10);
 
 -- --------------------------------------------------------
 
@@ -107,15 +128,20 @@ INSERT INTO `criteria` (`criteriaID`, `criteriaName`, `categoryID`, `criteriaSco
 CREATE TABLE `events` (
   `eventID` int(11) NOT NULL,
   `eventName` varchar(255) NOT NULL,
-  `eventDescription` text DEFAULT NULL
+  `eventDescription` text DEFAULT NULL,
+  `eventImage` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`eventID`, `eventName`, `eventDescription`) VALUES
-(1, 'CCS', 'CCS WEEK');
+INSERT INTO `events` (`eventID`, `eventName`, `eventDescription`, `eventImage`) VALUES
+(1, 'Beauty Testing', 'beauty testing', '../EventUploads/ispsc_5009.png'),
+(2, 'Event Image', 'asd', '../EventUploads/ispsc_3952.png'),
+(3, 'CBME', 'asd', '../EventUploads/ispsc_5009.png'),
+(4, 'Event Image', 'asd', '../EventUploads/ispsc_2885.png'),
+(5, 'CCS Web dev', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sit fugit quia odit a suscipit aut iste nisi earum porro quas asperiores labore nostrum, repellendus nobis. Impedit unde repellendus perferendis? Quisquam vitae iure blanditiis cum saepe suscipit. Repellat, aspernatur. Amet.', '../EventUploads/ccs_4303.jpg');
 
 -- --------------------------------------------------------
 
@@ -157,9 +183,17 @@ CREATE TABLE `judge_categories` (
 --
 
 INSERT INTO `judge_categories` (`judgeID`, `categoryID`) VALUES
+(1, 1),
+(1, 2),
 (1, 3),
+(1, 4),
+(1, 5),
+(2, 6),
 (4, 1),
-(4, 2);
+(4, 2),
+(4, 3),
+(4, 4),
+(4, 5);
 
 -- --------------------------------------------------------
 
@@ -182,18 +216,102 @@ CREATE TABLE `scores` (
 --
 
 INSERT INTO `scores` (`scoreID`, `judgeID`, `contestantID`, `categoryID`, `criterionID`, `score`, `rank`) VALUES
-(1, 4, 1, 1, 1, 1, 1),
-(2, 4, 1, 1, 2, 2, 1),
-(3, 4, 1, 1, 3, 3, 1),
-(4, 4, 1, 1, 4, 4, 1),
-(5, 4, 3, 2, 5, 5, 2),
-(6, 4, 3, 2, 6, 20, 2),
-(7, 4, 3, 2, 7, 17, 2),
-(8, 4, 3, 2, 8, 8, 2),
-(9, 4, 4, 2, 5, 1, 1),
-(10, 4, 4, 2, 6, 10, 1),
-(11, 4, 4, 2, 7, 11, 1),
-(12, 4, 4, 2, 8, 2, 1);
+(1, 1, 1, 1, 1, 20, 6),
+(2, 1, 1, 1, 2, 30, 6),
+(3, 1, 1, 1, 3, 20, 6),
+(4, 1, 1, 1, 4, 1, 6),
+(5, 1, 2, 1, 1, 30, 5),
+(6, 1, 2, 1, 2, 20, 5),
+(7, 1, 2, 1, 3, 20, 5),
+(8, 1, 2, 1, 4, 5, 5),
+(9, 1, 3, 1, 1, 8, 4),
+(10, 1, 3, 1, 2, 9, 4),
+(11, 1, 3, 1, 3, 10, 4),
+(12, 1, 3, 1, 4, 3, 4),
+(13, 1, 4, 1, 1, 11, 3),
+(14, 1, 4, 1, 2, 12, 3),
+(15, 1, 4, 1, 3, 13, 3),
+(16, 1, 4, 1, 4, 4, 3),
+(17, 1, 5, 1, 1, 14, 2),
+(18, 1, 5, 1, 2, 15, 2),
+(19, 1, 5, 1, 3, 16, 2),
+(20, 1, 5, 1, 4, 5, 2),
+(21, 1, 6, 1, 1, 17, 1),
+(22, 1, 6, 1, 2, 18, 1),
+(23, 1, 6, 1, 3, 19, 1),
+(24, 1, 6, 1, 4, 6, 1),
+(25, 1, 7, 2, 5, 15, 4),
+(26, 1, 7, 2, 6, 9, 4),
+(27, 1, 7, 2, 7, 8, 4),
+(28, 1, 7, 2, 8, 7, 4),
+(29, 1, 8, 2, 5, 16, 3),
+(30, 1, 8, 2, 6, 10, 3),
+(31, 1, 8, 2, 7, 7, 3),
+(32, 1, 8, 2, 8, 8, 3),
+(33, 1, 9, 2, 5, 17, 2),
+(34, 1, 9, 2, 6, 11, 2),
+(35, 1, 9, 2, 7, 6, 2),
+(36, 1, 9, 2, 8, 9, 2),
+(37, 1, 10, 2, 5, 18, 1),
+(38, 1, 10, 2, 6, 12, 1),
+(39, 1, 10, 2, 7, 5, 1),
+(40, 1, 10, 2, 8, 10, 1),
+(41, 1, 11, 2, 5, 19, 6),
+(42, 1, 11, 2, 6, 13, 6),
+(43, 1, 11, 2, 7, 4, 6),
+(44, 1, 11, 2, 8, 1, 6),
+(45, 1, 12, 2, 5, 20, 5),
+(46, 1, 12, 2, 6, 14, 5),
+(47, 1, 12, 2, 7, 3, 5),
+(48, 1, 12, 2, 8, 2, 5),
+(49, 4, 1, 1, 1, 1, 6),
+(50, 4, 1, 1, 2, 2, 6),
+(51, 4, 1, 1, 3, 3, 6),
+(52, 4, 1, 1, 4, 4, 6),
+(53, 4, 2, 1, 1, 4, 1),
+(54, 4, 2, 1, 2, 4, 1),
+(55, 4, 2, 1, 3, 4, 1),
+(56, 4, 2, 1, 4, 4, 1),
+(57, 4, 3, 1, 1, 4, 2),
+(58, 4, 3, 1, 2, 4, 2),
+(59, 4, 3, 1, 3, 4, 2),
+(60, 4, 3, 1, 4, 4, 2),
+(61, 4, 4, 1, 1, 4, 3),
+(62, 4, 4, 1, 2, 4, 3),
+(63, 4, 4, 1, 3, 4, 3),
+(64, 4, 4, 1, 4, 4, 3),
+(65, 4, 5, 1, 1, 4, 4),
+(66, 4, 5, 1, 2, 4, 4),
+(67, 4, 5, 1, 3, 4, 4),
+(68, 4, 5, 1, 4, 4, 4),
+(69, 4, 6, 1, 1, 4, 5),
+(70, 4, 6, 1, 2, 4, 5),
+(71, 4, 6, 1, 3, 4, 5),
+(72, 4, 6, 1, 4, 4, 5),
+(73, 4, 7, 2, 5, 4, 1),
+(74, 4, 7, 2, 6, 4, 1),
+(75, 4, 7, 2, 7, 4, 1),
+(76, 4, 7, 2, 8, 4, 1),
+(77, 4, 8, 2, 5, 4, 2),
+(78, 4, 8, 2, 6, 4, 2),
+(79, 4, 8, 2, 7, 4, 2),
+(80, 4, 8, 2, 8, 4, 2),
+(81, 4, 9, 2, 5, 4, 3),
+(82, 4, 9, 2, 6, 4, 3),
+(83, 4, 9, 2, 7, 4, 3),
+(84, 4, 9, 2, 8, 4, 3),
+(85, 4, 10, 2, 5, 4, 4),
+(86, 4, 10, 2, 6, 4, 4),
+(87, 4, 10, 2, 7, 4, 4),
+(88, 4, 10, 2, 8, 4, 4),
+(89, 4, 11, 2, 5, 4, 5),
+(90, 4, 11, 2, 6, 4, 5),
+(91, 4, 11, 2, 7, 4, 5),
+(92, 4, 11, 2, 8, 4, 5),
+(93, 4, 12, 2, 5, 4, 6),
+(94, 4, 12, 2, 6, 4, 6),
+(95, 4, 12, 2, 7, 4, 6),
+(96, 4, 12, 2, 8, 4, 6);
 
 --
 -- Indexes for dumped tables
@@ -257,25 +375,25 @@ ALTER TABLE `scores`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `contestants`
 --
 ALTER TABLE `contestants`
-  MODIFY `idContestant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idContestant` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `criteriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `criteriaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `eventID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `judges`
@@ -287,7 +405,7 @@ ALTER TABLE `judges`
 -- AUTO_INCREMENT for table `scores`
 --
 ALTER TABLE `scores`
-  MODIFY `scoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `scoreID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- Constraints for dumped tables

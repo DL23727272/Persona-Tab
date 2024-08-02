@@ -1381,3 +1381,91 @@
         }
     });
     // ---------------END FOR REMOVE JUDGE FROM CATEGORY --------------
+
+
+
+ // ---------------Fetch CONTESTANTS PER CATEGORY --------------
+ $(document).ready(function() {
+    var judgeID = sessionStorage.getItem('judgeID');
+
+    if (judgeID) {
+        function loadEvents() {
+            $.ajax({
+                url: './backend/getEvents.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var options = '<option value="#" disabled selected>--- Select Event ---</option>';
+                    $.each(data, function(index, event) {
+                        options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
+                    });
+                    $('#contestantEvent').html(options);
+                },
+                error: function() {
+                    Swal.fire('Error', 'Error loading events.', 'error');
+                }
+            });
+        }
+
+        function loadCategories(eventID) {
+            $.ajax({
+                url: './backend/adminGetCategories.php',
+                method: 'GET',
+                data: { eventID: eventID },
+                dataType: 'json',
+                success: function(data) {
+                    console.log('Categories:', data); // Log the categories data
+                    var options = '<option value="#" disabled selected>--- Select Category ---</option>';
+                    $.each(data, function(index, category) {
+                        options += '<option value="' + category.categoryID + '">' + category.categoryName + '</option>';
+                    });
+                    $('#contestantCategory').html(options);
+                },
+                error: function() {
+                    Swal.fire('Error', 'Error loading categories.', 'error');
+                }
+            });
+        }
+
+        function loadContestants(eventID, categoryID, gender) {
+            $.ajax({
+                url: './backend/fetchContestants.php',
+                method: 'POST',
+                data: {
+                    eventID: eventID,
+                    categoryID: categoryID,
+                    gender: gender
+                },
+                success: function(response) {
+                    $('#contestantContainer').html(response);
+                },
+                error: function() {
+                    Swal.fire('Error', 'Error fetching contestants.', 'error');
+                }
+            });
+        }
+
+        $('#contestantEvent').on('change', function() {
+            var eventID = $(this).val();
+            loadCategories(eventID);
+            loadContestants(eventID, $('#contestantCategory').val(), $('#genderFilter').val());
+        });
+
+        $('#contestantCategory').on('change', function() {
+            var eventID = $('#contestantEvent').val();
+            var categoryID = $(this).val();
+            loadContestants(eventID, categoryID, $('#genderFilter').val());
+        });
+
+        $('#genderFilter').on('change', function() {
+            var eventID = $('#contestantEvent').val();
+            var categoryID = $('#contestantCategory').val();
+            var gender = $(this).val();
+            loadContestants(eventID, categoryID, gender);
+        });
+
+        loadEvents();
+    } else {
+        Swal.fire('Error', 'Session expired or judge not found.', 'error');
+    }
+});
