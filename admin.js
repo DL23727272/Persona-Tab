@@ -1469,3 +1469,68 @@
         Swal.fire('Error', 'Session expired or judge not found.', 'error');
     }
 });
+ // --------------- END Fetch CONTESTANTS PER CATEGORY --------------
+
+
+  // ---------------UPDATE AND DELETE CONTESTANTS PER CATEGORY --------------
+    function updateContestant(contestantID) {
+        const formData = new FormData(document.getElementById(`editForm${contestantID}`));
+        
+        $.ajax({
+            url: './backend/updateContestant.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                const result = JSON.parse(response);
+                if (result.status === 'success') {
+                    Swal.fire('Success', result.message, 'success').then(() => {
+                        // Hide the modal
+                        $(`#editModal${contestantID}`).modal('hide');
+                        
+                    });
+                } else if (result.status === 'info') {
+                    Swal.fire('Info', result.message, 'info');
+                } else {
+                    Swal.fire('Error', result.message, 'error');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ', status, error);
+            }
+        });
+    }
+
+
+function confirmDelete(contestantID) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to recover this contestant!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: './backend/deleteContestant.php',
+                type: 'POST',
+                data: { contestantID: contestantID },
+                success: function(response) {
+                    const result = JSON.parse(response);
+                    if (result.status === 'success') {
+                        Swal.fire('Deleted!', result.message, 'success');
+                        location.reload(); // Reload the page to reflect changes
+                    } else {
+                        Swal.fire('Error', result.message, 'error');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ', status, error);
+                }
+            });
+        }
+    });
+}

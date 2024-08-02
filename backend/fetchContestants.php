@@ -53,15 +53,21 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
 
                 $contestantHtml .= '
                     <div class="col mt-5">
-                        <div class="card h-100">
+                        <div class="card h-100"  >
                             <div class="container mt-5 text-center">
-                                <img src="contestants/'. $row['image'] .'" class="card-img-top" alt="Contestant Image" style="width: 200px; height: 250px;">
+                                <img src="contestants/'. $row['image'] .'" class="card-img-top mt-2" alt="Contestant Image" 
+                                style="
+                                width: 200px; 
+                                height: 250px; 
+                                border-radius:10px;
+                                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                                ">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">'. $row['name'] .'</h5>
-                                <p class="card-text">Age: '. $row['age'] .'</p>
-                                <p class="card-text"> '. $row['address'] .'</p>
-                                <p class="card-text">Gender: '. $row['gender'] .'</p>
+                                <h5 class="card-title  text-center">'. $row['name'] .'</h5>
+                                <p class="card-text  text-center">Age: '. $row['age'] .'</p>
+                                <p class="card-text  text-center"> '. $row['address'] .'</p>
+                                <p class="card-text  text-center">Gender: '. $row['gender'] .'</p>
                                 <div class="d-flex justify-content-between mt-3">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal'. $contestantID .'">Edit</button>
                                     <button type="button" class="btn btn-danger" onclick="confirmDelete('. $contestantID .')">Delete</button>
@@ -112,8 +118,8 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
                                             <div class="col-sm-9">
                                                 <select class="form-select" id="contestantGender'. $contestantID .'" name="contestantGender" required>
                                                     <option value="#" disabled selected>--- Select Gender</option>
-                                                    <option value="Female" '. ($row['gender'] == 'Female' ? 'selected' : '') .'>Female</option>
-                                                    <option value="Male" '. ($row['gender'] == 'Male' ? 'selected' : '') .'>Male</option>
+                                                    <option value="Female" '. ($row['gender'] == 'Female' ? : '') .'>Female</option>
+                                                    <option value="Male" '. ($row['gender'] == 'Male' ?  : '') .'>Male</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -126,8 +132,8 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
                                         </div>
                                         
                                         <div class="form-group row">
-                                            <div class="col-sm-9 offset-sm-6">
-                                                <button type="button" class="btn btn-outline-light mt-3" onclick="updateContestant('. $contestantID .')">Update</button>
+                                            <div class="col-sm-9 offset-sm-9">
+                                                <button type="button" class="btn btn-outline-light mt-3 " onclick="updateContestant('. $contestantID .')">Update</button>
                                             </div>
                                         </div>
                                     </form>
