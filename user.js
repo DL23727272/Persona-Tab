@@ -27,6 +27,7 @@ $(document).ready(function() {
 
                     response.categories.forEach(function(category) {
                         var tableHTML = `
+                            <hr class="container-sm Sborder mt-5 mb-5 border-light border-2 opacity-50 w-50" />
                             <div class="d-flex flex-column align-items-center text-center">
                                 <h2 class="fst-italic text-center text-white">${category.categoryName}</h2>
                                 <div id="criteriaContainer-${category.categoryID}">
