@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $age = isset($_POST['contestantAge']) ? $_POST['contestantAge'] : null;
     $address = isset($_POST['contestantAddress']) ? $_POST['contestantAddress'] : null;
     $gender = isset($_POST['contestantGender']) ? $_POST['contestantGender'] : null;
+    $contestantNumber = isset($_POST['contestantNumber']) ? $_POST['contestantNumber'] : null;
 
     // Check if all fields are provided
     if (empty($name) || empty($age) || empty($address) || empty($gender) || empty($id)) {
@@ -29,27 +30,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check if there are any actual changes
-    $sql = "SELECT name, age, address, gender, image FROM contestants WHERE idContestant = ?";
+    $sql = "SELECT name, age, address, gender, image, contestantNo FROM contestants WHERE idContestant = ?";
     $stmt = $con->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
     $existing = $result->fetch_assoc();
 
-    if ($name == $existing['name'] && $age == $existing['age'] && $address == $existing['address'] && $gender == $existing['gender'] && ($image_path === null || $image_path == $existing['image'])) {
+    if ($name == $existing['name'] && $age == $existing['age'] && $address == $existing['address'] && $gender == $existing['gender'] && ($image_path === null || $image_path == $existing['image']) && $contestantNumber == $existing['contestantNo']) {
         echo json_encode(['status' => 'info', 'message' => 'No changes detected']);
         exit();
     }
 
     // Update query with or without image
     if ($image_path) {
-        $sql = "UPDATE contestants SET name=?, age=?, address=?, gender=?, image=? WHERE idContestant=?";
+        $sql = "UPDATE contestants SET name=?, age=?, address=?, gender=?, image=?, contestantNo=? WHERE idContestant=?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param("sssssi", $name, $age, $address, $gender, $image_path, $id);
+        $stmt->bind_param("ssssssi", $name, $age, $address, $gender, $image_path, $contestantNumber, $id);
     } else {
-        $sql = "UPDATE contestants SET name=?, age=?, address=?, gender=? WHERE idContestant=?";
+        $sql = "UPDATE contestants SET name=?, age=?, address=?, gender=?, contestantNo=? WHERE idContestant=?";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param("ssssi", $name, $age, $address, $gender, $id);
+        $stmt->bind_param("sssssi", $name, $age, $address, $gender, $contestantNumber, $id);
     }
 
     if ($stmt->execute()) {

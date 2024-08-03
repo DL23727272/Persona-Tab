@@ -68,6 +68,7 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
                                 <p class="card-text  text-center">Age: '. $row['age'] .'</p>
                                 <p class="card-text  text-center"> '. $row['address'] .'</p>
                                 <p class="card-text  text-center">Gender: '. $row['gender'] .'</p>
+                                <p class="card-text  text-center">Contestant No: '. $row['contestantNo'] .'</p>
                                 <div class="d-flex justify-content-between mt-3">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal'. $contestantID .'">Edit</button>
                                     <button type="button" class="btn btn-danger" onclick="confirmDelete('. $contestantID .')">Delete</button>
@@ -128,6 +129,12 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
                                             <label for="contestantImage'. $contestantID .'" class="col-sm-3 col-form-label">Image:</label>
                                             <div class="col-sm-9">
                                                 <input type="file" class="form-control" id="contestantImage'. $contestantID .'" name="contestantImage">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label for="contestantNumber'. $contestantID .'" class="col-sm-3 col-form-label">Contestant No:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="contestantNumber'. $contestantID .'" name="contestantNumber" value="'. htmlspecialchars($row['contestantNo']) .'" >
                                             </div>
                                         </div>
                                         

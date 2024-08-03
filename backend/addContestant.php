@@ -7,6 +7,7 @@ if (isset($_POST['name']) && isset($_POST['age']) && isset($_POST['address']) &&
     $address = $_POST['address'];
     $gender = $_POST['gender'];
     $categoryID = $_POST['categoryID'];
+    $contestantNumber = $_POST['contestantNumber'];
 
     // Validate categoryID
     $categoryQuery = "SELECT categoryID FROM categories WHERE categoryID = ?";
@@ -40,11 +41,11 @@ if (isset($_POST['name']) && isset($_POST['age']) && isset($_POST['address']) &&
         exit();
     }
 
-    $query = "INSERT INTO contestants (name, age, address, gender, image, categoryID)
-              VALUES (?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO contestants (name, age, address, gender, image, categoryID, contestantNo)
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $con->prepare($query);
-    $stmt->bind_param('sisssi', $name, $age, $address, $gender, $image, $categoryID);
+    $stmt->bind_param('sisssis', $name, $age, $address, $gender, $image, $categoryID, $contestantNumber);
 
     if ($stmt->execute()) {
         $response = [
