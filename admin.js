@@ -550,37 +550,81 @@
         var judgeID = sessionStorage.getItem('judgeID');
         if (judgeID) {
             // Populate category dropdown
-            $.ajax({
-                url: './backend/getCategories.php',
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    if (Array.isArray(response)) {
-                        let categoryDropdown = $('#category');
-                        categoryDropdown.empty();
-                        categoryDropdown.append('<option value="#" disabled selected>--- Select Category ---</option>');
-                        response.forEach(category => {
-                            categoryDropdown.append(new Option(category.categoryName, category.categoryID)); // Ensure correct value
+         
+            function loadEvents() {
+                $.ajax({
+                    url: './backend/getEvents.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var options = '<option value="#" disabled selected>--- Select Event ---</option>';
+                        $.each(data, function(index, event) {
+                            options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
                         });
-                    } else {
-                        console.error(response.message);
+                        $('#addEventID').html(options);
+                        
+                    },
+                    error: function() {
+                        alertify.error('Error loading events.');
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error: ' + status + error);
+                });
+            }
+
+          // Function to fetch and display categories as checkboxes based on the selected event
+            function loadCategories(eventID) {
+                $.ajax({
+                    url: './backend/adminGetCategories.php',
+                    method: 'GET',
+                    data: { eventID: eventID },
+                    dataType: 'json',
+                    success: function(data) {
+                        var filteredCategories = data;
+                        
+                        // Debugging: Log the filtered categories to console
+                        console.log("Filtered Categories:", filteredCategories);
+
+                        // Generate checkboxes for categories
+                        var categoryHtml = '';
+                        $.each(filteredCategories, function(index, category) {
+                            categoryHtml += '<div class="form-check">';
+
+                            categoryHtml += '<input class="form-check-input " type="checkbox" name="categories[]" value="' + 
+                            category.categoryID + '" id="category' + category.categoryID + '">';
+
+                            categoryHtml += '<label class="text-white form-check-label" for="category' + 
+                            category.categoryID + '">' + category.categoryName + '</label>';
+
+                            categoryHtml += '</div>';
+                        });
+                        $('#categoryContainer').html(categoryHtml);
+                    },
+                    error: function() {
+                        alertify.error('Error loading categories.');
+                    }
+                });
+            }
+
+
+            // Call loadEvents on page load
+            loadEvents();
+
+            // Event listener for event selection change
+            $('#addEventID').change(function() {
+                var eventID = $(this).val();
+                if (eventID) {
+                    loadCategories(eventID);
                 }
             });
-            
 
             // Handle form add submission
             $('#contestantForm').submit(function(e) {
                 e.preventDefault();
-            
+
                 var formData = new FormData(this);
                 for (var pair of formData.entries()) {
-                    console.log(pair[0]+ ': '+ pair[1]); // Debug form data
+                    console.log(pair[0] + ': ' + pair[1]); // Debug form data
                 }
-            
+
                 $.ajax({
                     url: './backend/addContestant.php',
                     type: 'POST',
@@ -613,6 +657,7 @@
                     }
                 });
             });
+
         }else{
             Swal.fire({
                 icon: 'warning',
@@ -632,6 +677,7 @@
         }
 
     });
+    
     // ---------------END FOR ADD CONTESTANT TO CATEGORY --------------
 
     
