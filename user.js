@@ -105,7 +105,13 @@ $(document).ready(function() {
                             existingContestants.add(contestant.idContestant);
     
                             tbody += '<tr data-contestant-id="' + contestant.idContestant + '" data-category-id="' + categoryID + '">';
-                            tbody += '<td>' + contestant.name + '</td>';
+                            
+                            // Display contestant number if available, otherwise display name
+                            if (contestant.contestantNo) {
+                                tbody += '<td>' + contestant.contestantNo + '</td>';
+                            } else {
+                                tbody += '<td>' + contestant.name + '</td>';
+                            }
     
                             if (Array.isArray(criteria)) {
                                 criteria.forEach(function(criterion) {
