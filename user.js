@@ -46,7 +46,7 @@ $(document).ready(function() {
 
                         // Generate criteria headers for each category
                         var criteria = criteriaByCategory[category.categoryID] || [];
-                        var thead = '<tr><th>Contestant Name</th>';
+                        var thead = '<tr><th>Contestant</th>';
                         var criteriaHeaders = criteria.map(function(criterion) {
                             return '<th>' + criterion.criteriaName + ' - ' + criterion.criteriaScore + '</th>';
                         });

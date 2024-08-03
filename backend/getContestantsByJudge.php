@@ -28,13 +28,14 @@ if (isset($_GET['judgeID'])) {
     // Fetch contestants for the categories
     if (count($categories) > 0) {
         $contestantsQuery = "
-            SELECT c.idContestant, c.name, c.categoryID, c.contestantNo
+            SELECT c.idContestant, c.name, c.categoryID, c.contestantNo, c.gender
             FROM contestants c
-            WHERE c.categoryID IN (" . implode(',', array_map('intval', $categories)) . ")";
+            WHERE c.categoryID IN (" . implode(',', array_map('intval', $categories)) . ")
+            ORDER BY FIELD(c.gender, 'Female', 'Male'), c.contestantNo";  // Order by gender and contestantNo
         
         $contestantsStmt = mysqli_prepare($con, $contestantsQuery);
         mysqli_stmt_execute($contestantsStmt);
-        mysqli_stmt_bind_result($contestantsStmt, $contestantID, $name, $categoryID, $contestantNo);
+        mysqli_stmt_bind_result($contestantsStmt, $contestantID, $name, $categoryID, $contestantNo, $gender);
 
         $contestants = [];
         while (mysqli_stmt_fetch($contestantsStmt)) {
@@ -42,7 +43,8 @@ if (isset($_GET['judgeID'])) {
                 'idContestant' => $contestantID,
                 'name' => $name,
                 'categoryID' => $categoryID,
-                'contestantNo' => $contestantNo
+                'contestantNo' => $contestantNo,
+                'gender' => $gender
             ];
         }
 
