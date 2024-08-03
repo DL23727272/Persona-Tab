@@ -1275,7 +1275,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="assignedJudgesTableBody">
-                `;
+                        `;
             
                         $.each(data, function(index, judge) {
                             tableHtml += `
@@ -1465,8 +1465,22 @@
         });
 
         loadEvents();
-    } else {
-        Swal.fire('Error', 'Session expired or judge not found.', 'error');
+    }else{
+        Swal.fire({
+            icon: 'warning',
+            title: 'Not Logged In',
+            text: 'You need to log in to access this page.',
+            confirmButtonText: 'Log In',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+           
+                window.location.href = './index.html'; 
+            }
+        });
+        return;
     }
 });
  // --------------- END Fetch CONTESTANTS PER CATEGORY --------------
