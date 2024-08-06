@@ -50,7 +50,7 @@ $(document).ready(function() {
                         var criteriaHeaders = criteria.map(function(criterion) {
                             return '<th>' + criterion.criteriaName + ' - ' + criterion.criteriaScore + '%</th>';
                         });
-                        thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
+                        thead += criteriaHeaders.join('') + '<th>Total Score - 100%</th><th>Rank</th></tr>';
                         $(`#contestantTable-${category.categoryID} thead`).html(thead);
 
                         // Fetch and display contestants for each category

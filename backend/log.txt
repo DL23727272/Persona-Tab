@@ -1,2 +1,4 @@
 {"eventName":"CCS Web dev","eventDescription":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora sit fugit quia odit a suscipit aut iste nisi earum porro quas asperiores labore nostrum, repellendus nobis. Impedit unde repellendus perferendis? Quisquam vitae iure blanditiis cum saepe suscipit. Repellat, aspernatur. Amet."}
 {"eventImage":{"name":"ccs.jpg","full_path":"ccs.jpg","type":"image\/jpeg","tmp_name":"D:\\xampp\\tmp\\phpFF27.tmp","error":0,"size":349202}}
+{"eventName":"Miss Culado","eventDescription":"Beauty Pageant Event in Barangay Nalasin, Santiago, Ilocos Sur."}
+{"eventImage":{"name":"LOGO copy.png","full_path":"LOGO copy.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpEA4.tmp","error":0,"size":433882}}
