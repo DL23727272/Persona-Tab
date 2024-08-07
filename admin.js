@@ -42,9 +42,10 @@
             // Handle form submission for adding event
             $('#addEventForm').submit(function(e) {
                 e.preventDefault(); 
-            
+
                 var formData = new FormData(this);
-            
+                formData.append('eventDate', $('#eventDate').val());
+
                 $.ajax({
                     url: './backend/addEvent.php',
                     method: 'POST',
@@ -82,6 +83,7 @@
                     }
                 });
             });
+
             
 
             // Handle form submission for ADDING CATEGORY
@@ -840,7 +842,6 @@
 
     // --------------- FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
     $(document).ready(function() {
-
         // Function to load events
         function loadEvents() {
             $.ajax({
@@ -939,7 +940,7 @@
         function displayCategoryScores(response) {
             var scoresSection = $('#scoresSection');
             scoresSection.empty();
-
+    
             var categoryName = response.selectedCategoryName || 'Unknown Category'; // Use selectedCategoryName from response
             var categorySummarySection = `
                 <h1 class="text-white text-center mt-5">Overall Summary for ${categoryName}</h1>
@@ -957,17 +958,17 @@
                 </table>
             `;
             scoresSection.append(categorySummarySection);
-
+    
             // Process and display category summary
             calculateCategorySummary(response.scores, '#categorySummaryTable');
-
+    
             // Prepare and display judges scores if available
             var judgesScoresTables = $('<div id="judgesScoresTables"></div>');
             var scores = response.scores;
-
+    
             if (scores.length > 0) {
                 var judgesScores = {};
-
+    
                 // Organize scores by judge
                 scores.forEach(score => {
                     if (!judgesScores[score.judgeName]) {
@@ -978,14 +979,14 @@
                     }
                     judgesScores[score.judgeName][score.contestantName][score.criteriaName] = score.score;
                 });
-
+    
                 // Iterate over each judge
                 Object.keys(judgesScores).forEach(judgeName => {
                     var judgeScores = judgesScores[judgeName];
                     var judgeTable = `<h4 class="text-white fw-bold mt-5">JUDGE: ${judgeName}</h4>`;
                     judgeTable += '<table class="table table-striped table-dark">';
                     judgeTable += '<thead><tr><th>Contestant</th>';
-
+    
                     // Add criteria headers
                     var criteriaHeaders = new Set();
                     scores.forEach(score => criteriaHeaders.add(score.criteriaName));
@@ -993,122 +994,142 @@
                         judgeTable += `<th>${criterion}</th>`;
                     });
                     judgeTable += '<th>Total Score</th><th>Rank</th></tr></thead><tbody>';
-
+    
                     // Calculate and add scores for each contestant
                     var totalScores = {};
                     Object.keys(judgeScores).forEach(contestantName => {
                         var criteriaScores = judgeScores[contestantName];
                         var totalScore = 0;
-
+    
                         criteriaHeaders.forEach(criterion => {
                             totalScore += parseFloat(criteriaScores[criterion] || 0);
                         });
-
+    
                         totalScores[contestantName] = totalScore;
                     });
-
+    
                     var sortedContestants = Object.keys(totalScores).sort((a, b) => totalScores[b] - totalScores[a]);
-
+                    var ranks = {};
+    
                     sortedContestants.forEach((contestantName, index) => {
-                        var rank = index + 1;
+                        ranks[contestantName] = index + 1;
+                    });
+    
+                    Object.keys(judgeScores).forEach(contestantName => {
+                        var contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
                         var criteriaScores = judgeScores[contestantName];
                         var totalScore = totalScores[contestantName];
-
-                        judgeTable += `<tr><td>${contestantName}</td>`;
+                        var rank = ranks[contestantName];
+    
+                        judgeTable += `<tr><td>${contestantNo} -  ${contestantName}</td>`;
                         criteriaHeaders.forEach(criterion => {
-                            var score = criteriaScores[criterion] || 0;
-                            judgeTable += `<td>${score}</td>`;
+                            judgeTable += `<td>${criteriaScores[criterion] || 0}</td>`;
                         });
-                        judgeTable += `<td>${totalScore.toFixed(2)}</td>`;
-                        judgeTable += `<td>${rank}</td></tr>`;
+                        judgeTable += `<td>${totalScore.toFixed(2)}</td><td>${rank}</td></tr>`;
                     });
-
+    
                     judgeTable += '</tbody></table>';
                     judgesScoresTables.append(judgeTable);
                 });
-
-                scoresSection.append(judgesScoresTables);
-            } else {
-                scoresSection.append('<p class="text-white">No judge scores available.</p>');
             }
-        }
-
-        // Calculate and display category summary
-        function calculateCategorySummary(scores, tableId) {
-            var summaryData = {};
-            
-            scores.forEach(score => {
-                if (!summaryData[score.contestantName]) {
-                    summaryData[score.contestantName] = 0;
-                }
-                summaryData[score.contestantName] += parseFloat(score.score);
-            });
-
-            var sortedContestants = Object.keys(summaryData).sort((a, b) => summaryData[b] - summaryData[a]);
-
-            var tableBody = $(tableId).find('tbody');
-            sortedContestants.forEach((contestantName, index) => {
-                var rank = index + 1;
-                var totalScore = summaryData[contestantName];
-                tableBody.append(`
-                    <tr>
-                        <td>${contestantName}</td>
-                        <td>${totalScore.toFixed(2)}</td>
-                        <td>${rank}</td>
-                    </tr>
-                `);
-            });
-        }
-
     
-        // Function to calculate and display overall summary
+            scoresSection.append(judgesScoresTables);
+        }
+    
+        // Function to calculate and display the overall summary
         function calculateOverallSummary(scores) {
-            var summary = {};
-    
+            var overallScores = {};
             scores.forEach(score => {
-                const scoreValue = parseFloat(score.score);
-                if (!summary[score.contestantName]) {
-                    summary[score.contestantName] = 0;
+                if (!overallScores[score.contestantName]) {
+                    overallScores[score.contestantName] = 0;
                 }
-                summary[score.contestantName] += isNaN(scoreValue) ? 0 : scoreValue;
+                overallScores[score.contestantName] += parseFloat(score.score);
             });
     
-            var summaryArray = Object.keys(summary).map(contestantName => ({
-                contestantName: contestantName,
-                totalScore: summary[contestantName]
-            }));
+            var sortedContestants = Object.keys(overallScores).sort((a, b) => overallScores[b] - overallScores[a]);
+            var ranks = {};
+            sortedContestants.forEach((contestantName, index) => {
+                ranks[contestantName] = index + 1;
+            });
     
-            summaryArray.sort((a, b) => b.totalScore - a.totalScore);
+            var overallSummaryTableBody = $('#overallSummaryTable tbody');
+            overallSummaryTableBody.empty();
     
-            var tableBody = $('#overallSummaryTable tbody');
-            tableBody.empty();
-    
-            summaryArray.forEach((item, index) => {
-                var rank = index + 1;
-                var formattedScore = item.totalScore.toFixed(2);
-                tableBody.append('<tr><td>' + item.contestantName + '</td><td>' + formattedScore + '</td><td>' + rank + '</td></tr>');
+            sortedContestants.forEach(contestantName => {
+                var contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
+                var totalScore = overallScores[contestantName];
+                var rank = ranks[contestantName];
+                overallSummaryTableBody.append(`<tr><td>${contestantNo} - ${contestantName}</td><td>${totalScore.toFixed(2)}</td><td>${rank}</td></tr>`);
             });
         }
     
-        // Initialize events dropdown and bind event handlers
-        loadEvents();
+        // Function to calculate and display category summary
+        function calculateCategorySummary(scores, tableSelector) {
+            var categoryScores = {};
+            scores.forEach(score => {
+                if (!categoryScores[score.contestantName]) {
+                    categoryScores[score.contestantName] = 0;
+                }
+                categoryScores[score.contestantName] += parseFloat(score.score);
+            });
     
+            var sortedContestants = Object.keys(categoryScores).sort((a, b) => categoryScores[b] - categoryScores[a]);
+            var ranks = {};
+            sortedContestants.forEach((contestantName, index) => {
+                ranks[contestantName] = index + 1;
+            });
+    
+            var categorySummaryTableBody = $(tableSelector + ' tbody');
+            categorySummaryTableBody.empty();
+    
+            sortedContestants.forEach(contestantName => {
+                var contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
+                var totalScore = categoryScores[contestantName];
+                var rank = ranks[contestantName];
+                categorySummaryTableBody.append(`<tr><td>${contestantNo} - ${contestantName}</td><td>${totalScore.toFixed(2)}</td><td>${rank}</td></tr>`);
+            });
+        }
+    
+        // Event change listener
         $('#eventSelect').change(function() {
             var eventID = $(this).val();
+            $('#categorySelect').html('<option value="#" disabled selected>--- Select Category ---</option>');  // Reset category dropdown
             if (eventID) {
-                fetchScores(eventID, null); // Fetch overall scores and category summaries
+                $.ajax({
+                    url: './backend/getCategories.php',
+                    type: 'POST',
+                    data: { eventID: eventID },
+                    dataType: 'json',
+                    success: function(data) {
+                        var options = '<option value="#" disabled selected>--- Select Category ---</option>';
+                        $.each(data, function(index, category) {
+                            options += '<option value="' + category.categoryID + '">' + category.categoryName + '</option>';
+                        });
+                        $('#categorySelect').html(options);
+    
+                        // Fetch overall scores for the selected event
+                        fetchScores(eventID);
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Error loading categories.', 'error');
+                    }
+                });
             }
         });
     
+        // Category change listener
         $('#categorySelect').change(function() {
-            var eventID = $('#eventSelect').val();
             var categoryID = $(this).val();
-            if (eventID && categoryID) {
-                fetchScores(eventID, categoryID); // Fetch scores for a specific category
+            var eventID = $('#eventSelect').val();
+            if (categoryID && eventID) {
+                fetchScores(eventID, categoryID);
             }
         });
     
+        // Initial load of events
+        loadEvents();
     });
+    
     
     
 
@@ -1292,3 +1313,7 @@
 
 
 
+
+
+
+     

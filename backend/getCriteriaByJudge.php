@@ -6,23 +6,25 @@ header('Content-Type: application/json');
 if (isset($_GET['judgeID'])) {
     $judgeID = intval($_GET['judgeID']);
 
-    // Fetch the categories assigned to the judge
+    // Fetch the categories assigned to the judge with their event dates
     $categoriesQuery = "
-        SELECT c.categoryID, c.categoryName
+        SELECT c.categoryID, c.categoryName, e.eventDate
         FROM categories c
         JOIN judge_categories jc ON c.categoryID = jc.categoryID
+        JOIN events e ON c.eventID = e.eventID
         WHERE jc.judgeID = ?";
     
     $categoriesStmt = mysqli_prepare($con, $categoriesQuery);
     mysqli_stmt_bind_param($categoriesStmt, 'i', $judgeID);
     mysqli_stmt_execute($categoriesStmt);
-    mysqli_stmt_bind_result($categoriesStmt, $categoryID, $categoryName);
+    mysqli_stmt_bind_result($categoriesStmt, $categoryID, $categoryName, $eventDate);
 
     $categories = [];
     while (mysqli_stmt_fetch($categoriesStmt)) {
         $categories[] = [
             'categoryID' => $categoryID,
-            'categoryName' => $categoryName
+            'categoryName' => $categoryName,
+            'eventDate' => $eventDate
         ];
     }
 

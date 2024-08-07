@@ -11,10 +11,11 @@
     // Retrieve POST data
     $eventName = isset($_POST['eventName']) ? $_POST['eventName'] : null;
     $eventDescription = isset($_POST['eventDescription']) ? $_POST['eventDescription'] : null;
+    $eventDate = isset($_POST['eventDate']) ? $_POST['eventDate'] : null;
     $eventImage = isset($_FILES['eventImage']) ? $_FILES['eventImage'] : null;
 
     // Validate input
-    if (empty($eventName) || empty($eventDescription) || empty($eventImage)) {
+    if (empty($eventName) || empty($eventDescription) || empty($eventDate) || empty($eventImage)) {
         echo json_encode(['status' => 'error', 'message' => 'All fields are required.']);
         exit;
     }
@@ -50,9 +51,9 @@
     }
 
     // Prepare SQL statement
-    $sql = "INSERT INTO events (eventName, eventDescription, eventImage) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO events (eventName, eventDescription, eventDate, eventImage) VALUES (?, ?, ?, ?)";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param('sss', $eventName, $eventDescription, $targetFile);
+    $stmt->bind_param('ssss', $eventName, $eventDescription, $eventDate, $targetFile);
 
     if ($stmt->execute()) {
         echo json_encode(['status' => 'success', 'message' => 'Event added successfully.']);
@@ -62,4 +63,6 @@
 
     $stmt->close();
     $con->close();
+
+    // ALTER TABLE events ADD COLUMN eventDate DATE DEFAULT NULL;
 ?>

@@ -90,7 +90,7 @@
         max-width: 100%;
         max-height: 300px; 
       }
-      .card{
+      .card, .modal-content{
         border-radius: 6px;
         background-color: rgba(255, 255, 255, 0.385); 
         backdrop-filter: blur(2px); 
@@ -183,7 +183,7 @@
     <!-- Buttons to trigger modals -->
     <section class="container-sm text-center mt-5">
       <div class="d-flex flex-column align-items-center text-center">
-        <h1 class="fst-italic text-center text-white">Add events </h1>
+        <h1 class="fst-italic text-center text-white">CRUD events </h1>
       </div>
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">Add Event</button>
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add Category</button>
@@ -191,6 +191,169 @@
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addJudgeModal">Add Judge</button>
      
     </section>
+
+
+<!--------------------------- EDIT EVENT CONTENT, CATEGORIES, AND CRITERIA  --------------------------->
+
+     <!------------------------- Edit Event Modal ------------------------->
+
+    <div class="modal fade" id="eventEditModal" tabindex="-1" aria-labelledby="eventEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventEditModalLabel">Edit Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="eventEditForm" method="POST" enctype="multipart/form-data">
+              <input type="hidden" id="eventID" name="editEventID">
+              <input type="hidden" id="currentEventImage" name="currentEventImage">
+              <div class="mb-3">
+                <label for="editEventName" class="form-label">Event Name</label>
+                <input type="text" class="form-control" id="editEventName" name="editEventName" required>
+              </div>
+              <div class="mb-3">
+                <label for="editEventDescription" class="form-label">Event Description</label>
+                <textarea class="form-control" id="editEventDescription" name="editEventDescription" rows="3" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="editEventDate" class="form-label">Event Date</label>
+                <input type="date" class="form-control" id="editEventDate" name="editEventDate" required>
+              </div>
+              <div class="mb-3">
+                <label for="editEventImage" class="form-label">Event Image</label>
+                <input type="file" class="form-control" id="editEventImage" name="editEventImage">
+              </div>
+              <button type="submit" class="btn btn-outline-light float-end">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!------------------------- Edit Category Modal ------------------------->
+
+    <div class="modal fade" id="categoryEditModal" tabindex="-1" aria-labelledby="categoryEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="categoryEditModalLabel">Edit Category</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="categoryEditForm">
+                <input type="hidden" id="categoryID" name="categoryID">
+                <div class="mb-3">
+                    <label for="editCategoryName" class="form-label">Category Name</label>
+                    <input type="text" class="form-control" id="editCategoryName" name="editCategoryName" required>
+                </div>
+                <button type="submit" class="btn btn-outline-light  float-end">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!------------------------- Edit Criteria Modal ------------------------->
+    <div class="modal fade" id="criteriaEditModal" tabindex="-1" aria-labelledby="criteriaEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="criteriaEditModalLabel">Edit Criteria</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="criteriaEditForm">
+                <input type="hidden" id="criteriaID" name="criteriaID">
+                <div class="mb-3">
+                    <label for="editCriteriaName" class="form-label">Criteria Name</label>
+                    <input type="text" class="form-control" id="editCriteriaName" name="editCriteriaName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="editCriteriaScore" class="form-label">Criteria Score</label>
+                    <input type="number" class="form-control" id="editCriteriaScore" name="editCriteriaScore" required>
+                </div>
+                <button type="submit" class="btn btn-outline-light float-end">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!---------------------------------End Edit EVENT Modal --------------------------------------------------------->
+
+  
+  <section class="container-sm mt-5">
+    <div class="d-flex flex-column align-items-center text-center">
+        <h1 class="fst-italic text-center text-white"></h1>
+    </div>
+    <div class="row mb-3">
+        <form id="editForm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 mb-2">
+                        <label for="selectEvent" class="form-label text-white">Select Event</label>
+                        <select id="selectEvent" class="form-select">
+                            <option value="#" disabled selected>--- Select Event ---</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Event Details Table -->
+                <table id="eventDetailsTable" class="table table-bordered table-striped table-dark mt-3" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Event Description</th>
+                            <th>Event Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                
+              
+                <!-- Category Details Table -->
+                <table id="categoryDetailsTable" class="table table-bordered table-striped table-dark mt-3" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Category Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <div class="col-12 col-md-4 mb-2">
+                  <label for="selectCategory" class="form-label text-white">Select Category</label>
+                  <select id="selectCategory" class="form-select" disabled>
+                      <option value="#" disabled selected>--- Select Category ---</option>
+                  </select>
+                </div>
+
+
+                <!-- Criteria Details Table -->
+                <table id="criteriaDetailsTable" class="table table-bordered table-striped table-dark mt-3" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Criteria Name</th>
+                            <th>Criteria Score</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+  </section>
+
+
+<!--------------------------- EDIT EVENT CONTENT, CATEGORIES, AND CRITERIA  ---------------------------------------------------->
+
+
 
 
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
@@ -357,40 +520,47 @@
 
  
 
-     <!-- ----------  MODALS --------------- -->
+  <!-----------------------------------------------  MODALS ----------------------------------------------------------------------------------------------------------- -->
 
-<!-- Modal for Adding Event -->
-<div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content card">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addEventModalLabel">Add Event</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="addEventForm" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label for="eventName" class="form-label">Event Name</label>
-            <input type="text" class="form-control" id="eventName" name="eventName" required>
+    <!------------------------- Modal for Adding Event ------------------------->
+
+    <div class="modal fade" id="addEventModal" tabindex="-1" aria-labelledby="addEventModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content card">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addEventModalLabel">Add Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="mb-3">
-            <label for="eventDescription" class="form-label">Event Description</label>
-            <textarea class="form-control" id="eventDescription" rows="3" name="eventDescription" required></textarea>
+          <div class="modal-body">
+            <form id="addEventForm" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="eventName" class="form-label">Event Name</label>
+                <input type="text" class="form-control" id="eventName" name="eventName" required>
+              </div>
+              <div class="mb-3">
+                <label for="eventDescription" class="form-label">Event Description</label>
+                <textarea class="form-control" id="eventDescription" rows="3" name="eventDescription" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="eventDate" class="form-label">Event Date</label>
+                <input type="date" class="form-control" id="eventDate" name="eventDate" required>
+              </div>
+              <div class="mb-3">
+                <label for="eventImage" class="form-label">Event Logo</label>
+                <input type="file" class="form-control" id="eventImage" name="eventImage" required>
+              </div>
+              <button type="submit" class="btn btn-outline-light float-end">Add Event</button>
+            </form>
           </div>
-          <div class="mb-3">
-            <label for="eventImage" class="form-label">Event Logo</label>
-            <input type="file" class="form-control" id="eventImage" name="eventImage" required>
-          </div>
-          <button type="submit" class="btn btn-outline-light float-end">Add Event</button>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
 
 
-    <!-- Modal for Adding Category -->
+
+    <!------------------------- Modal for Adding Category ------------------------->
+
     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content card">
@@ -418,7 +588,10 @@
       </div>
     </div>
 
-    <!-- Modal for Adding Criteria -->
+
+
+    <!------------------------- Modal for Adding Criteria ------------------------->
+
     <div class="modal fade" id="addCriteriaModal" tabindex="-1" aria-labelledby="addCriteriaModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content card">
@@ -449,7 +622,9 @@
       </div>
     </div>
 
-    <!-- Modal for Adding Judge -->
+
+    <!------------------------- Modal for Adding Judge ------------------------->
+
     <div class="modal fade" id="addJudgeModal" tabindex="-1" aria-labelledby="addJudgeModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content card">
@@ -480,9 +655,15 @@
       </div>
     </div>
 
-    <!-- ---------- END  MODALS --------------- -->
-     <script src="admin.js">  </script>
 
+
+   
+
+  <!-- --------------------------------- END  MODALS ------------------------------------------------------------------------------------ -->
+
+
+     <script src="admin.js">  </script>
+     <script src="edit.js"></script>
       
 
   </body>

@@ -1,4 +1,3 @@
-    
 // --------------- FOR JUDGE SCORE TABLE --------------
 $(document).ready(function() {
     var judgeID = sessionStorage.getItem('judgeID');
@@ -12,9 +11,29 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 console.log('Criteria response:', response);
+                
+                function getPhilippinesDate() {
+                    // Get the current date and time
+                    const now = new Date();
+
+                    // Convert to PHT by adding 8 hours
+                    const phtDate = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+
+                    // Format date as 'YYYY-MM-DD'
+                    const formattedDate = phtDate.toISOString().split('T')[0];
+
+                    return formattedDate;
+                }
+
+
+
+                var currentDate = getPhilippinesDate(); // Get current date in 'YYYY-MM-DD' format
+                console.log("date:"+currentDate);
+                var showSubmitButton = false;
 
                 if (response.categories && Array.isArray(response.categories)) {
                     $('#tablesContainer').empty(); // Clear previous tables
+                    $('#submitScoresBtn').hide();
 
                     // Group criteria by category
                     var criteriaByCategory = {};
@@ -26,36 +45,57 @@ $(document).ready(function() {
                     });
 
                     response.categories.forEach(function(category) {
-                        var tableHTML = `
-                            <hr class="container-sm Sborder mt-5 mb-5 border-light border-2 opacity-50 w-50" />
-                            <div class="d-flex flex-column align-items-center text-center">
-                                <h2 class="fst-italic text-center text-white">${category.categoryName}</h2>
-                                <div id="criteriaContainer-${category.categoryID}">
-                                    <!-- Criteria will be dynamically inserted here -->
+                        if (category.eventDate === currentDate) {
+                            // Event is today or upcoming
+                            var tableHTML = `
+                                <hr class="container-sm Sborder mt-5 mb-5 border-light border-2 opacity-50 w-50" />
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <h2 class="fst-italic text-center text-white">${category.categoryName}</h2>
+                                    <div id="criteriaContainer-${category.categoryID}">
+                                        <!-- Criteria will be dynamically inserted here -->
+                                    </div>
                                 </div>
-                            </div>
-                            <table id="contestantTable-${category.categoryID}" class="table table-striped-columns table-dark text-center">
-                                <thead>
-                                    <!-- Headers will be populated dynamically -->
-                                </thead>
-                                <tbody>
-                                    <!-- Rows will be populated dynamically -->
-                                </tbody>
-                            </table>`;
-                        $('#tablesContainer').append(tableHTML);
+                                <table id="contestantTable-${category.categoryID}" class="table table-striped-columns table-dark text-center">
+                                    <thead>
+                                        <!-- Headers will be populated dynamically -->
+                                    </thead>
+                                    <tbody>
+                                        <!-- Rows will be populated dynamically -->
+                                    </tbody>
+                                </table>`;
+                            $('#tablesContainer').append(tableHTML);
 
-                        // Generate criteria headers for each category
-                        var criteria = criteriaByCategory[category.categoryID] || [];
-                        var thead = '<tr><th>Contestant</th>';
-                        var criteriaHeaders = criteria.map(function(criterion) {
-                            return '<th>' + criterion.criteriaName + ' - ' + criterion.criteriaScore + '%</th>';
-                        });
-                        thead += criteriaHeaders.join('') + '<th>Total Score - 100%</th><th>Rank</th></tr>';
-                        $(`#contestantTable-${category.categoryID} thead`).html(thead);
+                            // Generate criteria headers for each category
+                            var criteria = criteriaByCategory[category.categoryID] || [];
+                            var thead = '<tr><th>Contestant</th>';
+                            var criteriaHeaders = criteria.map(function(criterion) {
+                                return '<th>' + criterion.criteriaName + ' - ' + criterion.criteriaScore + '%</th>';
+                            });
+                            thead += criteriaHeaders.join('') + '<th>Total Score - 100%</th><th>Rank</th></tr>';
+                            $(`#contestantTable-${category.categoryID} thead`).html(thead);
 
-                        // Fetch and display contestants for each category
-                        fetchContestantsByCategory(judgeID, category.categoryID, criteria);
+                            // Fetch and display contestants for each category
+                            fetchContestantsByCategory(judgeID, category.categoryID, criteria);
+                             // Set flag to show the submit button
+                             showSubmitButton = true;
+                        } else if (new Date(category.eventDate) < new Date()) {
+                            // Event has passed
+                            $('#tablesContainer').append(`
+                                <p class="text-white text-center">The event "${category.categoryName}" is now done.</p>
+                            `);
+                        } else {
+                            // Event is still not open
+                            $('#tablesContainer').append(`
+                                <p class="text-white text-center">The event "${category.categoryName}" is still not open.</p>
+                            `);
+                        }
                     });
+
+                    if (showSubmitButton) {
+                        $('#submitScoresBtn').show(); // Show the submit button if any event is open
+                    } else {
+                        $('#submitScoresBtn').hide(); // Hide the submit button if no events are open
+                    }
                 } else {
                     console.error('Invalid categories response:', response);
                 }
@@ -94,16 +134,16 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 console.log('Contestants Response for category ' + categoryID + ':', response);
-    
+
                 if (response.contestants && Array.isArray(response.contestants)) {
                     var tbody = '';
                     var existingContestants = new Set();
-    
+
                     response.contestants.forEach(function(contestant) {
                         // Check if the contestant's category matches the current category
                         if (contestant.categoryID == categoryID && !existingContestants.has(contestant.idContestant)) {
                             existingContestants.add(contestant.idContestant);
-    
+
                             tbody += '<tr data-contestant-id="' + contestant.idContestant + '" data-category-id="' + categoryID + '">';
                             
                             // Display contestant number if available, otherwise display name
@@ -112,7 +152,7 @@ $(document).ready(function() {
                             } else {
                                 tbody += '<td>' + contestant.name + '</td>';
                             }
-    
+
                             if (Array.isArray(criteria)) {
                                 criteria.forEach(function(criterion) {
                                     tbody += '<td><input type="number" class="score-input" data-contestant-id="' 
@@ -120,15 +160,15 @@ $(document).ready(function() {
                                     '" data-category-id="' + categoryID + '" style="width: 60px" required/></td>';
                                 });
                             }
-    
+
                             tbody += '<td class="total-score">0</td>'; // Placeholder for Total Score
                             tbody += '<td class="contestant-rank">0</td>'; // Placeholder for Rank
                             tbody += '</tr>';
                         }
                     });
-    
+
                     $(`#contestantTable-${categoryID} tbody`).html(tbody);
-    
+
                     // Add event listeners for score input fields
                     $('.score-input').on('input', function() {
                         calculateAndUpdateScoresAndRanks();
@@ -146,7 +186,6 @@ $(document).ready(function() {
             }
         });
     }
-    
 
     // Calculate total scores and ranks within each category
     function calculateAndUpdateScoresAndRanks() {
@@ -167,27 +206,24 @@ $(document).ready(function() {
                 categoryContestants[categoryID] = [];
             }
 
-            categoryContestants[categoryID].push({
-                id: contestantID,
-                name: $(this).find('td:first').text(),
-                totalScore: totalScore
-            });
-
+            categoryContestants[categoryID].push({ contestantID: contestantID, totalScore: totalScore });
             $(this).find('.total-score').text(totalScore);
         });
 
-        $.each(categoryContestants, function(categoryID, contestants) {
-            contestants.sort(function(a, b) {
+        // Calculate ranks within each category
+        Object.keys(categoryContestants).forEach(function(categoryID) {
+            categoryContestants[categoryID].sort(function(a, b) {
                 return b.totalScore - a.totalScore;
             });
 
-            contestants.forEach(function(contestant, index) {
-                var rank = index + 1;
-                $(`#contestantTable-${categoryID} tbody tr[data-contestant-id="${contestant.id}"]`).find('.contestant-rank').text(rank);
+            var rank = 1;
+            categoryContestants[categoryID].forEach(function(contestant) {
+                $(`[data-contestant-id="${contestant.contestantID}"][data-category-id="${categoryID}"] .contestant-rank`).text(rank);
+                rank++;
             });
         });
     }
-
+    
     function saveScores() {
         var judgeID = sessionStorage.getItem('judgeID');
 
@@ -222,49 +258,60 @@ $(document).ready(function() {
                         contestantID: contestantID,
                         categoryID: categoryID,
                         criterionID: criterionID,
-                        score: score,
-                        rank: $(this).closest('tr').find('.contestant-rank').text()
+                        score: score
                     });
                 });
             });
 
-            $.ajax({
-                url: './backend/saveScores.php',
-                type: 'POST',
-                data: { scores: JSON.stringify(scoresData) },
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success) {
+            if (scoresData.length > 0) {
+                $.ajax({
+                    url: './backend/saveScores.php',
+                    type: 'POST',
+                    data: JSON.stringify(scoresData),
+                    contentType: 'application/json',
+                    success: function(response) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Success',
-                            text: response.message
+                            title: 'Scores Saved',
+                            text: 'Your scores have been successfully saved.',
+                            confirmButtonText: 'OK'
                         });
-                    } else {
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error saving scores:', {
+                            status: status,
+                            error: error,
+                            responseText: xhr.responseText
+                        });
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: response.message
+                            text: 'An error occurred while saving scores.',
+                            confirmButtonText: 'OK'
                         });
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('AJAX error:', status, error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'An error occurred while saving scores. Please try again.'
-                    });
-                }
-            });
+                });
+            } else {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No Changes',
+                    text: 'No changes detected in scores.',
+                    confirmButtonText: 'OK'
+                });
+            }
         }
     }
 
-    $('#scoringForm').on('submit', function(event) {
-        event.preventDefault();
+    $('#submitScoresBtn').on('click', function() {
         saveScores();
     });
 });
+
+
+// --------------- END FOR JUDGE SCORE TABLE --------------
+
+
+
 
 // ----------------   -Fetch Event Description based on what they are in    --------------------------------------//
 
@@ -285,6 +332,7 @@ $(document).ready(function() {
                     $('.eventImage').attr('src', './EventUploads/' + response.data.eventImage);
                     $('.eventDescription').text(response.data.eventDescription);
                     $('.heroEventName').text(response.data.eventName);
+                    $('.heroEventDate').text(response.data.eventDate);
                 } else {
                     // Handle errors or no data found
                     console.error(response.message);

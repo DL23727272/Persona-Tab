@@ -17,7 +17,7 @@ if (empty($judgeID)) {
 }
 
 // Update the SQL query according to your schema
-$sql = "SELECT e.eventID, e.eventName, e.eventDescription, e.eventImage 
+$sql = "SELECT e.eventID, e.eventName, e.eventDescription, e.eventImage , e.eventDate
         FROM events e
         JOIN categories c ON e.eventID = c.eventID
         JOIN judge_categories jc ON c.categoryID = jc.categoryID
