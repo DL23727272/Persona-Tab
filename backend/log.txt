@@ -196,3 +196,5 @@ Uploaded File: Array
     [size] => 353924
 )
 
+{"eventName":"CCS","eventDescription":"asd","eventDate":"2024-08-08"}
+{"eventImage":{"name":"LOGO.png","full_path":"LOGO.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php3521.tmp","error":0,"size":181859}}

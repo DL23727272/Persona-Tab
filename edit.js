@@ -19,16 +19,16 @@ $(document).ready(function() {
     // Load Categories
     function loadCategories(eventID) {
         $.ajax({
-            url: './backend/getCategories.php',
+            url: './backend/getCategoryDetails.php',
             method: 'GET',
             data: { eventID: eventID },
             dataType: 'json',
             success: function(response) {
                 var selectCategory = $('#selectCategory');
                 var categoryDetailsTable = $('#categoryDetailsTable tbody');
-                selectCategory.empty();
+                selectCategory.empty(); // Clear previous categories
                 selectCategory.append('<option value="#" disabled selected>--- Select Category ---</option>');
-                categoryDetailsTable.empty();
+                categoryDetailsTable.empty(); // Clear previous category details
                 
                 response.forEach(function(category) {
                     selectCategory.append(`<option value="${category.categoryID}">${category.categoryName}</option>`);
@@ -36,8 +36,8 @@ $(document).ready(function() {
                         <tr>
                             <td>${category.categoryName}</td>
                             <td>
-                                <button type="button" class="btn btn-info editCategoryBtn" data-id="${category.categoryID}" data-name="${category.categoryName}">Edit</button>
-                                <button type="button" class="btn btn-danger deleteCategoryBtn" data-id="${category.categoryID}">Delete</button>
+                                <button type="button" class="btn btn-outline-info editCategoryBtn" data-id="${category.categoryID}" data-name="${category.categoryName}">Edit</button>
+                                <button type="button" class="btn btn-outline-danger deleteCategoryBtn text-white" data-id="${category.categoryID}">Delete</button>
                             </td>
                         </tr>
                     `);
@@ -65,8 +65,8 @@ $(document).ready(function() {
                             <td>${criteria.criteriaName}</td>
                             <td>${criteria.criteriaScore}</td>
                             <td>
-                                <button type="button" class="btn btn-info editCriteriaBtn" data-id="${criteria.criteriaID}" data-name="${criteria.criteriaName}" data-score="${criteria.criteriaScore}">Edit</button>
-                                <button type="button" class="btn btn-danger deleteCriteriaBtn" data-id="${criteria.criteriaID}">Delete</button>
+                                <button type="button" class="btn btn-outline-info editCriteriaBtn" data-id="${criteria.criteriaID}" data-name="${criteria.criteriaName}" data-score="${criteria.criteriaScore}">Edit</button>
+                                <button type="button" class="btn btn-outline-danger deleteCriteriaBtn text-white" data-id="${criteria.criteriaID}">Delete</button>
                             </td>
                         </tr>
                     `);
@@ -79,6 +79,8 @@ $(document).ready(function() {
     // Event handler for selecting an event
     $('#selectEvent').on('change', function() {
         var eventID = $(this).val();
+        $('#selectCategory').empty().append('<option value="#" disabled selected>--- Select Category ---</option>'); // Reset category dropdown
+        $('#criteriaDetailsTable tbody').empty(); // Clear previous criteria details
         loadCategories(eventID);
         $('#eventDetailsTable').show();
         loadEventDetails(eventID); // Added to show event details
@@ -107,8 +109,8 @@ $(document).ready(function() {
                             <td>${event.eventDescription}</td>
                             <td>${event.eventDate}</td>
                             <td>
-                                <button type="button" class="btn btn-info editEventBtn" data-id="${event.eventID}" data-name="${event.eventName}" data-description="${event.eventDescription}" data-date="${event.eventDate}" data-image="${event.eventImage}">Edit</button>
-                                <button type="button" class="btn btn-danger deleteEventBtn" data-id="${event.eventID}">Delete</button>
+                                <button type="button" class="btn btn-outline-info editEventBtn" data-id="${event.eventID}" data-name="${event.eventName}" data-description="${event.eventDescription}" data-date="${event.eventDate}" data-image="${event.eventImage}">Edit</button>
+                                <button type="button" class="btn btn-outline-danger deleteEventBtn text-white" data-id="${event.eventID}">Delete</button>
                             </td>
                         </tr>
                     `);
@@ -136,7 +138,6 @@ $(document).ready(function() {
         var eventEditModal = new bootstrap.Modal(document.getElementById('eventEditModal'));
         eventEditModal.show();
     });
-    
 
     // Handle edit category button click
     $(document).on('click', '.editCategoryBtn', function(event) {
@@ -165,7 +166,6 @@ $(document).ready(function() {
         var criteriaEditModal = new bootstrap.Modal(document.getElementById('criteriaEditModal'));
         criteriaEditModal.show();
     });
-
 
     // Handle form submission for updating event
     $('#eventEditForm').on('submit', function(event) {
@@ -199,9 +199,6 @@ $(document).ready(function() {
             }
         });
     });
-    
-    
-    
 
     // Handle form submission for updating category
     $('#categoryEditForm').on('submit', function(event) {
