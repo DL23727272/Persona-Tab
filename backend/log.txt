@@ -1,11 +1,12 @@
 Array
 (
     [editEventID] => 1
+    [currentEventImage] => 
     [editEventName] => Beauty Testing
     [editEventDescription] => beauty testing
     [editEventDate] => 2024-08-08
 )
-{"editEventID":"1","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-08"}
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-08"}
 {"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
 Event ID: 1
 Event Name: Beauty Testing
@@ -25,87 +26,13 @@ Uploaded File: Array
 Array
 (
     [editEventID] => 1
-    [editEventName] => Beauty Testing
-    [editEventDescription] => beauty testing
-    [editEventDate] => 2024-08-07
-)
-{"editEventID":"1","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-07"}
-{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php777F.tmp","error":0,"size":353924}}
-Event ID: 1
-Event Name: Beauty Testing
-Event Description: beauty testing
-Event Date: 2024-08-07
-Current Event Image: 
-Uploaded File: Array
-(
-    [name] => ispsc.png
-    [full_path] => ispsc.png
-    [type] => image/png
-    [tmp_name] => D:\xampp\tmp\php777F.tmp
-    [error] => 0
-    [size] => 353924
-)
-
-Array
-(
-    [editEventID] => 1
     [currentEventImage] => 
     [editEventName] => Beauty Testing
     [editEventDescription] => beauty testing
     [editEventDate] => 2024-08-09
 )
 {"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-09"}
-{"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
-Event ID: 1
-Event Name: Beauty Testing
-Event Description: beauty testing
-Event Date: 2024-08-09
-Current Event Image: 
-Uploaded File: Array
-(
-    [name] => 
-    [full_path] => 
-    [type] => 
-    [tmp_name] => 
-    [error] => 4
-    [size] => 0
-)
-
-Array
-(
-    [editEventID] => 1
-    [currentEventImage] => 
-    [editEventName] => Beauty Testings
-    [editEventDescription] => beauty testing
-    [editEventDate] => 2024-08-09
-)
-{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testings","editEventDescription":"beauty testing","editEventDate":"2024-08-09"}
-{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php3131.tmp","error":0,"size":353924}}
-Event ID: 1
-Event Name: Beauty Testings
-Event Description: beauty testing
-Event Date: 2024-08-09
-Current Event Image: 
-Uploaded File: Array
-(
-    [name] => ispsc.png
-    [full_path] => ispsc.png
-    [type] => image/png
-    [tmp_name] => D:\xampp\tmp\php3131.tmp
-    [error] => 0
-    [size] => 353924
-)
-
-Array
-(
-    [editEventID] => 1
-    [currentEventImage] => 
-    [editEventName] => Beauty Testing
-    [editEventDescription] => beauty testing
-    [editEventDate] => 2024-08-09
-)
-{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-09"}
-{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpFB91.tmp","error":0,"size":353924}}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpD320.tmp","error":0,"size":353924}}
 Event ID: 1
 Event Name: Beauty Testing
 Event Description: beauty testing
@@ -116,7 +43,7 @@ Uploaded File: Array
     [name] => ispsc.png
     [full_path] => ispsc.png
     [type] => image/png
-    [tmp_name] => D:\xampp\tmp\phpFB91.tmp
+    [tmp_name] => D:\xampp\tmp\phpD320.tmp
     [error] => 0
     [size] => 353924
 )
@@ -125,50 +52,25 @@ Array
 (
     [editEventID] => 1
     [currentEventImage] => 
-    [editEventName] => Beauty Testings
-    [editEventDescription] => beauty testing
-    [editEventDate] => 2024-08-09
-)
-{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testings","editEventDescription":"beauty testing","editEventDate":"2024-08-09"}
-{"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
-Event ID: 1
-Event Name: Beauty Testings
-Event Description: beauty testing
-Event Date: 2024-08-09
-Current Event Image: 
-Uploaded File: Array
-(
-    [name] => 
-    [full_path] => 
-    [type] => 
-    [tmp_name] => 
-    [error] => 4
-    [size] => 0
-)
-
-Array
-(
-    [editEventID] => 1
-    [currentEventImage] => 
     [editEventName] => Beauty Testing
     [editEventDescription] => beauty testing
-    [editEventDate] => 2024-08-09
+    [editEventDate] => 2024-08-10
 )
-{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-09"}
-{"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-10"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php1AFA.tmp","error":0,"size":353924}}
 Event ID: 1
 Event Name: Beauty Testing
 Event Description: beauty testing
-Event Date: 2024-08-09
+Event Date: 2024-08-10
 Current Event Image: 
 Uploaded File: Array
 (
-    [name] => 
-    [full_path] => 
-    [type] => 
-    [tmp_name] => 
-    [error] => 4
-    [size] => 0
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php1AFA.tmp
+    [error] => 0
+    [size] => 353924
 )
 
 Array
@@ -180,7 +82,7 @@ Array
     [editEventDate] => 2024-08-08
 )
 {"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-08"}
-{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpCD2F.tmp","error":0,"size":353924}}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php4C5C.tmp","error":0,"size":353924}}
 Event ID: 1
 Event Name: Beauty Testing
 Event Description: beauty testing
@@ -191,10 +93,58 @@ Uploaded File: Array
     [name] => ispsc.png
     [full_path] => ispsc.png
     [type] => image/png
-    [tmp_name] => D:\xampp\tmp\phpCD2F.tmp
+    [tmp_name] => D:\xampp\tmp\php4C5C.tmp
     [error] => 0
     [size] => 353924
 )
 
-{"eventName":"CCS","eventDescription":"asd","eventDate":"2024-08-08"}
-{"eventImage":{"name":"LOGO.png","full_path":"LOGO.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php3521.tmp","error":0,"size":181859}}
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-09
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-09"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php16E1.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-09
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php16E1.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 9
+    [currentEventImage] => 
+    [editEventName] => CCS
+    [editEventDescription] => asd
+    [editEventDate] => 2024-08-09
+)
+{"editEventID":"9","currentEventImage":"","editEventName":"CCS","editEventDescription":"asd","editEventDate":"2024-08-09"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpA448.tmp","error":0,"size":353924}}
+Event ID: 9
+Event Name: CCS
+Event Description: asd
+Event Date: 2024-08-09
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpA448.tmp
+    [error] => 0
+    [size] => 353924
+)
+
