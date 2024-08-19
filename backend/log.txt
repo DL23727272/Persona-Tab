@@ -148,3 +148,228 @@ Uploaded File: Array
     [size] => 353924
 )
 
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-19
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-19"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpF3AF.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-19
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpF3AF.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-20
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-20"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php65D3.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php65D3.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-19
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-19"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php8EB5.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-19
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php8EB5.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-18
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-18"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php1E5A.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-18
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php1E5A.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-23
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-23"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php5355.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-23
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php5355.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-18
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-18"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpE8BD.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-18
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpE8BD.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-19
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-19"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php2D69.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-19
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php2D69.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-27
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-27"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpD70A.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-27
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpD70A.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-08-18
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-08-18"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpA320.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-08-18
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpA320.tmp
+    [error] => 0
+    [size] => 353924
+)
+

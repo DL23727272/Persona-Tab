@@ -11,55 +11,70 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     var events = response.data;
                     var eventsContainer = $('.eventSection');
+                    var currentDate = new Date();
+                    var hasUpcomingEvents = false;
+
+                    currentDate.setHours(0, 0, 0, 0);
 
                     events.forEach(function(event) {
-                        var eventHTML = `
-                            <div class="event-card d-flex flex-column align-items-center text-center mb-5" data-event-id="${event.eventID}">
-                                <img src="./EventUploads/${event.eventImage}" style="width: 200px; height: 200px;" alt="logo" class="mt-5 mb-3 img-fluid eventImage" />
-                                <h1 class="fst-italic heroEventName text-white">${event.eventName}</h1>
-                                <h4 class="fst-italic heroEventDate text-white">${event.eventDate}</h4>
-                                <p class="w-75 lead text-secondary fst-italic eventDescription">${event.eventDescription}</p>
+                        var eventDate = new Date(event.eventDate);
 
-                                <hr class="container-sm Sborder border-light mt-5 border-2 opacity-50" style="width: 30%;" />
+                        eventDate.setHours(0, 0, 0, 0);
 
-                                <!-- Fetch Contestants -->
-                               <!-- Fetch Contestants -->
-                                <section class="container-sm">
-                                    <h3 class="fst-italic text-center text-white">Check Contestants</h3>
-                                    <div class="container mt-5">
-                                        <div class="row justify-content-center mb-3">
-                                            <div class="col-12 col-md-4 mb-2 mb-md-0 d-flex flex-column ">
-                                                <label for="contestantCategory-${event.eventID}" class="form-label text-white text-center">Select Category</label>
-                                                <select id="contestantCategory-${event.eventID}" class="form-select ">
-                                                    <option value="#" disabled selected>--- Select Category ---</option>
-                                                    <!-- Category options will be loaded here -->
-                                                </select>
+                        // Show only events that are happening today or in the future
+                        if (eventDate >= currentDate) {
+                            hasUpcomingEvents = true;
+                            var eventHTML = `
+                                <div class="event-card d-flex flex-column align-items-center text-center mb-5" data-event-id="${event.eventID}">
+                                    <img src="./EventUploads/${event.eventImage}" style="width: 200px; height: 200px;" alt="logo" class="mt-5 mb-3 img-fluid eventImage" />
+                                    <h1 class="fst-italic heroEventName text-white">${event.eventName}</h1>
+                                    <h4 class="fst-italic heroEventDate text-white">${event.eventDate}</h4>
+                                    <p class="w-75 lead text-secondary fst-italic eventDescription">${event.eventDescription}</p>
+
+                                    <hr class="container-sm Sborder border-light mt-5 border-2 opacity-50" style="width: 30%;" />
+
+                                    <!-- Fetch Contestants -->
+                                    <section class="container-sm">
+                                        <h3 class="fst-italic text-center text-white">Check Contestants</h3>
+                                        <div class="container mt-5">
+                                            <div class="row justify-content-center mb-3">
+                                                <div class="col-12 col-md-4 mb-2 mb-md-0 d-flex flex-column ">
+                                                    <label for="contestantCategory-${event.eventID}" class="form-label text-white text-center">Select Category</label>
+                                                    <select id="contestantCategory-${event.eventID}" class="form-select ">
+                                                        <option value="#" disabled selected>--- Select Category ---</option>
+                                                        <!-- Category options will be loaded here -->
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-md-4 d-flex flex-column align-items-center">
+                                                    <label for="genderFilter-${event.eventID}" class="form-label text-white text-center">Select Gender</label>
+                                                    <select id="genderFilter-${event.eventID}" class="form-select ">
+                                                        <option value="#">--- Select Gender ---</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Male">Male</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="col-12 col-md-4 d-flex flex-column align-items-center">
-                                                <label for="genderFilter-${event.eventID}" class="form-label text-white text-center">Select Gender</label>
-                                                <select id="genderFilter-${event.eventID}" class="form-select ">
-                                                    <option value="#">--- Select Gender ---</option>
-                                                    <option value="Female">Female</option>
-                                                    <option value="Male">Male</option>
-                                                </select>
+                                            <div id="contestantContainer-${event.eventID}" class="row">
+                                                <!-- Contestants will be displayed here -->
                                             </div>
                                         </div>
-                                        <div id="contestantContainer-${event.eventID}" class="row">
-                                            <!-- Contestants will be displayed here -->
-                                        </div>
-                                    </div>
-                                </section>
+                                    </section>
 
+                                    <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" style="width: 80%;" />
+                                </div>
+                            `;
 
-                                <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50"  style="width: 80%;" />
-                            </div>
-                        `;
+                            eventsContainer.append(eventHTML);
 
-                        eventsContainer.append(eventHTML);
-
-                        // Load categories for each event after the event card is appended
-                        loadCategories(event.eventID);
+                            // Load categories for each event after the event card is appended
+                            loadCategories(event.eventID);
+                        }
                     });
+
+                    // If walang upcoming event display  message
+                    if (!hasUpcomingEvents) {
+                        eventsContainer.html('<div class="text-center text-white">There are no upcoming events.</div>');
+                    }
 
                     // Initialize event handlers
                     initializeEventHandlers();
