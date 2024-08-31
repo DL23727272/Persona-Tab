@@ -34,257 +34,244 @@
     });
 
 
-      // --------------- ADDING EVENTS et al AJAX --------------
-    $(document).ready(function() {
-        var judgeID = sessionStorage.getItem('judgeID');
-        if (judgeID) {
-
-            // Handle form submission for adding event
-            $('#addEventForm').submit(function(e) {
-                e.preventDefault(); 
-
-                var formData = new FormData(this);
-                formData.append('eventDate', $('#eventDate').val());
-
-                $.ajax({
-                    url: './backend/addEvent.php',
-                    method: 'POST',
-                    data: formData,
-                    processData: false, 
-                    contentType: false, 
-                    success: function(response) {
-                        console.log(response); 
-                        if (response.status === 'success') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function() {
-                                $('#addEventModal').modal('hide');
-                                $('#addEventForm')[0].reset();
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error!',
-                                text: response.message
-                            });
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Failed to add event.'
-                        });
-                    }
-                });
-            });
-
-            
-
-            // Handle form submission for ADDING CATEGORY
-            $('#addCategoryForm').submit(function(e) {
-                e.preventDefault(); // Prevent the default form submission
-                var formData = $(this).serialize(); // Serialize form data
-            
-                $.ajax({
-                    url: './backend/addCategory.php', 
-                    method: 'POST',
-                    data: formData,
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: response.message,
-                                showConfirmButton: false,
-                                timer: 1500
-                            }).then(function() {
-                                $('#addCategoryModal').modal('hide');
-                                $('#addCategoryForm')[0].reset(); // Clear the form fields
-                                loadCategories();
-                            });
-                        } else {
+      // --------------- ADDING EVENTS, CATEGORIES, CRITERIA JUDGE AJAX --------------
+        $(document).ready(function() {
+            var judgeID = sessionStorage.getItem('judgeID');
+            if (judgeID) {
+        
+                // Handle form submission for adding event
+                $('#addEventForm').submit(function(e) {
+                    e.preventDefault(); 
+        
+                    var formData = new FormData(this);
+                    formData.append('eventDate', $('#eventDate').val());
+        
+                    $.ajax({
+                        url: './backend/addEvent.php',
+                        method: 'POST',
+                        data: formData,
+                        processData: false, 
+                        contentType: false, 
+                        success: function(response) {
+                            console.log(response); 
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function() {
+                                    $('#addEventModal').modal('hide');
+                                    $('#addEventForm')[0].reset();
+                                    loadEvents(); // Refresh event dropdown
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error!',
-                                text: response.message
+                                text: 'Failed to add event.'
                             });
                         }
-                    },
-                    error: function() {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: 'Failed to add category.'
-                        });
+                    });
+                });
+        
+                // Handle form submission for ADDING CATEGORY
+                $('#addCategoryForm').submit(function(e) {
+                    e.preventDefault(); // Prevent the default form submission
+                    var formData = $(this).serialize(); // Serialize form data
+                
+                    $.ajax({
+                        url: './backend/addCategory.php', 
+                        method: 'POST',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function() {
+                                    $('#addCategoryModal').modal('hide');
+                                    $('#addCategoryForm')[0].reset(); // Clear the form fields
+                                    loadCategories(); // Refresh category dropdown
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to add category.'
+                            });
+                        }
+                    });
+                });
+        
+                // Handle form submission for adding criteria
+                $('#addCriteriaForm').submit(function(e) {
+                    e.preventDefault();
+                    var formData = $(this).serialize();
+                    $.ajax({
+                        url: './backend/addCriteria.php', 
+                        method: 'POST',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function() {
+                                    $('#addCriteriaModal').modal('hide');
+                                    $('#addCriteriaForm')[0].reset();
+                                    loadCategories(); // Refresh category dropdown if criteria are added
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to add criteria.'
+                            });
+                        }
+                    });
+                });
+        
+                // Handle form submission for adding judge
+              /*  $('#addJudgeForm').submit(function(e) {
+                    e.preventDefault();
+                    var formData = $(this).serialize();
+                    $.ajax({
+                        url: './backend/addJudge.php', 
+                        method: 'POST',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function() {
+                                    $('#addJudgeModal').modal('hide');
+                                    $('#addJudgeForm')[0].reset();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to add judge.'
+                            });
+                        }
+                    });
+                });*/
+        
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Not Logged In',
+                    text: 'You need to log in to access this page.',
+                    confirmButtonText: 'Log In',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = './index.html';
                     }
                 });
-            });
-            
-
-            // Handle form submission for adding criteria
-            $('#addCriteriaForm').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serialize();
-            $.ajax({
-                url: './backend/addCriteria.php', 
-                method: 'POST',
-                data: formData,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: response.message,
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function() {
-                            $('#addCriteriaModal').modal('hide');
-                            $('#addCriteriaForm')[0].reset();
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: response.message
-                        });
-                    }
-                },
-                error: function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'Failed to add criteria.'
-                    });
-                }
-            });
-            });
-
-            // Handle form submission for adding judge
-            $('#addJudgeForm').submit(function(e) {
-            e.preventDefault();
-            var formData = $(this).serialize();
-            $.ajax({
-                url: './backend/addJudge.php', 
-                method: 'POST',
-                data: formData,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: response.message,
-                            showConfirmButton: false,
-                            timer: 1500
-                        }).then(function() {
-                            $('#addJudgeModal').modal('hide');
-                            $('#addJudgeForm')[0].reset();
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error!',
-                            text: response.message
-                        });
-                    }
-                },
-                error: function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'Failed to add judge.'
-                    });
-                }
-            });
-            });
-
-        }else{
-            Swal.fire({
-                icon: 'warning',
-                title: 'Not Logged In',
-                text: 'You need to log in to access this page.',
-                confirmButtonText: 'Log In',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = './index.html';
-                }
-            });
-            return;
-        }
-
-    });
+                return;
+            }
+        
+        });
     // --------------- END ADDING AJAX --------------
 
     // --------------- LOAD EVENTS AND CATEGORIES --------------
-    function loadEvents() {
-        $.ajax({
-            url: './backend/getEvents.php',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                var options = '<option value="#" disabled selected>--- Select Event ---</option>';
-                $.each(data, function(index, event) {
-                    options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
-                });
-                $('#categoryEvent').html(options);
-               
-            },
-            error: function() {
-                alertify.error('Error loading events.');
-            }
-        });
-    }
-    
-      
-    function loadCategories() {
-        $.ajax({
-            url: './backend/getCategories.php', 
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                if (Array.isArray(response)) {
-                    // Process the categories array
-                    console.log(response);
-                    
-                    // Define the default option
-                    var defaultOption = '<option value="#" disabled selected>--- Select Category ---</option>';
-                    
-                    // Populate the dropdown
-                    let categoryDropdown = $('#criteriaCategory');
-                    categoryDropdown.empty(); // Clear existing options
-                    categoryDropdown.append(defaultOption); 
-                    
-                    // Add categories from the response
-                    response.forEach(category => {
-                        categoryDropdown.append(new Option(category.categoryName, category.categoryID));
+        function loadEvents() {
+            $.ajax({
+                url: './backend/getEvents.php',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var options = '<option value="#" disabled selected>--- Select Event ---</option>';
+                    $.each(data, function(index, event) {
+                        options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
                     });
-                } else {
-                    console.error(response.message); // Handle error message
+                    $('#categoryEvent').html(options);
+                },
+                error: function() {
+                    alertify.error('Error loading events.');
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error: ' + status + error);
-            }
-        });
-    
-    }
-      
-      $(document).ready(function() {
-          loadEvents();
-          loadCategories();
-      });
+            });
+        }
 
+        function loadCategories() {
+            $.ajax({
+                url: './backend/getCategories.php', 
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (Array.isArray(response)) {
+                        var defaultOption = '<option value="#" disabled selected>--- Select Category ---</option>';
+                        let categoryDropdown = $('#criteriaCategory');
+                        categoryDropdown.empty(); // Clear existing options
+                        categoryDropdown.append(defaultOption);
+                        response.forEach(category => {
+                            categoryDropdown.append(new Option(category.categoryName, category.categoryID));
+                        });
+                    } else {
+                        console.error(response.message); // Handle error message
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ' + status + error);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            loadEvents();
+            loadCategories();
+        });
     // ---------------END LOAD EVENTS AND CATEGORIES --------------
 
 
@@ -397,12 +384,12 @@
     // --------------- END FOR CONTENT SECTION --------------
     
 
- // --------------- FOR ADD JUDGE TO CATEGORY --------------
+    // --------------- FOR ADD JUDGE TO CATEGORY --------------
     $(document).ready(function() {
         var judgeID = sessionStorage.getItem('judgeID');
         if (judgeID) {
 
-            // Fetch JUdges
+            // Function to populate judge select dropdown
             function populateSelect(url, selectId) {
                 $.ajax({
                     url: url,
@@ -423,13 +410,56 @@
                     }
                 });
             }
-            
-        
-            populateSelect('./backend/getJudges.php', '#judgeSelect');
-            populateSelect('./backend/getJudges.php', '#judgeScore');
 
+            // Initial population of judge select dropdowns
+            function loadJudges() {
+                populateSelect('./backend/getJudges.php', '#judgeSelect');
+                populateSelect('./backend/getJudges.php', '#judgeScore');
+            }
+            loadJudges(); // Call initially to load judges
 
-            //Assign triggers form
+            // Handle form submission for adding judge
+            $('#addJudgeForm').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: './backend/addJudge.php',
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(function() {
+                                $('#addJudgeModal').modal('hide');
+                                $('#addJudgeForm')[0].reset();
+                                loadJudges(); // Refresh judges in dropdowns
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: response.message
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Failed to add judge.'
+                        });
+                    }
+                });
+            });
+
+            // Assign triggers form
             $('#assignJudgeForm').on('submit', function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -466,8 +496,8 @@
                     }
                 });
             });
-            
 
+            // Load events and categories
             function loadEvents() {
                 $.ajax({
                     url: './backend/getEvents.php',
@@ -479,7 +509,6 @@
                             options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
                         });
                         $('#eventJudgeSelect').html(options);
-                        
                     },
                     error: function() {
                         alertify.error('Error loading events.');
@@ -487,7 +516,6 @@
                 });
             }
 
-            // Function to fetch and filter categories based on the selected event
             function loadCategories(eventID) {
                 $.ajax({
                     url: './backend/adminGetCategories.php',
@@ -495,14 +523,7 @@
                     data: { eventID: eventID },
                     dataType: 'json',
                     success: function(data) {
-                        var filteredCategories = [];
-
-                    
-                        filteredCategories = data; 
-                    
-                        // Debugging: Log the filtered categories to console
-                        console.log("Filtered Categories:", filteredCategories);
-
+                        var filteredCategories = data;
                         var options = '<option value="#" disabled selected>--- Select Category ---</option>';
                         $.each(filteredCategories, function(index, category) {
                             options += '<option value="' + category.categoryID + '">' + category.categoryName + '</option>';
@@ -515,10 +536,8 @@
                 });
             }
 
-            // Call loadEvents on page load
             loadEvents();
 
-            // Event listener for event selection change
             $('#eventJudgeSelect').change(function() {
                 var eventID = $(this).val();
                 if (eventID) {
@@ -526,7 +545,7 @@
                 }
             });
 
-        }else{
+        } else {
             Swal.fire({
                 icon: 'warning',
                 title: 'Not Logged In',
@@ -537,13 +556,13 @@
                 allowEnterKey: false,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redirect to login page or show login modal
-                    window.location.href = './index.html'; 
+                    window.location.href = './index.html';
                 }
             });
             return;
         }
     });
+
     // ---------------END FOR ADD JUDGE TO CATEGORY --------------
 
 

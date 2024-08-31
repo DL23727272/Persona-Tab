@@ -249,6 +249,144 @@ $(document).ready(function() {
         });
     });
 
+    // Handle delete event button click
+    $(document).on('click', '.deleteEventBtn', function(event) {
+        event.preventDefault();
+        var eventID = $(this).data('id');
+        var row = $(this).closest('tr'); // Reference to the row being deleted
+        
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This will delete the event and all related categories and criteria!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: './backend/deleteEvent.php',
+                    method: 'POST',
+                    data: { eventID: eventID },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire('Deleted!', 'The event has been deleted.', 'success');
+                            row.remove();
+                            loadEvents(); // Refresh events list
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Failed to delete event.', 'error');
+                    }
+                });
+            }
+        });
+    });
+
+
+
+     // Handle delete category button click
+     $(document).on('click', '.deleteCategoryBtn', function() {
+        var categoryID = $(this).data('id');
+        console.log('categ ID: ' + categoryID); // Ensure this logs the correct ID
+        var row = $(this).closest('tr'); // Reference to the row being deleted
+    
+        // Show a confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This will delete the category and all its associated data!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Make an AJAX request to delete the category
+                $.ajax({
+                    url: './backend/deleteCategory.php',
+                    method: 'POST',
+                    data: { categoryID: categoryID },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('Server response:', response); // Log server response
+                        if (response.status === 'success') {
+                            Swal.fire('Deleted!', 'The category has been deleted.', 'success');
+                            row.remove();
+                            loadCategories(); // Reload categories after deletion
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('AJAX error:', textStatus, errorThrown); // Log AJAX errors
+                        Swal.fire('Error', 'Failed to delete the category.', 'error');
+                    }
+                });
+            }
+        });
+    });
+
+
+
+   // Handle delete criteria button click
+    $(document).on('click', '.deleteCriteriaBtn', function() {
+        var criteriaID = $(this).data('id');
+        var row = $(this).closest('tr'); // Reference to the row being deleted
+
+        // Show SweetAlert confirmation dialog
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: './backend/deleteCriteria.php',
+                    method: 'POST',
+                    data: { criteriaID: criteriaID },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // SweetAlert for success
+                            Swal.fire(
+                                'Deleted!',
+                                'The criteria has been deleted.',
+                                'success'
+                            );
+                            row.remove(); // Remove the row from the table on success
+                        } else {
+                            // SweetAlert for error
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function() {
+                        // SweetAlert for AJAX error
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while trying to delete the criteria.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    });
+    
+
+
     // Initial load of events
     loadEvents();
 });
