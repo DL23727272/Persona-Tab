@@ -2,3 +2,55 @@
 {"eventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpAB86.tmp","error":0,"size":353924}}
 {"eventName":"asddad","eventDescription":"asd","eventDate":"2024-08-31"}
 {"eventImage":{"name":"LOGO.png","full_path":"LOGO.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9C76.tmp","error":0,"size":181859}}
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-09-03
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-09-03"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php651C.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-09-03
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php651C.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 14
+    [currentEventImage] => 
+    [editEventName] => asddad
+    [editEventDescription] => asd
+    [editEventDate] => 2024-09-03
+)
+{"editEventID":"14","currentEventImage":"","editEventName":"asddad","editEventDescription":"asd","editEventDate":"2024-09-03"}
+{"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+Event ID: 14
+Event Name: asddad
+Event Description: asd
+Event Date: 2024-09-03
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => 
+    [full_path] => 
+    [type] => 
+    [tmp_name] => 
+    [error] => 4
+    [size] => 0
+)
+
+{"eventName":"test","eventDescription":"qweq","eventDate":"2024-09-03"}
+{"eventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php29DC.tmp","error":0,"size":353924}}
