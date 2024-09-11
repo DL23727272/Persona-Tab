@@ -54,3 +54,28 @@ Uploaded File: Array
 
 {"eventName":"test","eventDescription":"qweq","eventDate":"2024-09-03"}
 {"eventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php29DC.tmp","error":0,"size":353924}}
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-09-11
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-09-11"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpEBA7.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-09-11
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpEBA7.tmp
+    [error] => 0
+    [size] => 353924
+)
+

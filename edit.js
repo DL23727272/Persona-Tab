@@ -36,8 +36,12 @@ $(document).ready(function() {
                         <tr>
                             <td>${category.categoryName}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-info editCategoryBtn" data-id="${category.categoryID}" data-name="${category.categoryName}">Edit</button>
-                                <button type="button" class="btn btn-outline-danger deleteCategoryBtn text-white" data-id="${category.categoryID}">Delete</button>
+                                <button type="button" class="btn btn-outline-info editCategoryBtn" data-id="${category.categoryID}" data-name="${category.categoryName}">
+                                    Edit <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger deleteCategoryBtn text-white" data-id="${category.categoryID}">
+                                    Delete <i class="fa-solid fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     `);
@@ -65,8 +69,12 @@ $(document).ready(function() {
                             <td>${criteria.criteriaName}</td>
                             <td>${criteria.criteriaScore}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-info editCriteriaBtn" data-id="${criteria.criteriaID}" data-name="${criteria.criteriaName}" data-score="${criteria.criteriaScore}">Edit</button>
-                                <button type="button" class="btn btn-outline-danger deleteCriteriaBtn text-white" data-id="${criteria.criteriaID}">Delete</button>
+                                <button type="button" class="btn btn-outline-info editCriteriaBtn" data-id="${criteria.criteriaID}" data-name="${criteria.criteriaName}" data-score="${criteria.criteriaScore}">
+                                    Edit <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger deleteCriteriaBtn text-white" data-id="${criteria.criteriaID}">
+                                    Delete <i class="fa-solid fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     `);
@@ -109,8 +117,13 @@ $(document).ready(function() {
                             <td>${event.eventDescription}</td>
                             <td>${event.eventDate}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-info editEventBtn" data-id="${event.eventID}" data-name="${event.eventName}" data-description="${event.eventDescription}" data-date="${event.eventDate}" data-image="${event.eventImage}">Edit</button>
-                                <button type="button" class="btn btn-outline-danger deleteEventBtn text-white" data-id="${event.eventID}">Delete</button>
+                                <button type="button" class="btn btn-outline-info editEventBtn" data-id="${event.eventID}" data-name="${event.eventName}" 
+                                 data-description="${event.eventDescription}" data-date="${event.eventDate}" data-image="${event.eventImage}">
+                                    Edit <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger deleteEventBtn text-white" data-id="${event.eventID}">
+                                    Delete <i class="fa-solid fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     `);

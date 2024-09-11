@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 include "../backend/myConnection.php"; // Adjust the path to your database connection file
 
-$sql = "SELECT judgeID, judgeName FROM judges";
+$sql = "SELECT judgeID, judgeName, userType FROM judges";
 $result = $con->query($sql);
 
 $judges = [];

@@ -70,8 +70,12 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
                                 <p class="card-text  text-center">Gender: '. $row['gender'] .'</p>
                                 <p class="card-text  text-center">Contestant No: '. $row['contestantNo'] .'</p>
                                 <div class="d-flex justify-content-between mt-3">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal'. $contestantID .'">Edit</button>
-                                    <button type="button" class="btn btn-danger" onclick="confirmDelete('. $contestantID .')">Delete</button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal'. $contestantID .'">
+                                        Edit <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger" onclick="confirmDelete('. $contestantID .')">
+                                        Delete <i class="fa-solid fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>

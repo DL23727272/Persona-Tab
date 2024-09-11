@@ -1229,7 +1229,7 @@
                             tableHtml += `
                                 <tr>
                                     <td>${judge.judgeName}</td>
-                                    <td><button class="btn btn-danger remove-judge-btn" data-judge-id="${judge.judgeID}">Remove</button></td>
+                                    <td><button class="btn btn-danger remove-judge-btn" data-judge-id="${judge.judgeID}">Remove <i class="fa-solid fa-user-minus"></i> </button></td>
                                 </tr>
                             `;
                         });
@@ -1332,7 +1332,154 @@
 
 
 
+  // --------------- FOR CRUD JUDGE on Accounts.html--------------
+  $(document).ready(function() {
+    // Function to show the modal and populate it with judge data
+    $('body').on('click', '.editJudgeBtn', function() {
+        const judgeID = $(this).data('id');
+        const judgeName = $(this).data('name');
+        const userType = $(this).data('usertype');
 
+        // Populate the modal fields with the data
+        $('#editJudgeID').val(judgeID);
+        $('#editJudgeName').val(judgeName);
+        $('#editUserType').val(userType);
 
+        // Show the Bootstrap modal
+        $('#updateJudgeModal').modal('show');
+    });
 
-     
+    // Toggle password visibility for edit password field
+    $('#toggleEditPassword').on('click', function() {
+        const passwordField = $('#editJudgePassword');
+        const passwordIcon = $('#editEyeIcon');
+        if (passwordField.attr('type') === 'password') {
+            passwordField.attr('type', 'text');
+            passwordIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+        } else {
+            passwordField.attr('type', 'password');
+            passwordIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+        }
+    });
+
+    // Handle form submission for updating judge
+    $('#updateJudgeForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent form from submitting the default way
+
+        const judgeID = $('#editJudgeID').val();
+        const judgeName = $('#editJudgeName').val();
+        const userType = $('#editUserType').val();
+        const judgePassword = $('#editJudgePassword').val(); // This may be empty
+
+        const formData = {
+            judgeID: judgeID,
+            judgeName: judgeName,
+            userType: userType,
+            judgePassword: judgePassword // Send this even if it's empty
+        };
+
+        $.ajax({
+            url: './backend/updateJudge.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(response) {
+                if (response.message === "Judge updated successfully") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Updated!',
+                        text: 'Judge details updated successfully.',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    $('#updateJudgeModal').modal('hide'); // Hide the modal
+                    fetchJudges(); // Refresh the table
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while updating the judge.',
+                    });
+                }
+            }
+        });
+    });
+
+    // Function to delete a judge
+    window.deleteJudge = function(judgeID) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: './backend/deleteJudge.php',
+                    method: 'POST',
+                    data: { judgeID: judgeID },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire(
+                                'Deleted!',
+                                'Judge has been deleted.',
+                                'success'
+                            );
+                            fetchJudges(); // Refresh the judges table after deletion
+                        } else {
+                            Swal.fire(
+                                'Error!',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while deleting the judge.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+
+    // Fetch and display judges
+    function fetchJudges() {
+        $.ajax({
+            url: './backend/getJudges.php',
+            method: 'GET',
+            success: function(data) {
+                let tableRows = '';
+                data.forEach(function(judge) {
+                    tableRows += `<tr>
+                                    <td>${judge.judgeName}</td>
+                                    <td>${judge.userType}</td>
+                                    <td>
+                                        <button class="btn btn-primary editJudgeBtn" 
+                                                data-id="${judge.judgeID}" 
+                                                data-name="${judge.judgeName}" 
+                                                data-usertype="${judge.userType}">
+                                            Edit <i class="fa-regular fa-pen-to-square"></i>
+                                        </button>
+
+                                         <button class="btn btn-danger" onclick="deleteJudge(${judge.judgeID})">
+                                            Delete <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                  </tr>`;
+                });
+                $('#judgesTable').html(tableRows);
+            }
+        });
+    }
+
+    fetchJudges();
+});
+
+// ---------------END FOR CRUD JUDGE on Accounts.html--------------
