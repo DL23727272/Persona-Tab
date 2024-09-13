@@ -1229,7 +1229,7 @@
                             tableHtml += `
                                 <tr>
                                     <td>${judge.judgeName}</td>
-                                    <td><button class="btn btn-danger remove-judge-btn" data-judge-id="${judge.judgeID}">Remove <i class="fa-solid fa-user-minus"></i> </button></td>
+                                    <td><button class="btn btn-outline-danger text-white remove-judge-btn" data-judge-id="${judge.judgeID}">Remove <i class="fa-solid fa-user-minus"></i> </button></td>
                                 </tr>
                             `;
                         });
@@ -1461,14 +1461,14 @@
                                     <td>${judge.judgeName}</td>
                                     <td>${judge.userType}</td>
                                     <td>
-                                        <button class="btn btn-primary editJudgeBtn" 
+                                        <button class="btn btn-outline-primary text-white editJudgeBtn" 
                                                 data-id="${judge.judgeID}" 
                                                 data-name="${judge.judgeName}" 
                                                 data-usertype="${judge.userType}">
                                             Edit <i class="fa-regular fa-pen-to-square"></i>
                                         </button>
 
-                                         <button class="btn btn-danger" onclick="deleteJudge(${judge.judgeID})">
+                                         <button class="btn btn-outline-danger text-white" onclick="deleteJudge(${judge.judgeID})">
                                             Delete <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>
