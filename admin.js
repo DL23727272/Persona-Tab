@@ -466,7 +466,7 @@
                     url: './backend/assignJudge.php',
                     type: 'POST',
                     data: $(this).serialize(),
-                    dataType: 'json', // Ensure jQuery parses the response as JSON
+                    dataType: 'json', 
                     success: function(response) {
                         if (response.status === 'success') {
                             Swal.fire({
@@ -1369,7 +1369,7 @@
         const judgeID = $('#editJudgeID').val();
         const judgeName = $('#editJudgeName').val();
         const userType = $('#editUserType').val();
-        const judgePassword = $('#editJudgePassword').val(); // This may be empty
+        const judgePassword = $('#editJudgePassword').val();
 
         const formData = {
             judgeID: judgeID,

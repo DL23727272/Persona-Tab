@@ -4,7 +4,7 @@ include "../backend/myConnection.php";
 
 // Retrieve POST data
 $categoryName = $_POST['categoryName'];
-$eventID = $_POST['categoryEvent']; // Assuming you pass eventID for category
+$eventID = $_POST['categoryEvent']; 
 
 // Validate input
 if (empty($categoryName) || empty($eventID)) {

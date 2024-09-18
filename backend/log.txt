@@ -79,3 +79,53 @@ Uploaded File: Array
     [size] => 353924
 )
 
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-09-16
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-09-16"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpB07C.tmp","error":0,"size":353924}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-09-16
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpB07C.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 1
+    [currentEventImage] => 
+    [editEventName] => Beauty Testing
+    [editEventDescription] => beauty testing
+    [editEventDate] => 2024-09-15
+)
+{"editEventID":"1","currentEventImage":"","editEventName":"Beauty Testing","editEventDescription":"beauty testing","editEventDate":"2024-09-15"}
+{"editEventImage":{"name":"LOGO.png","full_path":"LOGO.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpF2CE.tmp","error":0,"size":181859}}
+Event ID: 1
+Event Name: Beauty Testing
+Event Description: beauty testing
+Event Date: 2024-09-15
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => LOGO.png
+    [full_path] => LOGO.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpF2CE.tmp
+    [error] => 0
+    [size] => 181859
+)
+

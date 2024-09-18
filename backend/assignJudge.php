@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
-include "../backend/myConnection.php"; // Adjust the path to your database connection file
+include "../backend/myConnection.php"; 
 
 // Retrieve POST data
 $judgeID = $_POST['judgeID'];
-$categoryID = $_POST['categoryJudgeSelect']; // Ensure this matches your form field name
+$categoryID = $_POST['categoryJudgeSelect']; 
 
 // Validate input
 if (empty($judgeID) || empty($categoryID)) {

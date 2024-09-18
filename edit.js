@@ -220,7 +220,7 @@ $(document).ready(function() {
             url: './backend/updateCategory.php',
             method: 'POST',
             data: $(this).serialize(),
-            dataType: 'json', // Ensure the response is treated as JSON
+            dataType: 'json', 
             success: function(response) {
                 if (response.status === 'success') {
                     Swal.fire('Success', 'Category updated successfully!', 'success');
@@ -305,7 +305,7 @@ $(document).ready(function() {
      // Handle delete category button click
      $(document).on('click', '.deleteCategoryBtn', function() {
         var categoryID = $(this).data('id');
-        console.log('categ ID: ' + categoryID); // Ensure this logs the correct ID
+        console.log('categ ID: ' + categoryID); 
         var row = $(this).closest('tr'); // Reference to the row being deleted
     
         // Show a confirmation dialog

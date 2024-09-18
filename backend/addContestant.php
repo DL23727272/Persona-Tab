@@ -12,7 +12,7 @@
         $age = $_POST['age'];
         $address = $_POST['address'];
         $gender = $_POST['gender'];
-        $categories = $_POST['categories']; // Expecting an array of category IDs
+        $categories = $_POST['categories']; 
         $contestantNumber = $_POST['contestantNumber'];
 
         // Handle image upload

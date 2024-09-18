@@ -1,5 +1,5 @@
 <?php
-include "../backend/myConnection.php"; // Adjust path as necessary
+include "../backend/myConnection.php"; 
 
 header('Content-Type: application/json');
 
