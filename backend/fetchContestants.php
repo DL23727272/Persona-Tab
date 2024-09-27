@@ -55,7 +55,7 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
                     <div class="col mt-5">
                         <div class="card h-100"  >
                             <div class="container mt-5 text-center">
-                                <img src="contestants/'. $row['image'] .'" class="card-img-top mt-2" alt="Contestant Image" 
+                                <img src="contestant_image/'. $row['image'] .'" class="card-img-top mt-2" alt="Contestant Image" 
                                 style="
                                 width: 200px; 
                                 height: 250px; 

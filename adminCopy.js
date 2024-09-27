@@ -895,11 +895,9 @@
                         } else {
                             // Display overall scores and category summaries
                             displayOverallScores(response);
-                            
                         }
                     } else {
                         Swal.fire('Error', response.message, 'error');
-                        
                     }
                 },
                 error: function(error) {
@@ -929,9 +927,6 @@
 
                 <table id="overallSummaryTable" class="table table-striped table-dark">
                     <thead>
-                      <tr class="text-center">
-                        <th colspan="3">Overall Event Summary</th> <!-- Use colspan to center the title -->
-                      </tr>
                         <tr>
                             <th>Contestant</th>
                             <th>Total Score</th>
@@ -959,9 +954,6 @@
                     <h1 class="text-white text-center mt-5">Overall Summary for ${category.categoryName}</h1>
                     <table id="categorySummaryTable_${category.categoryID}" class="table table-striped table-dark">
                         <thead>
-                           <tr class="text-center">
-                                <th colspan="3">Overall Summary for ${category.categoryName}</th> <!-- Use colspan to center the title -->
-                            </tr>
                             <tr>
                                 <th>Contestant</th>
                                 <th>Total Score</th>
@@ -1019,11 +1011,7 @@
             var categorySummarySection = `
                 <h1 class="text-white text-center mt-5">Overall Summary for ${categoryName}</h1>
                 <table id="categorySummaryTable" class="table table-striped table-dark">
-                    
                     <thead>
-                    <tr class="text-center">
-                        <th colspan="3">Overall Summary for ${categoryName}</th> <!-- Use colspan to center the title -->
-                    </tr>
                         <tr>
                             <th>Contestant</th>
                             <th>Total Score</th>
@@ -1034,8 +1022,6 @@
                         <!-- Category summary rows will be populated dynamically -->
                     </tbody>
                 </table>
-              
-
             `;
             scoresSection.append(categorySummarySection);
     
@@ -1065,19 +1051,7 @@
                     var judgeScores = judgesScores[judgeName];
                     var judgeTable = `<h4 class="text-white fw-bold mt-5">JUDGE: ${judgeName}</h4>`;
                     judgeTable += '<table class="table table-striped table-dark">';
-                    judgeTable += `
-                    <thead>
-                        <tr class="text-center">
-                            <th></th>
-                            <th colspan="4">JUDGE: ${judgeName}</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                       
-                     `;
-                    judgeTable += '<tr><th>Contestant</th>';
-      
-      
+                    judgeTable += '<thead><tr><th>Contestant</th>';
     
                     // Add criteria headers
                     var criteriaHeaders = new Set();
@@ -1185,7 +1159,7 @@
         // Event change listener
         $('#eventSelect').change(function() {
             var eventID = $(this).val();
-            $('#categorySelect').html('<option value=" " disabled selected>--- Select Category ---</option>');  // Reset category dropdown
+            $('#categorySelect').html('<option value="#" disabled selected>--- Select Category ---</option>');  // Reset category dropdown
             if (eventID) {
                 $.ajax({
                     url: './backend/getCategories.php',
@@ -1193,7 +1167,7 @@
                     data: { eventID: eventID },
                     dataType: 'json',
                     success: function(data) {
-                        var options = '<option value=" " disabled selected>--- Select Category ---</option>';
+                        var options = '<option value="#" disabled selected>--- Select Category ---</option>';
                         $.each(data, function(index, category) {
                             options += '<option value="' + category.categoryID + '">' + category.categoryName + '</option>';
                         });
@@ -1220,28 +1194,6 @@
     
         // Initial load of events
         loadEvents();
-        
-        // Hide the button initially
-        $("#exportBtn").hide();
-
-        // Function to check selections
-        function checkSelections() {
-            const eventSelected = $("#eventSelect").val() !== ""; // Check if an event is selected
-            const categorySelected = $("#categorySelect").val() !== ""; // Check if a category is selected
-
-            // Show or hide the button based on selections
-            if (eventSelected && categorySelected) {
-            $("#exportBtn").show(); // Show the button if both are selected
-            } else {
-            $("#exportBtn").hide(); // Hide the button otherwise
-            }
-        }
-
-        // Attach change event listeners to the dropdowns
-        $("#eventSelect, #categorySelect").change(checkSelections);
-
-       
-        
     });
     
     

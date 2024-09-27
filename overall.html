@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- Include jsPDF library from a CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
   <link rel="icon" type="image/x-icon" href="./img/logo.ico">
     
   <style>
@@ -156,6 +162,10 @@
     <div id="scoresSection" class="mt-5">
         <!-- Score tables will be populated dynamically here -->
     </div>
+    <div id="" style=" text-align: center; margin-top: 30px;">
+      <button id="exportBtn" class="btn btn-primary my-3">Export to PDF</button>
+    </div>
+
 </section>
 
 
@@ -183,5 +193,15 @@
     </div>
   </footer>
   <script src="admin.js"></script>
+  <script src="exportToPdf.js"></script>
+  <script>
+  
+
+  </script>
+  
+  
+  
+  
+  
 </body>
 </html>

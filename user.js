@@ -131,41 +131,44 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 console.log('Contestants Response for category ' + categoryID + ':', response);
-    
+
                 if (response.contestants && Array.isArray(response.contestants)) {
                     var tbody = '';
                     var existingContestants = new Set();
-    
+
                     response.contestants.forEach(function(contestant) {
                         // Check if the contestant's category matches the current category
                         if (contestant.categoryID == categoryID && !existingContestants.has(contestant.idContestant)) {
                             existingContestants.add(contestant.idContestant);
-    
+
                             tbody += '<tr data-contestant-id="' + contestant.idContestant + '" data-category-id="' + categoryID + '">';
                             
-                            // Display contestant number if available, otherwise display name
-                            if (contestant.contestantNo) {
-                                tbody += '<td>' + contestant.contestantNo + '</td>';
+                            // Display contestant image, number, and name
+                            if (contestant.image) {
+                                tbody += '<td><img style="width: 40px; height:40px; object-fit: cover; border-radius: 0%;" src="./contestant_image/' 
+                                + contestant.image + '" alt="Contestant Image"><br><b>' 
+                                + contestant.contestantNo + '</b> - ' 
+                                + contestant.name + '</td>';
                             } else {
                                 tbody += '<td>' + contestant.name + '</td>';
                             }
-    
+
                             if (Array.isArray(criteria)) {
                                 criteria.forEach(function(criterion) {
-                                    tbody += '<td><input type="number" class="score-input" data-contestant-id="' 
+                                    tbody += '<td><input type="number" class="score-input mt-3" data-contestant-id="' 
                                     + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + 
                                     '" data-category-id="' + categoryID + '" style="width: 60px" required/></td>';
                                 });
                             }
-    
+
                             tbody += '<td class="total-score">0</td>'; // Placeholder for Total Score
                             tbody += '<td class="contestant-rank">0</td>'; // Placeholder for Rank
                             tbody += '</tr>';
                         }
                     });
-    
+
                     $(`#contestantTable-${categoryID} tbody`).html(tbody);
-    
+
                     // Add event listeners for score input fields
                     $('.score-input').on('input', function() {
                         calculateAndUpdateScoresAndRanks();
@@ -183,6 +186,7 @@ $(document).ready(function() {
             }
         });
     }
+
     
 
     // Calculate total scores and ranks within each category
