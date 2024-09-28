@@ -765,6 +765,8 @@
         function updateScores() {
             var updatedScores = [];
             var hasChanges = false;
+            var judgeID = $('#judgeUpdateSelect').val();
+            console.log(judgeID);
     
             $('.score-input').each(function() {
                 var contestantID = $(this).data('contestant-id');
@@ -800,7 +802,10 @@
             $.ajax({
                 url: './backend/updateScores.php',
                 method: 'POST',
-                data: { scores: JSON.stringify(updatedScores) },
+                data: {
+                    scores: JSON.stringify(updatedScores),
+                    judgeID: judgeID
+                },
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
