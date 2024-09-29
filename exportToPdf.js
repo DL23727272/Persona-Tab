@@ -34,7 +34,7 @@ function exportToPDF() {
             console.log("Number of tables:", tables.length);
 
             // Load the logo image and header synchronously before rendering any tables
-            const logoUrl = "./img/chrome-logo.png"; // Path to your logo
+            const logoUrl = "./img/P.png"; // Path to your logo
             const img = new Image();
             img.src = logoUrl;
             
