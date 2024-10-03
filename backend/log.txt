@@ -179,3 +179,55 @@ Uploaded File: Array
     [size] => 353924
 )
 
+{"eventName":"Mr. and Miss CCS 2025","eventDescription":"Mr. and Miss CCS 2025","eventDate":"2024-10-02"}
+{"eventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php1500.tmp","error":0,"size":353924}}
+Array
+(
+    [editEventID] => 16
+    [currentEventImage] => 
+    [editEventName] => Mr. and Miss CCS 2025
+    [editEventDescription] => Mr. and Miss CCS 2025
+    [editEventDate] => 2024-10-03
+)
+{"editEventID":"16","currentEventImage":"","editEventName":"Mr. and Miss CCS 2025","editEventDescription":"Mr. and Miss CCS 2025","editEventDate":"2024-10-03"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php7364.tmp","error":0,"size":353924}}
+Event ID: 16
+Event Name: Mr. and Miss CCS 2025
+Event Description: Mr. and Miss CCS 2025
+Event Date: 2024-10-03
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php7364.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 16
+    [currentEventImage] => 
+    [editEventName] => Mr. and Miss CCS 2025
+    [editEventDescription] => Mr. and Miss CCS 2025
+    [editEventDate] => 2024-10-03
+)
+{"editEventID":"16","currentEventImage":"","editEventName":"Mr. and Miss CCS 2025","editEventDescription":"Mr. and Miss CCS 2025","editEventDate":"2024-10-03"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpCBE6.tmp","error":0,"size":353924}}
+Event ID: 16
+Event Name: Mr. and Miss CCS 2025
+Event Description: Mr. and Miss CCS 2025
+Event Date: 2024-10-03
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpCBE6.tmp
+    [error] => 0
+    [size] => 353924
+)
+

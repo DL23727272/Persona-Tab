@@ -37,7 +37,7 @@ if (isset($_POST['eventID'])) {
 
     // Prepare query to get scores for the selected category or all categories
     $queryScores = "
-        SELECT c.contestantNo, c.name AS contestantName, s.score, j.judgeName, cat.categoryName, crit.criteriaName, s.categoryID
+        SELECT c.contestantNo, c.name AS contestantName, c.gender, s.score, j.judgeName, cat.categoryName, crit.criteriaName, s.categoryID
         FROM scores s
         JOIN contestants c ON s.contestantID = c.idContestant
         JOIN judges j ON s.judgeID = j.judgeID

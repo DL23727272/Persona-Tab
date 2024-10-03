@@ -866,6 +866,8 @@
 
     // --------------- FETCH SCORES FOR OVERALL.HTML SCORE TABLE --------------
     $(document).ready(function() {
+         // Initial load of events
+         loadEvents();
         // Function to load events
         function loadEvents() {
             $.ajax({
@@ -886,7 +888,7 @@
         }
     
         // Function to fetch scores based on event and category
-        function fetchScores(eventID, categoryID) {
+            function fetchScores(eventID, categoryID) {
             $.ajax({
                 url: './backend/getOverallScores.php',
                 type: 'POST',
@@ -900,11 +902,9 @@
                         } else {
                             // Display overall scores and category summaries
                             displayOverallScores(response);
-                            
                         }
                     } else {
                         Swal.fire('Error', response.message, 'error');
-                        
                     }
                 },
                 error: function(error) {
@@ -914,29 +914,42 @@
             });
         }
     
-        // Function to display overall scores and category summaries
+         // Function to display overall scores and category summaries
         function displayOverallScores(response) {
             var scoresSection = $('#scoresSection');
             scoresSection.empty();
-    
+
             var overallSummarySection = `
                 <h1 class="text-white text-center mt-5">Overall Event Summary</h1>
-                <div class="form-group my-5">
-
-                    <label for="topSelect" class="text-white">Select Top:</label>
-                    <select id="topSelect" class="form-control w-50" >
-                        <option value="20" selected >--- Select Top ---</option>
-                        <option value="5">Top 5</option>
-                        <option value="10">Top 10</option>
-                        <option value="15" >Top 15</option>
-                    </select>
+               <div class="row my-5">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="topSelect" class="text-white">Select Top:</label>
+                            <select id="topSelect" class="form-control">
+                                <option value="20" selected>--- Select Top ---</option>
+                                <option value="5">Top 5</option>
+                                <option value="10">Top 10</option>
+                                <option value="15">Top 15</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="genderSelect" class="text-white">Select Gender:</label>
+                            <select id="genderSelect" class="form-control">
+                                <option value="all" selected>All</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <table id="overallSummaryTable" class="table table-striped table-dark">
                     <thead>
-                      <tr class="text-center">
-                        <th colspan="3">Overall Event Summary</th> <!-- Use colspan to center the title -->
-                      </tr>
+                        <tr class="text-center">
+                            <th colspan="3">Overall Event Summary</th>
+                        </tr>
                         <tr>
                             <th>Contestant</th>
                             <th>Total Score</th>
@@ -949,15 +962,24 @@
                 </table>
             `;
             scoresSection.append(overallSummarySection);
-              // Process and display overall summary scores
-              calculateOverallSummary(response.scores);
-    
-              // Attach event listener for the topSelect dropdown
-              $('#topSelect').change(function() {
-                  var topCount = parseInt($(this).val());
-                  displayTopContestants(topCount, response.scores);
-              });
-    
+
+            // Process and display overall summary scores
+            calculateOverallSummary(response.scores);
+
+            // Attach event listener for the topSelect dropdown
+            $('#topSelect').change(function() {
+                var topCount = parseInt($(this).val());
+                var genderFilter = $('#genderSelect').val(); // Get the selected gender
+                displayTopContestants(topCount, response.scores, genderFilter);
+            });
+
+            // Attach event listener for the genderSelect dropdown
+            $('#genderSelect').change(function() {
+                var topCount = parseInt($('#topSelect').val());
+                var genderFilter = $(this).val(); // Get the selected gender
+                displayTopContestants(topCount, response.scores, genderFilter);
+            });
+
             var categories = response.categories;
             categories.forEach(function(category) {
                 var categorySummarySection = `
@@ -987,25 +1009,27 @@
             calculateOverallSummary(response.scores);
         }
 
-         // Function to display the top contestants based on selected count
-         function displayTopContestants(topCount, scores) {
+        // Function to display the top contestants based on selected count and gender
+        function displayTopContestants(topCount, scores, genderFilter) {
             var overallScores = {};
             scores.forEach(score => {
-                if (!overallScores[score.contestantName]) {
-                    overallScores[score.contestantName] = 0;
+                if (genderFilter === "all" || score.gender === genderFilter) {
+                    if (!overallScores[score.contestantName]) {
+                        overallScores[score.contestantName] = 0;
+                    }
+                    overallScores[score.contestantName] += parseFloat(score.score);
                 }
-                overallScores[score.contestantName] += parseFloat(score.score);
             });
-    
+
             var sortedContestants = Object.keys(overallScores).sort((a, b) => overallScores[b] - overallScores[a]);
             var ranks = {};
             sortedContestants.forEach((contestantName, index) => {
                 ranks[contestantName] = index + 1;
             });
-    
+
             var overallSummaryTableBody = $('#overallSummaryTable tbody');
             overallSummaryTableBody.empty();
-    
+
             // Limit the display to the top contestants based on the selected value
             sortedContestants.slice(0, topCount).forEach(contestantName => {
                 var contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
@@ -1014,6 +1038,7 @@
                 overallSummaryTableBody.append(`<tr><td>${contestantNo} - ${contestantName}</td><td>${totalScore.toFixed(2)}</td><td>${rank}</td></tr>`);
             });
         }
+
     
         // Function to display category scores and judge scores
         function displayCategoryScores(response) {
@@ -1223,8 +1248,7 @@
             }
         });
     
-        // Initial load of events
-        loadEvents();
+       
         
         // Hide the button initially
         $("#exportBtn").hide();

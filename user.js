@@ -1,7 +1,8 @@
 // --------------- FOR JUDGE SCORE TABLE --------------
 $(document).ready(function() {
     var judgeID = sessionStorage.getItem('judgeID');
-    document.getElementById("judgeName").innerHTML = judgeID;
+    var customerName = sessionStorage.getItem('customerName');
+    document.getElementById("judgeName").innerHTML = customerName;
 
     if (judgeID) {
         $.ajax({
@@ -67,7 +68,7 @@ $(document).ready(function() {
                         var criteria = criteriaByCategory[category.categoryID] || [];
                         var thead = '<tr><th>Contestant</th>';
                         var criteriaHeaders = criteria.map(function(criterion) {
-                            return '<th>' + criterion.criteriaName + ' - ' + criterion.criteriaScore + '</th>';
+                            return '<th>' + criterion.criteriaName + ' - ' + criterion.criteriaScore + '%'+'</th>';
                         });
                         thead += criteriaHeaders.join('') + '<th>Total Score</th><th>Rank</th></tr>';
                         $(`#contestantTable-${category.categoryID} thead`).html(thead);
