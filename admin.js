@@ -966,17 +966,15 @@
             // Process and display overall summary scores
             calculateOverallSummary(response.scores);
 
-            // Attach event listener for the topSelect dropdown
             $('#topSelect').change(function() {
                 var topCount = parseInt($(this).val());
-                var genderFilter = $('#genderSelect').val(); // Get the selected gender
+                var genderFilter = $('#genderSelect').val(); 
                 displayTopContestants(topCount, response.scores, genderFilter);
             });
 
-            // Attach event listener for the genderSelect dropdown
             $('#genderSelect').change(function() {
                 var topCount = parseInt($('#topSelect').val());
-                var genderFilter = $(this).val(); // Get the selected gender
+                var genderFilter = $(this).val();
                 displayTopContestants(topCount, response.scores, genderFilter);
             });
 
