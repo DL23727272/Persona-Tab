@@ -75,7 +75,10 @@ foreach ($data as $scoreData) {
         // Update score only for the specified judge
         $query = "UPDATE scores SET score = ? WHERE contestantID = ? AND criterionID = ? AND judgeID = ?";
         $stmt = mysqli_prepare($con, $query);
-        mysqli_stmt_bind_param($stmt, 'iiii', $score, $contestantID, $criterionID, $judgeID);
+
+        // Bind decimal score value using 'd' for double/decimal
+        mysqli_stmt_bind_param($stmt, 'diii', $score, $contestantID, $criterionID, $judgeID);
+
         if (mysqli_stmt_execute($stmt)) {
             // Optionally check if any rows were affected
             if (mysqli_stmt_affected_rows($stmt) === 0) {
@@ -92,9 +95,14 @@ foreach ($data as $scoreData) {
     }
 }
 
+
 $response['success'] = true;
 $response['message'] = "Scores updated successfully.";
 echo json_encode($response);
 
 mysqli_close($con);
+//ALTER TABLE scores MODIFY score DECIMAL(5,2);
 ?>
+
+
+

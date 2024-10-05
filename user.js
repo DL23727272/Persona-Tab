@@ -154,13 +154,15 @@ $(document).ready(function() {
                                 tbody += '<td>' + contestant.name + '</td>';
                             }
 
+                            // score input
                             if (Array.isArray(criteria)) {
                                 criteria.forEach(function(criterion) {
                                     tbody += '<td><input type="number" class="score-input mt-3" data-contestant-id="' 
                                     + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + 
-                                    '" data-category-id="' + categoryID + '" style="width: 60px" required/></td>';
+                                    '" data-category-id="' + categoryID + '" style="width: 60px" step="0.01" required/></td>';
                                 });
                             }
+
 
                             tbody += '<td class="total-score">0</td>'; // Placeholder for Total Score
                             tbody += '<td class="contestant-rank">0</td>'; // Placeholder for Rank
@@ -201,7 +203,8 @@ $(document).ready(function() {
             var totalScore = 0;
 
             $(this).find('.score-input').each(function() {
-                var score = parseInt($(this).val()) || 0;
+                // Use parseFloat to handle decimal values
+                var score = parseFloat($(this).val()) || 0;
                 totalScore += score;
             });
 
@@ -215,9 +218,10 @@ $(document).ready(function() {
                 totalScore: totalScore
             });
 
-            $(this).find('.total-score').text(totalScore);
+            $(this).find('.total-score').text(totalScore.toFixed(2)); // Display score with 2 decimal places
         });
 
+        // Sort contestants by total score and assign ranks
         $.each(categoryContestants, function(categoryID, contestants) {
             contestants.sort(function(a, b) {
                 return b.totalScore - a.totalScore;
@@ -230,6 +234,8 @@ $(document).ready(function() {
         });
     }
 
+
+    // Save the scores
     function saveScores() {
         var judgeID = sessionStorage.getItem('judgeID');
 
@@ -256,7 +262,8 @@ $(document).ready(function() {
                 var categoryID = $(this).data('category-id');
 
                 $(this).find('.score-input').each(function() {
-                    var score = parseInt($(this).val()) || 0;
+                    // Use parseFloat to handle decimal values
+                    var score = parseFloat($(this).val()) || 0;
                     var criterionID = $(this).data('criterion-id');
 
                     scoresData.push({
@@ -264,12 +271,13 @@ $(document).ready(function() {
                         contestantID: contestantID,
                         categoryID: categoryID,
                         criterionID: criterionID,
-                        score: score,
+                        score: score,  // Use float score
                         rank: $(this).closest('tr').find('.contestant-rank').text()
                     });
                 });
             });
 
+            // Save scores via AJAX
             $.ajax({
                 url: './backend/saveScores.php',
                 type: 'POST',
@@ -301,6 +309,7 @@ $(document).ready(function() {
             });
         }
     }
+
 
     $('#scoringForm').on('submit', function(event) {
         event.preventDefault();

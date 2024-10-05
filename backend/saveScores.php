@@ -157,7 +157,7 @@ foreach ($scores as $score) {
         $judgeVoted = true;
     } else {
         // Score does not exist, insert it
-        $stmtInsert->bind_param("iiisis", $judgeID, $contestantID, $categoryID, $criterionID, $scoreValue, $rank);
+        $stmtInsert->bind_param("iiisds", $judgeID, $contestantID, $categoryID, $criterionID, $scoreValue, $rank);
         if (!$stmtInsert->execute()) {
             echo json_encode(['success' => false, 'error' => 'Insert failed: ' . $stmtInsert->error]);
             exit;

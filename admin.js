@@ -735,7 +735,7 @@
                                 rowHtml += '<td><input type="number" class="score-input" data-contestant-id="' + contestant.idContestant +
                                             '" data-criterion-name="' + criterion.criteriaName +
                                             '" data-criterion-id="' + criterion.criteriaID + 
-                                            '" value="' + score + '" style="width: 60px"></td>';
+                                            '" value="' + score + '" style="width: 60px" step="0.01"></td>';
                             });
     
                             var totalScore = Object.values(contestant.scores).reduce(function(sum, score) {
