@@ -738,9 +738,11 @@
                                             '" value="' + score + '" style="width: 60px" step="0.01"></td>';
                             });
     
+                             // Calculate total score as a decimal
                             var totalScore = Object.values(contestant.scores).reduce(function(sum, score) {
-                                return sum + score;
-                            }, 0);
+                                return sum + parseFloat(score || 0);  
+                            }, 0).toFixed(2); 
+
                             rowHtml += '<td>' + totalScore + '</td>';
                             rowHtml += '</tr>';
                             tbody += rowHtml;
