@@ -603,7 +603,7 @@
 
     <!------------------------- Modal for Adding Criteria ------------------------->
 
-    <div class="modal fade" id="addCriteriaModal" tabindex="-1" aria-labelledby="addCriteriaModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="addCriteriaModal" tabindex="-1" aria-labelledby="addCriteriaModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content card">
           <div class="modal-header">
@@ -631,7 +631,44 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div class="modal fade" id="addCriteriaModal" tabindex="-1" aria-labelledby="addCriteriaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content card">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addCriteriaModalLabel">Add Criteria</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="addCriteriaForm">
+              <div class="mb-3">
+                <label for="criteriaName" class="form-label">Criteria Name</label>
+                <input type="text" class="form-control" id="criteriaName" name="criteriaName" required>
+              </div>
+              <div class="mb-3">
+                <label for="criteriaScore" class="form-label">Criteria Score</label>
+                <input type="number" class="form-control" id="criteriaScore" name="criteriaScore" required>
+              </div>
+              <div class="mb-3">
+                <label for="criteriaSelectEvent" class="form-label">Select Event</label>
+                <select class="form-select" id="criteriaSelectEvent" name="criteriaSelectEvent" required>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="criteriaSelectCategory" class="form-label">Select Category</label>
+                <select class="form-select" id="criteriaSelectCategory" name="criteriaSelectCategory" required >
+                  <option value="#" disabled>Select an Event First</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-outline-light float-end">Add Criteria</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+    
+    
 
 
     <!------------------------- Modal for Adding Judge ------------------------->

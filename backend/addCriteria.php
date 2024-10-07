@@ -4,7 +4,7 @@ include "../backend/myConnection.php";
 
 // Retrieve POST data
 $criteriaName = $_POST['criteriaName'];
-$categoryID = $_POST['criteriaCategory']; 
+$categoryID = $_POST['criteriaSelectCategory']; //$categoryID = $_POST['criteriaCategory'];  old
 $criteriaScore = $_POST['criteriaScore'];
 // Validate input
 if (empty($criteriaName) || empty($categoryID) || empty($criteriaScore)) {

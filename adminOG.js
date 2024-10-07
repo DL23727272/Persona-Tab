@@ -38,7 +38,6 @@
         $(document).ready(function() {
             var judgeID = sessionStorage.getItem('judgeID');
             if (judgeID) {
-
         
                 // Handle form submission for adding event
                 $('#addEventForm').submit(function(e) {
@@ -167,6 +166,44 @@
                     });
                 });
         
+                // Handle form submission for adding judge
+              /*  $('#addJudgeForm').submit(function(e) {
+                    e.preventDefault();
+                    var formData = $(this).serialize();
+                    $.ajax({
+                        url: './backend/addJudge.php', 
+                        method: 'POST',
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: response.message,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function() {
+                                    $('#addJudgeModal').modal('hide');
+                                    $('#addJudgeForm')[0].reset();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error!',
+                                    text: response.message
+                                });
+                            }
+                        },
+                        error: function() {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Failed to add judge.'
+                            });
+                        }
+                    });
+                });*/
         
             } else {
                 Swal.fire({
@@ -188,9 +225,7 @@
         });
     // --------------- END ADDING AJAX --------------
 
-    
-
-    // --------------- LOAD EVENTS For adding category--------------
+    // --------------- LOAD EVENTS AND CATEGORIES --------------
         function loadEvents() {
             $.ajax({
                 url: './backend/getEvents.php',
@@ -202,73 +237,22 @@
                         options += '<option value="' + event.eventID + '">' + event.eventName + '</option>';
                     });
                     $('#categoryEvent').html(options);
-                    loadEventCategories();
                 },
                 error: function() {
                     alertify.error('Error loading events.');
                 }
             });
         }
-    // ---------------END LOAD EVENTS For adding category--------------
 
-
-
-    // --------------- LOAD Categories For adding criteria--------------
-        var selectEvent = $('#criteriaSelectCategory'); 
-        selectEvent.empty(); 
-        selectEvent.append('<option value="#" disabled selected>--- Select an Event First ---</option>'); 
-
-        $('#criteriaSelectEvent').change(function() {
-            var eventID = $(this).val();
-            var categoryDropdown = $('#criteriaSelectCategory');
-        
-            if (eventID && eventID !== "#") {
-                loadCategories(eventID);
-                categoryDropdown.prop('disabled', false); 
-            } else {
-                categoryDropdown.empty(); 
-                categoryDropdown.append('<option value="#" disabled selected>Select an Event First</option>');
-                categoryDropdown.prop('disabled', true); 
-            }
-        });
-
-        // Function to load events into the event dropdown
-        function loadEventCategories() {
+        function loadCategories() {
             $.ajax({
-                url: './backend/getEvents.php',
+                url: './backend/getCategories.php', 
                 method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    var selectEvent = $('#criteriaSelectEvent'); 
-                    selectEvent.empty(); 
-                    selectEvent.append('<option value="#" disabled selected>--- Select Event ---</option>'); 
-    
-                    response.forEach(function(event) {
-                        selectEvent.append(`<option value="${event.eventID}">${event.eventName}</option>`); 
-                    });
-                },
-                error: function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: 'Failed to load events.'
-                    });
-                }
-            });
-        }
-
-        // Function to load categories based on the selected event
-        function loadCategories(eventID) {
-            $.ajax({
-                url: './backend/getCategoryDetails.php', 
-                method: 'GET',
-                data: { eventID: eventID },
                 dataType: 'json',
                 success: function(response) {
                     if (Array.isArray(response)) {
-                        console.log("SUCCESS",response); 
                         var defaultOption = '<option value="#" disabled selected>--- Select Category ---</option>';
-                        let categoryDropdown = $('#criteriaSelectCategory');
+                        let categoryDropdown = $('#criteriaCategory');
                         categoryDropdown.empty(); 
                         categoryDropdown.append(defaultOption);
                         response.forEach(category => {
@@ -278,25 +262,19 @@
                         console.error(response.message); 
                     }
                 },
-               
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ' + status + error);
+                }
             });
         }
 
-    // --------------- END LOAD Categories For adding criteria--------------
-
-
-        //-------- Call the functions ------------------------
         $(document).ready(function() {
-            loadEventCategories();
             loadEvents();
+            loadCategories();
         });
-
-    // -----------------------END LOAD EVENTS AND CATEGORIES ------------------------------------------------------
-
+    // ---------------END LOAD EVENTS AND CATEGORIES --------------
 
 
-
-    
     // --------------- FOR PASSWORD TOGGLE --------------
       
       document.addEventListener('DOMContentLoaded', function () {
@@ -1629,3 +1607,6 @@
 });
 
 // ---------------END FOR CRUD JUDGE on Accounts.html--------------
+
+
+//--------------------------------  OCTOBER 7 2024 ------------------------

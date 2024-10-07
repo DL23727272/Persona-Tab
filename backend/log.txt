@@ -235,3 +235,5 @@ Uploaded File: Array
 {"eventImage":{"name":"3dLogo.gif","full_path":"3dLogo.gif","type":"image\/gif","tmp_name":"D:\\xampp\\tmp\\php655C.tmp","error":0,"size":1551635}}
 {"eventName":"Mr. & Ms. ISPSC 2024","eventDescription":"sdfdsfsd","eventDate":"2024-10-07"}
 {"eventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9AE2.tmp","error":0,"size":353924}}
+{"eventName":"codm ","eventDescription":"adad","eventDate":"2024-10-07"}
+{"eventImage":{"name":"P.png","full_path":"P.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php1AE.tmp","error":0,"size":967132}}
