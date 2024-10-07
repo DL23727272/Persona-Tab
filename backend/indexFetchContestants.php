@@ -64,11 +64,9 @@ function fetchContestants($con, $eventID = null, $categoryID = null, $gender = n
                                 ">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title  text-center">'. $row['name'] .'</h5>
-                                <p class="card-text  text-center">Age: '. $row['age'] .'</p>
-                                <p class="card-text  text-center"> '. $row['address'] .'</p>
-                                <p class="card-text  text-center">Gender: '. $row['gender'] .'</p>
-                                <p class="card-text  text-center">Contestant No: '. $row['contestantNo'] .'</p>
+                              <h4 class="card-title fw-normal fst-italic text-center">'. $row['name'] .',  '. $row['age'] .' yrs old,<br> from '. $row['address'] .'.</h4>
+                              <hr class="container-sm Sborder border-success pb-2 border-2 opacity-50" />
+                              <h3 class="card-text fw-bolder text-center">Contestant No: '. $row['contestantNo'] .'</h5>
                              
                             </div>
                         </div>
