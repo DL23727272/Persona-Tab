@@ -143,7 +143,7 @@ $(document).ready(function() {
                             existingContestants.add(contestant.idContestant);
 
                             tbody += '<tr data-contestant-id="' + contestant.idContestant + '" data-category-id="' + categoryID + '">';
-                            
+
                             // Display contestant image, number, and name
                             if (contestant.image) {
                                 tbody += '<td><img style="width: 40px; height:40px; object-fit: cover; border-radius: 0%;" src="./contestant_image/' 
@@ -154,15 +154,14 @@ $(document).ready(function() {
                                 tbody += '<td>' + contestant.name + '</td>';
                             }
 
-                            // score input
+                            // score input with onchange event
                             if (Array.isArray(criteria)) {
                                 criteria.forEach(function(criterion) {
                                     tbody += '<td><input type="number" class="score-input mt-3" data-contestant-id="' 
                                     + contestant.idContestant + '" data-criterion-id="' + criterion.criteriaID + 
-                                    '" data-category-id="' + categoryID + '" style="width: 60px" step="0.01" required/></td>';
+                                    '" data-category-id="' + categoryID + '" data-max-score="' + criterion.criteriaScore + '" style="width: 60px" step="0.01" required/></td>';
                                 });
                             }
-
 
                             tbody += '<td class="total-score">0</td>'; // Placeholder for Total Score
                             tbody += '<td class="contestant-rank">0</td>'; // Placeholder for Rank
@@ -174,6 +173,22 @@ $(document).ready(function() {
 
                     // Add event listeners for score input fields
                     $('.score-input').on('input', function() {
+                        var maxScore = parseFloat($(this).data('max-score'));
+                        var enteredScore = parseFloat($(this).val());
+
+                        // Check if the entered score exceeds the criteria score
+                        if (enteredScore > maxScore) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Invalid Score',
+                                text: 'The entered score exceeds the allowed criteria score of ' + maxScore + '.',
+                                confirmButtonText: 'Okay'
+                            });
+                            // Optionally clear the input field if it's invalid
+                            $(this).val('');
+                        }
+
+                        // Recalculate scores and ranks after updating
                         calculateAndUpdateScoresAndRanks();
                     });
                 } else {
@@ -190,7 +205,6 @@ $(document).ready(function() {
         });
     }
 
-    
 
     // Calculate total scores and ranks within each category
     function calculateAndUpdateScoresAndRanks() {
