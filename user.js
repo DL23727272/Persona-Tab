@@ -209,44 +209,56 @@ $(document).ready(function() {
     // Calculate total scores and ranks within each category
     function calculateAndUpdateScoresAndRanks() {
         var categoryContestants = {};
-
+    
         // Calculate total scores and group contestants by category
         $('[id^=contestantTable-] tbody tr').each(function() {
             var contestantID = $(this).data('contestant-id');
-            var categoryID = $(this).data('category-id'); 
+            var categoryID = $(this).data('category-id');
             var totalScore = 0;
-
+    
+            // Sum up the scores
             $(this).find('.score-input').each(function() {
-                // Use parseFloat to handle decimal values
                 var score = parseFloat($(this).val()) || 0;
                 totalScore += score;
             });
-
+    
+            // Initialize category group if not exists
             if (!categoryContestants[categoryID]) {
                 categoryContestants[categoryID] = [];
             }
-
+    
             categoryContestants[categoryID].push({
                 id: contestantID,
                 name: $(this).find('td:first').text(),
                 totalScore: totalScore
             });
-
-            $(this).find('.total-score').text(totalScore.toFixed(2)); // Display score with 2 decimal places
+    
+            // Update the displayed total score
+            $(this).find('.total-score').text(totalScore.toFixed(2)); // 2 decimal places
         });
-
-        // Sort contestants by total score and assign ranks
+    
+        // Sort contestants by total score and assign ranks with ties handled
         $.each(categoryContestants, function(categoryID, contestants) {
+            // Sort by descending totalScore
             contestants.sort(function(a, b) {
                 return b.totalScore - a.totalScore;
             });
-
-            contestants.forEach(function(contestant, index) {
-                var rank = index + 1;
-                $(`#contestantTable-${categoryID} tbody tr[data-contestant-id="${contestant.id}"]`).find('.contestant-rank').text(rank);
-            });
+    
+            let rank = 1;
+            for (let i = 0; i < contestants.length; i++) {
+                if (i > 0 && contestants[i].totalScore !== contestants[i - 1].totalScore) {
+                    // Update rank only if score changes
+                    rank = i + 1;
+                }
+    
+                // Update the rank in the table
+                $(`#contestantTable-${categoryID} tbody tr[data-contestant-id="${contestants[i].id}"]`)
+                    .find('.contestant-rank')
+                    .text(rank);
+            }
         });
     }
+    
 
 
     // Save the scores
@@ -343,7 +355,7 @@ $(document).ready(function() {
     const judgeID = sessionStorage.getItem('judgeID');
     console.log('Judge ID from session storage:', judgeID);
 
-    // Check if userId exists
+    // Check if judgeID exists
     if (judgeID) {
         $.ajax({
             url: './backend/fetchEventDesc.php',
@@ -351,12 +363,26 @@ $(document).ready(function() {
             data: { judgeID: judgeID },
             dataType: 'json',
             success: function(response) {
-                console.log(response); 
+                console.log(response);  // Check the response data in the console
                 if (response.status === 'success') {
+                    // Set event image
                     $('.eventImage').attr('src', './EventUploads/' + response.data.eventImage);
+                    // Set event description
                     $('.eventDescription').text(response.data.eventDescription);
+                    // Set event name and date in the hero section
                     $('.heroEventName').text(response.data.eventName);
                     $('.heroEventDate').text(response.data.eventDate);
+                    
+                    // Set the body color dynamically
+                    $('body').css('background-color', response.data.bodyColor);
+                    $('.footer').css('background-color', response.data.bodyColor);
+                    
+                    // Set the hero background image
+                    if (response.data.heroBackgroundImage) {
+                        $('.heroSection').css('background-image', 'url("./EventUploads/' + response.data.heroBackgroundImage + '")');
+                        $('.heroSection').css('background-size', 'cover'); // Optional to ensure the image covers the section
+                        $('.heroSection').css('background-position', 'center'); // Optional to center the image
+                    }
                 } else {
                     // Handle errors or no data found
                     console.error(response.message);
@@ -370,6 +396,7 @@ $(document).ready(function() {
         console.error('Judge ID not found in session storage.');
     }
 });
+
 
 
     

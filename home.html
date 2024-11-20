@@ -93,6 +93,28 @@
       -webkit-appearance: none;
       margin: 0;
   }
+  .login__bg {
+      position: absolute;
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+      object-position: center;
+      z-index: -1;
+      filter: blur(5px); 
+  }
+  /* Adding the dark overlay */
+  .login__bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -1;
+  }
+
+
 
   
 
@@ -132,23 +154,37 @@
 
 
   <!--Hero-->
-  <section class="container-sm">
-      <div class="d-flex flex-column align-items-center text-center">
-        <img
-          src="./img/PersonaTab.png"
-          style="width: 200px; height: 200px;"
-          alt="logo"
-          class="mt-5 mb-3 img-fluid eventImage"
-          srcset=""
-        />
-        <h1 class="fst-italic heroEventName text-white "></h1>
-        <h4 class="fst-italic heroEventDate text-white "></h4>
+<!-- <section class="container-sm heroSection">
+  <div class="d-flex flex-column align-items-center text-center">
+      <img
+        src="./img/PersonaTab.png"
+        style="width: 200px; height: 200px;"
+        alt="logo"
+        class="mt-5 mb-3 img-fluid eventImage"
+        srcset=""
+      />
+      <h1 class="fst-italic heroEventName text-white"></h1>
+      <h4 class="fst-italic heroEventDate text-white"></h4>
+      <p class="w-75 lead text-secondary fst-italic eventDescription"></p>
+  </div>
+</section> -->
+ <div class="login__bg heroSection" > </div>
+<section class="container-sm ">
+  <div class="d-flex flex-column align-items-center text-center">
+      <img
+        src="./img/PersonaTab.png"
+        style="width: 200px; height: 200px;"
+        alt="logo"
+        class="mt-5 mb-3 img-fluid eventImage"
+        srcset=""
+      />
+      <h1 class="fst-italic heroEventName text-white"></h1>
+      <h4 class="fst-italic heroEventDate text-white"></h4>
+      <p class="w-75 lead text-white fst-italic eventDescription"></p>
+  </div>
+</section>
+<!-- End Hero-->
 
-        <p class="w-75 lead text-secondary fst-italic eventDescription">
-        
-        </p>
-      </div>
-  </section>
   <!-- End Hero-->
 
     <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
@@ -163,15 +199,16 @@
       <div id="tablesContainer" class="row mb-3">
           <!-- Tables will be dynamically inserted here -->
       </div>
-    <button id="submitScoresBtn" class="btn btn-outline-light float-end mt-4">Submit Scores</button>
+    <button id="submitScoresBtn" class="btn btn-outline-light float-end mt-3 mb-5">Submit Scores</button>
     </form>
   </section>
 
 
+  <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
 
 
   <!---Footer-->
-  <footer class="mt-5 text-white p-3" style="background-color: #000000;">
+  <footer class="mt-5 text-white p-3" >
       <div class="container-sm d-flex justify-content-between align-items-center">
           <div class="">
             <h4>PersonaTab </h4>

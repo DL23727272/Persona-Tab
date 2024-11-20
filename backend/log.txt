@@ -262,3 +262,1200 @@ Uploaded File: Array
     [size] => 353924
 )
 
+Array
+(
+    [editEventID] => 16
+    [currentEventImage] => 
+    [editEventName] => Mr. and Miss CCS 2025
+    [editEventDescription] => Mr. and Miss CCS 2025
+    [editEventDate] => 2024-11-20
+)
+{"editEventID":"16","currentEventImage":"","editEventName":"Mr. and Miss CCS 2025","editEventDescription":"Mr. and Miss CCS 2025","editEventDate":"2024-11-20"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php7A7F.tmp","error":0,"size":353924}}
+Event ID: 16
+Event Name: Mr. and Miss CCS 2025
+Event Description: Mr. and Miss CCS 2025
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php7A7F.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+{"eventName":"testing event color and bg","eventDescription":"asdad","eventDate":"2024-11-20","bodyColor":"#f00000"}
+{"eventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpF0CA.tmp","error":0,"size":353924},"heroBackgroundImage":{"name":"bg.png","full_path":"bg.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpF0DA.tmp","error":0,"size":429584}}
+Array
+(
+    [editEventID] => 20
+    [currentEventImage] => 
+    [currentHeroBackgroundImage] => 
+    [currentBodyColor] => 
+    [editEventName] => testing event color and bg
+    [editEventDescription] => asdad
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #62f500
+)
+{"editEventID":"20","currentEventImage":"","currentHeroBackgroundImage":"","currentBodyColor":"","editEventName":"testing event color and bg","editEventDescription":"asdad","editEventDate":"2024-11-20","editBackgroundColor":"#62f500"}
+{"editHeroBackgroundImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php8A0F.tmp","error":0,"size":353924},"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+Event ID: 20
+Event Name: testing event color and bg
+Event Description: asdad
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => 
+    [full_path] => 
+    [type] => 
+    [tmp_name] => 
+    [error] => 4
+    [size] => 0
+)
+
+Array
+(
+    [editEventID] => 20
+    [currentEventImage] => 
+    [currentHeroBackgroundImage] => 
+    [currentBodyColor] => 
+    [editEventName] => testing event color and bg
+    [editEventDescription] => asdad
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #62f500
+)
+{"editEventID":"20","currentEventImage":"","currentHeroBackgroundImage":"","currentBodyColor":"","editEventName":"testing event color and bg","editEventDescription":"asdad","editEventDate":"2024-11-20","editBackgroundColor":"#62f500"}
+{"editHeroBackgroundImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpA4CC.tmp","error":0,"size":353924},"editEventImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpA4CD.tmp","error":0,"size":1515360}}
+Event ID: 20
+Event Name: testing event color and bg
+Event Description: asdad
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpA4CD.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 20
+    [currentEventImage] => 
+    [currentHeroBackgroundImage] => 
+    [currentBodyColor] => 
+    [editEventName] => testing event color and bg
+    [editEventDescription] => asdad
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #62f500
+)
+{"editEventID":"20","currentEventImage":"","currentHeroBackgroundImage":"","currentBodyColor":"","editEventName":"testing event color and bg","editEventDescription":"asdad","editEventDate":"2024-11-20","editBackgroundColor":"#62f500"}
+{"editHeroBackgroundImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpC537.tmp","error":0,"size":353924},"editEventImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpD526.tmp","error":0,"size":1515360}}
+Event ID: 20
+Event Name: testing event color and bg
+Event Description: asdad
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpD526.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 20
+    [currentEventImage] => 
+    [editEventName] => testing event color and bg
+    [editEventDescription] => asdad
+    [editEventDate] => 2024-11-20
+)
+{"editEventID":"20","currentEventImage":"","editEventName":"testing event color and bg","editEventDescription":"asdad","editEventDate":"2024-11-20"}
+{"editEventImage":{"name":"cafed.png","full_path":"cafed.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php19A3.tmp","error":0,"size":1933652}}
+Event ID: 20
+Event Name: testing event color and bg
+Event Description: asdad
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => cafed.png
+    [full_path] => cafed.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php19A3.tmp
+    [error] => 0
+    [size] => 1933652
+)
+
+Array
+(
+    [editEventID] => 16
+    [currentEventImage] => 
+    [editEventName] => Mr. and Miss CCS 2025
+    [editEventDescription] => Mr. and Miss CCS 2025
+    [editEventDate] => 2024-11-20
+)
+{"editEventID":"16","currentEventImage":"","editEventName":"Mr. and Miss CCS 2025","editEventDescription":"Mr. and Miss CCS 2025","editEventDate":"2024-11-20"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php31FF.tmp","error":0,"size":353924}}
+Event ID: 16
+Event Name: Mr. and Miss CCS 2025
+Event Description: Mr. and Miss CCS 2025
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php31FF.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 16
+    [currentEventImage] => 
+    [editEventName] => Mr. and Miss CCS 2025
+    [editEventDescription] => Mr. and Miss CCS 2025
+    [editEventDate] => 2024-11-20
+)
+{"editEventID":"16","currentEventImage":"","editEventName":"Mr. and Miss CCS 2025","editEventDescription":"Mr. and Miss CCS 2025","editEventDate":"2024-11-20"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9483.tmp","error":0,"size":353924}}
+Event ID: 16
+Event Name: Mr. and Miss CCS 2025
+Event Description: Mr. and Miss CCS 2025
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9483.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpD343.tmp","error":0,"size":353924}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpD343.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #e453df
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBackgroundColor":"#e453df"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpABD3.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"chrome-logo.png","full_path":"chrome-logo.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpABD4.tmp","error":0,"size":4081004}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpABD3.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => chrome-logo.png
+    [full_path] => chrome-logo.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpABD4.tmp
+    [error] => 0
+    [size] => 4081004
+)
+
+Background Color: #e453df
+Array
+(
+)
+[]
+[]
+Event ID: 
+Event Name: 
+Event Description: 
+Event Date: 
+Current Event Image: 
+Uploaded Event Image: 
+Uploaded Hero Background Image: 
+Background Color: 
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #e453df
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBackgroundColor":"#e453df"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpCB05.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"chrome-logo.png","full_path":"chrome-logo.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpDB04.tmp","error":0,"size":4081004}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpCB05.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => chrome-logo.png
+    [full_path] => chrome-logo.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpDB04.tmp
+    [error] => 0
+    [size] => 4081004
+)
+
+Background Color: #e453df
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #000000
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBackgroundColor":"#000000"}
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBackgroundColor":"#000000"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php6A0C.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"chrome-logo.png","full_path":"chrome-logo.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php79FB.tmp","error":0,"size":4081004}}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php7F2C.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"chrome-logo.png","full_path":"chrome-logo.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php8B24.tmp","error":0,"size":4081004}}
+Event ID: 18
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Event Date: 2024-11-20
+Current Event Image: 
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php7F2C.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php6A0C.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #fff0f0
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBackgroundColor":"#fff0f0"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpB587.tmp","error":0,"size":353924}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpB587.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBackgroundColor] => #fff0f0
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBackgroundColor":"#fff0f0"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpBD58.tmp","error":0,"size":353924}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpBD58.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #ffffff
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#ffffff"}
+{"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => 
+    [full_path] => 
+    [type] => 
+    [tmp_name] => 
+    [error] => 4
+    [size] => 0
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #ffffff
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#ffffff"}
+{"editEventImage":{"name":"candon.jpg","full_path":"candon.jpg","type":"image\/jpeg","tmp_name":"D:\\xampp\\tmp\\phpC2F2.tmp","error":0,"size":206150}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => candon.jpg
+    [full_path] => candon.jpg
+    [type] => image/jpeg
+    [tmp_name] => D:\xampp\tmp\phpC2F2.tmp
+    [error] => 0
+    [size] => 206150
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #ffffff
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#ffffff"}
+{"editEventImage":{"name":"candon.jpg","full_path":"candon.jpg","type":"image\/jpeg","tmp_name":"D:\\xampp\\tmp\\phpC7A6.tmp","error":0,"size":206150}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => candon.jpg
+    [full_path] => candon.jpg
+    [type] => image/jpeg
+    [tmp_name] => D:\xampp\tmp\phpC7A6.tmp
+    [error] => 0
+    [size] => 206150
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #ffffff
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#ffffff"}
+{"editEventImage":{"name":"candon.jpg","full_path":"candon.jpg","type":"image\/jpeg","tmp_name":"D:\\xampp\\tmp\\phpF118.tmp","error":0,"size":206150}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => candon.jpg
+    [full_path] => candon.jpg
+    [type] => image/jpeg
+    [tmp_name] => D:\xampp\tmp\phpF118.tmp
+    [error] => 0
+    [size] => 206150
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #fefbfb
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#fefbfb"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpD908.tmp","error":0,"size":353924}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpD908.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #fefbfb
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#fefbfb"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpE936.tmp","error":0,"size":353924}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpE936.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #fefbfb
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#fefbfb"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpFF10.tmp","error":0,"size":353924}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpFF10.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #ee00ff
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#ee00ff"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php84.tmp","error":0,"size":353924}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php84.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+{"eventName":"Event Imagesasdasd","eventDescription":"asd","eventDate":"2024-11-20","bodyColor":"#e28d8d"}
+{"eventImage":{"name":"P.png","full_path":"P.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9260.tmp","error":0,"size":967132}}
+{"eventName":"sadasd","eventDescription":"asda","eventDate":"2024-11-20","bodyColor":"#ef3434"}
+{"eventImage":{"name":"P.png","full_path":"P.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpEF17.tmp","error":0,"size":967132}}
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #2bff00
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#2bff00"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpE05E.tmp","error":0,"size":353924}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded File: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpE05E.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #000000
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#000000"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpB3A0.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpB3B1.tmp","error":0,"size":1515360}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpB3A0.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpB3B1.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #f00505
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#f00505"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php5476.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php5487.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php5476.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php5487.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #fff0f0
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#fff0f0"}
+{"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0},"editHeroBackgroundImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => 
+    [full_path] => 
+    [type] => 
+    [tmp_name] => 
+    [error] => 4
+    [size] => 0
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 
+    [full_path] => 
+    [type] => 
+    [tmp_name] => 
+    [error] => 4
+    [size] => 0
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #fff0f0
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#fff0f0"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9D89.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9D8A.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9D89.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9D8A.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #030303
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#030303"}
+{"editEventImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0},"editHeroBackgroundImage":{"name":"","full_path":"","type":"","tmp_name":"","error":4,"size":0}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => 
+    [full_path] => 
+    [type] => 
+    [tmp_name] => 
+    [error] => 4
+    [size] => 0
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 
+    [full_path] => 
+    [type] => 
+    [tmp_name] => 
+    [error] => 4
+    [size] => 0
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #000000
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#000000"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9D63.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"bg.png","full_path":"bg.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9D64.tmp","error":0,"size":429584}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9D63.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => bg.png
+    [full_path] => bg.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9D64.tmp
+    [error] => 0
+    [size] => 429584
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #734e4e
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#734e4e"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpDC82.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"bg.png","full_path":"bg.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpDC92.tmp","error":0,"size":429584}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpDC82.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => bg.png
+    [full_path] => bg.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpDC92.tmp
+    [error] => 0
+    [size] => 429584
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #000000
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#000000"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php3E3B.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php3E4C.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php3E3B.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php3E4C.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #917878
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#917878"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php4CE3.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php4CE4.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php4CE3.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php4CE4.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #917878
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#917878"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php6436.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php6C36.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php6436.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php6C36.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #917878
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#917878"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php87F0.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9205.tmp","error":0,"size":1515360}}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php729F.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php82AE.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event ID: 21
+tion: asda
+Event Date: 2024-11-20
+Event Name: sadasd
+Event Description: asda
+Current Event Image: 
+
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php87F0.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php729F.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9205.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #917878
+)
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php82AE.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 21
+    [currentEventImage] => 
+    [editEventName] => sadasd
+    [editEventDescription] => asda
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #917878
+)
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#917878"}
+{"editEventID":"21","currentEventImage":"","editEventName":"sadasd","editEventDescription":"asda","editEventDate":"2024-11-20","editBodyColor":"#917878"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php86A6.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9204.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php86A6.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php88DB.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php9215.tmp","error":0,"size":1515360}}
+Event ID: 21
+Event Name: sadasd
+Event Description: asda
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php88DB.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9215.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php9204.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
+Array
+(
+    [editEventID] => 20
+    [currentEventImage] => 
+    [editEventName] => testing event color and bg
+    [editEventDescription] => asdad
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #917878
+)
+{"editEventID":"20","currentEventImage":"","editEventName":"testing event color and bg","editEventDescription":"asdad","editEventDate":"2024-11-20","editBodyColor":"#917878"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php889C.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"bg.png","full_path":"bg.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php88AC.tmp","error":0,"size":429584}}
+Event ID: 20
+Event Name: testing event color and bg
+Event Description: asdad
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php889C.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => bg.png
+    [full_path] => bg.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php88AC.tmp
+    [error] => 0
+    [size] => 429584
+)
+
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-11-20
+    [editBodyColor] => #26349c
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-11-20","editBodyColor":"#26349c"}
+{"editEventImage":{"name":"ispsc.png","full_path":"ispsc.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpF8BD.tmp","error":0,"size":353924},"editHeroBackgroundImage":{"name":"bg.png","full_path":"bg.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\phpF8BE.tmp","error":0,"size":429584}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-11-20
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => ispsc.png
+    [full_path] => ispsc.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpF8BD.tmp
+    [error] => 0
+    [size] => 353924
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => bg.png
+    [full_path] => bg.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\phpF8BE.tmp
+    [error] => 0
+    [size] => 429584
+)
+

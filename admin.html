@@ -230,8 +230,19 @@
                 <input type="date" class="form-control" id="editEventDate" name="editEventDate" required>
               </div>
               <div class="mb-3">
-                <label for="editEventImage" class="form-label">Event Image</label>
+                <label for="editEventImage" class="form-label">Event Image (upload again the event image)</label>
                 <input type="file" class="form-control" id="editEventImage" name="editEventImage">
+              </div>
+
+              <div class="mb-3">
+                  <label for="editHeroBackgroundImage" class="form-label">Hero Section Background Image<br> (upload again the background image)</label>
+                  <input type="file" class="form-control" id="editHeroBackgroundImage" name="editHeroBackgroundImage">
+              </div>
+            
+              <!-- Background Color --> 
+              <div class="mb-3">
+                <label for="editBodyColor" class="form-label">Body Background Color</label>
+                <input type="color" class="form-control form-control-color" id="editBodyColor" name="editBodyColor">
               </div>
               <button type="submit" class="btn btn-outline-light float-end">Save Changes</button>
             </form>
@@ -239,6 +250,60 @@
         </div>
       </div>
     </div>
+
+    <!-- <div class="modal fade" id="eventEditModal" tabindex="-1" aria-labelledby="eventEditModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventEditModalLabel">Edit Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="eventEditForm" method="POST" enctype="multipart/form-data">
+              <input type="hidden" id="eventID" name="editEventID">
+              <input type="hidden" id="currentEventImage" name="currentEventImage">
+              <input type="hidden" id="currentHeroBackgroundImage" name="currentHeroBackgroundImage">
+              <input type="hidden" id="currentBodyColor" name="currentBodyColor">
+
+              <div class="mb-3">
+                <label for="editEventName" class="form-label">Event Name</label>
+                <input type="text" class="form-control" id="editEventName" name="editEventName" required>
+              </div>
+
+              <div class="mb-3">
+                <label for="editEventDescription" class="form-label">Event Description</label>
+                <textarea class="form-control" id="editEventDescription" name="editEventDescription" rows="3" required></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="editEventDate" class="form-label">Event Date</label>
+                <input type="date" class="form-control" id="editEventDate" name="editEventDate" required>
+              </div>
+
+              <!-- Background Image --
+              <div class="mb-3">
+                <label for="editHeroBackgroundImage" class="form-label">Hero Section Background Image</label>
+                <input type="file" class="form-control" id="editHeroBackgroundImage" name="editHeroBackgroundImage">
+              </div>
+
+              <!-- Background Color --
+              <div class="mb-3">
+                <label for="editBackgroundColor" class="form-label">Body Background Color</label>
+                <input type="color" class="form-control form-control-color" id="editBackgroundColor" name="editBackgroundColor">
+              </div>
+
+              <!-- Event Image --
+              <div class="mb-3">
+                <label for="editEventImage" class="form-label">Event Image</label>
+                <input type="file" class="form-control" id="editEventImage" name="editEventImage">
+              </div>
+
+              <button type="submit" class="btn btn-outline-light float-end">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> -->
     
 
     <!------------------------- Edit Category Modal ------------------------->
@@ -545,28 +610,49 @@
           </div>
           <div class="modal-body">
             <form id="addEventForm" enctype="multipart/form-data">
+              <!-- Event Name -->
               <div class="mb-3">
                 <label for="eventName" class="form-label">Event Name</label>
                 <input type="text" class="form-control" id="eventName" name="eventName" required>
               </div>
+              
+              <!-- Event Description -->
               <div class="mb-3">
                 <label for="eventDescription" class="form-label">Event Description</label>
                 <textarea class="form-control" id="eventDescription" rows="3" name="eventDescription" required></textarea>
               </div>
+    
+              <!-- Event Date -->
               <div class="mb-3">
                 <label for="eventDate" class="form-label">Event Date</label>
                 <input type="date" class="form-control" id="eventDate" name="eventDate" required>
               </div>
+    
+              <!-- Event Logo -->
               <div class="mb-3">
                 <label for="eventImage" class="form-label">Event Logo</label>
                 <input type="file" class="form-control" id="eventImage" name="eventImage" required>
               </div>
+    
+              <!-- Body Background Color -->
+              <div class="mb-3">
+                <label for="bodyColor" class="form-label">Body Background Color</label>
+                <input type="color" class="form-control form-control-color" id="bodyColor" name="bodyColor">
+              </div>
+    
+              <!-- Hero Section Background Image
+              <div class="mb-3">
+                <label for="heroBackgroundImage" class="form-label">Hero Background Image</label>
+                <input type="file" class="form-control" id="heroBackgroundImage" name="heroBackgroundImage">
+              </div> -->
+    
               <button type="submit" class="btn btn-outline-light float-end">Add Event</button>
             </form>
           </div>
         </div>
       </div>
     </div>
+    
 
 
 

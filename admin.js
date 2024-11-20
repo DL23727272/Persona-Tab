@@ -969,7 +969,7 @@
                     </div>
                 </div>
 
-                <table id="overallSummaryTable" class="table table-striped table-dark">
+                <table id="overallSummaryTable" class="table table-striped table-hover">
                     <thead>
                         <tr class="text-center">
                             <th colspan="3">Overall Event Summary</th>
@@ -989,6 +989,9 @@
 
             // Process and display overall summary scores
             calculateOverallSummary(response.scores);
+            // Display the contestant scores per judge and total scores below the overall summary table
+            displayContestantScoresTable(response.scores);
+            
 
             $('#topSelect').change(function() {
                 var topCount = parseInt($(this).val());
@@ -1006,7 +1009,7 @@
             categories.forEach(function(category) {
                 var categorySummarySection = `
                     <h1 class="text-white text-center mt-5">Overall Summary for ${category.categoryName}</h1>
-                    <table id="categorySummaryTable_${category.categoryID}" class="table table-striped table-dark">
+                    <table id="categorySummaryTable_${category.categoryID}" class="table table-striped table-hover">
                         <thead>
                            <tr class="text-center">
                                 <th colspan="3">Overall Summary for ${category.categoryName}</th> <!-- Use colspan to center the title -->
@@ -1030,6 +1033,103 @@
     
             calculateOverallSummary(response.scores);
         }
+
+        // Function to display contestant scores per judge and total scores
+        function displayContestantScoresTable(scores) {
+            var scoresSection = $('#scoresSection');
+            var contestantScoresTableSection = `
+                <h2 class="text-white text-center mt-5">Contestant Scores Per Judge</h2>
+                <table id="contestantScoresTable" class="table table-striped table-hover">
+                    <thead>
+                        <!-- New Row for "Contestant Scores Per Judge" Text -->
+                        <tr>
+                            <th colspan="100%" class="text-center">Contestant Scores Per Judge</th>
+                        </tr>
+                        <tr>
+                            <th>Contestant</th>
+                            <!-- Judge columns will be added dynamically -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Contestant score rows will be populated dynamically -->
+                    </tbody>
+                </table>
+            `;
+            scoresSection.append(contestantScoresTableSection);
+        
+            // Organize scores by contestant and judge
+            var contestantsScores = {};
+            var judges = new Set();
+        
+            // Loop through scores to organize by contestant and judge
+            scores.forEach(score => {
+                var contestantName = score.contestantName; // Unique name per contestant
+                if (!contestantsScores[contestantName]) {
+                    contestantsScores[contestantName] = {
+                        contestantNo: score.contestantNo,
+                        totalScore: 0
+                    };
+                }
+        
+                // Ensure each judge's score is stored separately
+                if (!contestantsScores[contestantName][score.judgeName]) {
+                    contestantsScores[contestantName][score.judgeName] = 0; // Initialize if not yet added
+                }
+        
+                // Add the score to the individual judge for this contestant
+                contestantsScores[contestantName][score.judgeName] += parseFloat(score.score);
+        
+                // Add the score to the total for this contestant
+                contestantsScores[contestantName].totalScore += parseFloat(score.score);
+        
+                // Keep track of all unique judges
+                judges.add(score.judgeName);
+            });
+        
+            var contestantScoresTableBody = $('#contestantScoresTable tbody');
+            contestantScoresTableBody.empty();
+        
+            // Add judge columns to the table header dynamically, but do not include the total score yet
+            judges.forEach(judge => {
+                $('#contestantScoresTable thead tr:nth-child(2)').append(`<th>${judge}</th>`);
+            });
+        
+            // Add the Total Score column last
+            $('#contestantScoresTable thead tr:nth-child(2)').append('<th>Total Score</th>');
+        
+            // Populate the rows for each contestant
+            Object.keys(contestantsScores).forEach(contestantName => {
+                var contestantData = contestantsScores[contestantName];
+                var row = `<tr><td>${contestantData.contestantNo} - ${contestantName}</td>`;
+        
+                // Add each judge's score for the contestant
+                judges.forEach(judge => {
+                    // If a score is missing for a judge, set it to 0
+                    row += `<td>${contestantData[judge] || 0}</td>`;
+                });
+        
+                // Add the total score for the contestant at the end
+                row += `<td>${contestantData.totalScore.toFixed(2)}</td></tr>`;
+                contestantScoresTableBody.append(row);
+            });
+        
+            // Log the total scores for each judge across all categories and contestants
+            console.log("Judge Total Scores:");
+            judges.forEach(judge => {
+                let totalScoreForJudge = 0;
+                Object.keys(contestantsScores).forEach(contestantName => {
+                    let contestantData = contestantsScores[contestantName];
+                    totalScoreForJudge += parseFloat(contestantData[judge] || 0);
+                });
+                console.log(`${judge}: ${totalScoreForJudge.toFixed(2)}`);
+            });
+        }
+        
+        
+        
+        
+
+
 
         // Function to display the top contestants based on selected count and gender
         function displayTopContestants(topCount, scores, genderFilter) {
@@ -1070,7 +1170,7 @@
             var categoryName = response.selectedCategoryName || 'Unknown Category'; // Use selectedCategoryName from response
             var categorySummarySection = `
                 <h1 class="text-white text-center mt-5">Overall Summary for ${categoryName}</h1>
-                <table id="categorySummaryTable" class="table table-striped table-dark">
+                <table id="categorySummaryTable" class="table table-striped table-hover">
                     
                     <thead>
                     <tr class="text-center">
@@ -1115,13 +1215,13 @@
                 // Iterate over each judge
                 Object.keys(judgesScores).forEach(judgeName => {
                     var judgeScores = judgesScores[judgeName];
-                    var judgeTable = `<h4 class="text-white fw-bold mt-5">JUDGE: ${judgeName}</h4>`;
-                    judgeTable += '<table class="table table-striped table-dark">';
+                    var judgeTable = `<h4 class="text-white fw-bold mt-5">JUDGE: ${judgeName} </h4>`;
+                    judgeTable += '<table class="table table-striped table-hover">';
                     judgeTable += `
                     <thead>
                         <tr class="text-center">
                             <th></th>
-                            <th colspan="4">JUDGE: ${judgeName}</th>
+                            <th colspan="4">JUDGE: ${judgeName} | Signature: ___________</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -1182,57 +1282,71 @@
     
         // Function to calculate and display the overall summary
         function calculateOverallSummary(scores) {
-            var overallScores = {};
+            let overallScores = {};
             scores.forEach(score => {
                 if (!overallScores[score.contestantName]) {
                     overallScores[score.contestantName] = 0;
                 }
                 overallScores[score.contestantName] += parseFloat(score.score);
             });
-    
-            var sortedContestants = Object.keys(overallScores).sort((a, b) => overallScores[b] - overallScores[a]);
-            var ranks = {};
-            sortedContestants.forEach((contestantName, index) => {
-                ranks[contestantName] = index + 1;
-            });
-    
-            var overallSummaryTableBody = $('#overallSummaryTable tbody');
+        
+            let ranks = calculateRanks(overallScores);
+        
+            let overallSummaryTableBody = $('#overallSummaryTable tbody');
             overallSummaryTableBody.empty();
-    
-            sortedContestants.forEach(contestantName => {
-                var contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
-                var totalScore = overallScores[contestantName];
-                var rank = ranks[contestantName];
+        
+            Object.keys(overallScores).sort((a, b) => overallScores[b] - overallScores[a]).forEach(contestantName => {
+                let contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
+                let totalScore = overallScores[contestantName];
+                let rank = ranks[contestantName];
                 overallSummaryTableBody.append(`<tr><td>${contestantNo} - ${contestantName}</td><td>${totalScore.toFixed(2)}</td><td>${rank}</td></tr>`);
             });
         }
+        
     
         // Function to calculate and display category summary
         function calculateCategorySummary(scores, tableSelector) {
-            var categoryScores = {};
+            let categoryScores = {};
             scores.forEach(score => {
                 if (!categoryScores[score.contestantName]) {
                     categoryScores[score.contestantName] = 0;
                 }
                 categoryScores[score.contestantName] += parseFloat(score.score);
             });
-    
-            var sortedContestants = Object.keys(categoryScores).sort((a, b) => categoryScores[b] - categoryScores[a]);
-            var ranks = {};
-            sortedContestants.forEach((contestantName, index) => {
-                ranks[contestantName] = index + 1;
-            });
-    
-            var categorySummaryTableBody = $(tableSelector + ' tbody');
-            categorySummaryTableBody.empty();
-    
-            sortedContestants.forEach(contestantName => {
-                var contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
-                var totalScore = categoryScores[contestantName];
-                var rank = ranks[contestantName];
-                categorySummaryTableBody.append(`<tr><td>${contestantNo} - ${contestantName}</td><td>${totalScore.toFixed(2)}</td><td>${rank}</td></tr>`);
+        
+            let ranks = calculateRanks(categoryScores);
+        
+            let categoryTableBody = $(`${tableSelector} tbody`);
+            categoryTableBody.empty();
+        
+            Object.keys(categoryScores).sort((a, b) => categoryScores[b] - categoryScores[a]).forEach(contestantName => {
+                let contestantNo = scores.find(score => score.contestantName === contestantName).contestantNo;
+                let totalScore = categoryScores[contestantName];
+                let rank = ranks[contestantName];
+                categoryTableBody.append(`<tr><td>${contestantNo} - ${contestantName}</td><td>${totalScore.toFixed(2)}</td><td>${rank}</td></tr>`);
             });
         }
+        
+        function calculateRanks(scores) {
+            let ranks = {};
+            let sortedScores = Object.keys(scores)
+                .map(contestantName => ({
+                    name: contestantName,
+                    score: scores[contestantName]
+                }))
+                .sort((a, b) => b.score - a.score);
+        
+            let rank = 1;
+            for (let i = 0; i < sortedScores.length; i++) {
+                if (i > 0 && sortedScores[i].score < sortedScores[i - 1].score) {
+                    rank = i + 1; // Update rank if the score is lower than the previous one
+                }
+                ranks[sortedScores[i].name] = rank;
+            }
+        
+            return ranks;
+        }
+        
     
         // Event change listener
         $('#eventSelect').change(function() {
