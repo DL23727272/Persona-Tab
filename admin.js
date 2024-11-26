@@ -1038,7 +1038,7 @@
         function displayContestantScoresTable(scores) {
             var scoresSection = $('#scoresSection');
             var contestantScoresTableSection = `
-                <h2 class="text-white text-center mt-5">Contestant Scores Per Judge</h2>
+                <h1 class="text-white text-center mt-5">Contestant Scores Per Judge</h1>
                 <table id="contestantScoresTable" class="table table-striped table-hover">
                     <thead>
                         <!-- New Row for "Contestant Scores Per Judge" Text -->

@@ -49,7 +49,7 @@ function exportToPDF() {
                     pdf.addImage(img, 'PNG', margin, 5, 40, 20); // Position (x, y) and size (width, height)
                     pdf.setFontSize(16);
                     pdf.setFont("helvetica", "bold");
-                    const headerText = "PersonaTab: Your Personal Tabulation Partner";
+                    const headerText = "PlexiTab: Your Personal Tabulation Partner";
                     pdf.text(headerText, margin + 50, 15); // Adjust the position of the text after the logo
                     pdf.setLineWidth(0.5);
                     pdf.line(10, 30, pdf.internal.pageSize.width - 10, 30); // Horizontal line after the header

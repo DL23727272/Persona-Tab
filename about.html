@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>About Us</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -110,7 +110,7 @@
           <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent" style="width: 27vw">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="#">
+                <a class="nav-link " aria-current="page" href="index.html">
                   Home
                 </a>
               </li>
@@ -124,6 +124,7 @@
                   About Us
                 </a>
               </li>
+              
             </ul>
           </div>
   
@@ -135,51 +136,10 @@
 
       
 
-      <!------ LOGIN FORM -------->
-      <section class="vh-100">
-        <div class="container d-flex justify-content-end align-items-center h-100">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="login_card card mt-1">
-                  <form enctype="multipart/form-data" method="POST" class="mt-1">
-                    <div class="m-5">
-                        <div class="form-group my-4">
-                          <img src="img/P.png" alt="LOGO" style="width: 90px; ">
-                        </div>
-                        <div class="form-group my-4">
-                            <label for="Name" style="font-weight: 700;"><i class="fa-solid fa-signature"></i> Username</label>
-                            <input type="text" name="customerName" id="customerName" placeholder="Enter Username" class=" form-control" required>
-                        </div>
-
-                        <div class="form-group my-4">
-                            <label for="customerPassword" style="font-weight: 700;">
-                                <i class="fa-solid fa-lock"></i> Password
-                            </label>
-                              <div class="input-group">
-                                <input type="password" class="form-control" id="customerPassword" name="customerPassword" placeholder="Enter Password" required>
-                                <button class="btn btn-outline-light" type="button" id="togglePassword">
-                                  <i class="fa fa-eye-slash" id="eyeIcon" aria-hidden="true"></i>
-                                </button>
-                              </div>
-                        </div>
-                      
-                        
-                       
-                        <div class="form-group row justify-content-end"> 
-                            <div class="col-auto">
-                                <button type="button" id="addProductButton" class="btn btn-outline-light" onclick="Login()">Login</button>
-                            </div>
-                        </div>
-                    </div>
-                  </form>
-                </div>
-
-            </div>
-        </div>
-      </section>
-      <!------ END LOGIN FORM -------->
+     
     
 
-      <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" />
+      <!-- <hr class="container-sm Sborder border-success mt-5 border-2 opacity-50" /> -->
 
       <!--Hero-->
       <section class="container-sm">
@@ -215,19 +175,52 @@
 
 
 
-
-
-   <!-------------------------------Event with contestants----------------------------- -->
-
-   <section class="container-sm mt-5" id="eventsSection">
-    <h1 class="fst-italic text-center text-white">Upcoming Events</h1>
-    <hr class="container-sm Sborder border-light mt-4 border-2 opacity-50" style="width: 50%;"/>
-    <div class="container mt-5 eventSection">
-      <!-- Event cards will be dynamically inserted here -->
+    <div class="container-sm">
+        <div class="text-center">
+            <h1 class="text-white fw-bold fst-italic">The Developers</h1>
+        </div>
+    
+        <div class="row row-cols-sm-2 row-cols-md-4 justify-content-sm-center justify-content-center">
+            <!-- First Card -->
+            <div class="card m-2 bg-dark text-white position-relative" style="width: 20rem;">
+                <img src="img/mepic.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-regular fa-user"></i> Dran Leynard P. Gamoso</h5>
+                    <p class="card-text lead-sm">
+                        The Developer of this tabulation system is currently 21 years old and lives in Ilocos Sur, Philippines. During his school's CCS week, he won the Java Programming Competition (S.Y 2022-2023 & S.Y 2023-2024). He also competed in the Java Category in the 12th IT Olympics, hosted at the University of Makati. Finalist-Student Category at the SILLAG Startup Summit and Hackathon: Ilocos Sur Leg, hosted at the University of Northern Philippines.
+                    </p>
+                    <a href="https://dlportfolio.personatab.com/" class="btn btn-light text-dark fw-bold position-absolute bottom-0 end-0 m-2">
+                        More <i class="fa-solid fa-briefcase"></i>
+                    </a>
+                </div>
+            </div>
+    
+            <!-- Second Card -->
+            <div class="card m-2 bg-dark text-white position-relative" style="width: 20rem;">
+                <img src="img/img3.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-regular fa-user"></i> Allen</h5>
+                    <p class="card-text lead-sm">
+                        Step into Ramill Barber and embark on a journey of personalized grooming and styling. Our expert barbers pay meticulous attention to detail, ensuring each visit leaves you feeling rejuvenated and looking impeccably sharp.
+                    </p>
+                  
+                </div>
+            </div>
+    
+            <!-- Third Card -->
+            <div class="card m-2 bg-dark text-white position-relative" style="width: 20rem;">
+                <img src="img/img3.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa-regular fa-user"></i> Ramil</h5>
+                    <p class="card-text lead-sm">
+                        Arwen Barber is where style meets expertise. Our dedicated team of barbers combines skill and passion to create hairstyles that define your individuality. Experience the epitome of grooming in a welcoming and comfortable environment.
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
-
-  <!-------------------------------END Event with contestants----------------------------- -->
+    
 
 
 
