@@ -1459,3 +1459,39 @@ Uploaded Hero Background Image: Array
     [size] => 429584
 )
 
+Array
+(
+    [editEventID] => 18
+    [currentEventImage] => 
+    [editEventName] => Mr. & Ms. ISPSC 2024
+    [editEventDescription] => sdfdsfsd
+    [editEventDate] => 2024-12-04
+    [editBodyColor] => #e41b1b
+)
+{"editEventID":"18","currentEventImage":"","editEventName":"Mr. & Ms. ISPSC 2024","editEventDescription":"sdfdsfsd","editEventDate":"2024-12-04","editBodyColor":"#e41b1b"}
+{"editEventImage":{"name":"cafed.png","full_path":"cafed.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php54A9.tmp","error":0,"size":1933652},"editHeroBackgroundImage":{"name":"1.png","full_path":"1.png","type":"image\/png","tmp_name":"D:\\xampp\\tmp\\php54E8.tmp","error":0,"size":1515360}}
+Event ID: 18
+Event Name: Mr. & Ms. ISPSC 2024
+Event Description: sdfdsfsd
+Event Date: 2024-12-04
+Current Event Image: 
+Uploaded Event Image: Array
+(
+    [name] => cafed.png
+    [full_path] => cafed.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php54A9.tmp
+    [error] => 0
+    [size] => 1933652
+)
+
+Uploaded Hero Background Image: Array
+(
+    [name] => 1.png
+    [full_path] => 1.png
+    [type] => image/png
+    [tmp_name] => D:\xampp\tmp\php54E8.tmp
+    [error] => 0
+    [size] => 1515360
+)
+
